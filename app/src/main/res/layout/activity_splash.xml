@@ -4,12 +4,19 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/brand_logo"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_layers" />
+
+    <ImageView
         android:id="@+id/splash_icon"
-        android:layout_width="@dimen/splash_logo_size"
-        android:layout_height="@dimen/splash_logo_size"
-        android:layout_centerHorizontal="true"
+        android:layout_width="@dimen/ghurbo_logo_size"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/splash_image_description"
+        android:contentDescription="@string/brand_logo"
         android:scaleType="centerInside"
         android:src="@drawable/ic_ghurbo" />
 

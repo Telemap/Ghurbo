@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_favorites"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/menu_favorites" />
+
+    <item
+        android:id="@+id/action_reservations"
+        android:icon="@drawable/ic_booking"
+        android:title="@string/menu_reservations" />
+
+    <item android:title="@string/others">
+
+        <menu>
+
+            <item
+                android:id="@+id/action_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/share" />
+
+            <item
+                android:id="@+id/action_rate_app"
+                android:icon="@drawable/ic_menu_rating"
+                android:title="@string/rate" />
+
+            <item
+                android:id="@+id/action_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/menu_setting" />
+
+        </menu>
+
+    </item>
+
+</menu>
