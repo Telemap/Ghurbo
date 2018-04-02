@@ -11,31 +11,31 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import com.mcc.ghurbo.R;
-import com.mcc.ghurbo.api.helper.RequestHotels;
+import com.mcc.ghurbo.api.helper.RequestTours;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.model.LocationModel;
 
 import java.util.ArrayList;
 
-public class HotelSearchFragment extends Fragment {
+public class TourSearchFragment extends Fragment {
 
-    private AutoCompleteTextView actLocationHotel;
+    private AutoCompleteTextView actLocationTour;
 
     private ArrayAdapter<String> adapter;
     private ArrayList<String> queryList;
 
-    public HotelSearchFragment() {
+    public TourSearchFragment() {
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_hotel_search, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tour_search, container, false);
 
         queryList = new ArrayList<>();
 
-        actLocationHotel = (AutoCompleteTextView) rootView.findViewById(R.id.act_location_hotel);
+        actLocationTour = (AutoCompleteTextView) rootView.findViewById(R.id.act_location_tour);
 
         loadData();
         initListener();
@@ -45,11 +45,11 @@ public class HotelSearchFragment extends Fragment {
 
     private void loadData() {
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, queryList);
-        actLocationHotel.setAdapter(adapter);
+        actLocationTour.setAdapter(adapter);
 
-        RequestHotels requestHotels = new RequestHotels(getActivity().getApplication());
-        requestHotels.buildParams();
-        requestHotels.setResponseListener(new ResponseListener() {
+        RequestTours requestTours = new RequestTours(getActivity().getApplication());
+        requestTours.buildParams();
+        requestTours.setResponseListener(new ResponseListener() {
             @Override
             public void onResponse(Object data) {
                 if(data != null) {
@@ -63,17 +63,17 @@ public class HotelSearchFragment extends Fragment {
                 }
             }
         });
-        requestHotels.execute();
+        requestTours.execute();
     }
 
     private void initListener() {
-        actLocationHotel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        actLocationTour.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedQuery = queryList.get(position);
-                actLocationHotel.setText(selectedQuery);
+                actLocationTour.setText(selectedQuery);
                 if(!selectedQuery.isEmpty()) {
-                    actLocationHotel.setSelection(selectedQuery.length());
+                    actLocationTour.setSelection(selectedQuery.length());
                 }
             }
         });

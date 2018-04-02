@@ -48,5 +48,9 @@
     <string name="pref_notification_summary">Turn on/off notification</string>
 
     <string name="hotel_input_hint">Select Location/Hotel</string>
+    <string name="tour_input_hint">Location/Tour Package Name</string>
+
+    <string name="search_hotel">Search Hotel</string>
+    <string name="search_tour">Search Tour</string>
 
 </resources>

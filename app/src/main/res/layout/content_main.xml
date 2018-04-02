@@ -4,23 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginEnd="14dp"
+    android:layout_marginStart="14dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.mcc.ghurbo.activity.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
+        android:id="@+id/search_switcher"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="14dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="100dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        <AutoCompleteTextView
-            android:id="@+id/act_location_hotel"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btn_search_hotel"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/hotel_input_hint" />
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:text="@string/search_hotel" />
+
+        <Button
+            android:id="@+id/btn_search_tour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:text="@string/search_tour" />
 
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/input_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_switcher"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>

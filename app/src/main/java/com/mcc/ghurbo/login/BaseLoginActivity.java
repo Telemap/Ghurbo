@@ -53,12 +53,6 @@ public abstract class BaseLoginActivity extends AppCompatActivity {
     //private SignInButton btnLoginGPlus;
     private GoogleApiClient mGoogleApiClient;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
-    }
-
     private boolean grantPermission() {
         if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
                 || (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED)) {

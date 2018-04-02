@@ -11,14 +11,14 @@ import com.mcc.ghurbo.api.parser.LocationParser;
 
 import java.util.HashMap;
 
-public class RequestHotels extends BaseHttp {
+public class RequestTours extends BaseHttp {
 
     private Context mContext;
     private Object object;
     private ResponseListener responseListener;
 
-    public RequestHotels(Context context) {
-        super(context, HttpParams.BASE_URL + HttpParams.API_HOTELS);
+    public RequestTours(Context context) {
+        super(context, HttpParams.BASE_URL + HttpParams.API_TOURS);
         mContext = context;
     }
 

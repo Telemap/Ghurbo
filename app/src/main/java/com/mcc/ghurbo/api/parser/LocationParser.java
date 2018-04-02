@@ -2,7 +2,7 @@ package com.mcc.ghurbo.api.parser;
 
 
 
-import com.mcc.ghurbo.model.HotelLocationModel;
+import com.mcc.ghurbo.model.LocationModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,10 +10,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HotelLocationParser {
+public class LocationParser {
 
-    public ArrayList<HotelLocationModel> getHotelLocationModels(String response) {
-        ArrayList<HotelLocationModel> arrayList = new ArrayList<>();
+    public ArrayList<LocationModel> getHotelLocationModels(String response) {
+        ArrayList<LocationModel> arrayList = new ArrayList<>();
 
         try {
             if (response != null && !response.isEmpty()) {
@@ -33,7 +33,7 @@ public class HotelLocationParser {
                         if(jsonObject1.has("location")) {
                             location = jsonObject1.getString("location");
                         }
-                        arrayList.add(new HotelLocationModel(id, location));
+                        arrayList.add(new LocationModel(id, location));
                     }
                 }
             }

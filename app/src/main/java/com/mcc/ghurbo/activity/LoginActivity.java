@@ -46,7 +46,8 @@ public class LoginActivity extends BaseLoginActivity {
         btnLoginSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                AppPreference.getInstance(getApplicationContext()).setBoolean(PrefKey.SKIPPED, true);
+                ActivityUtils.getInstance().invokeActivity(LoginActivity.this, MainActivity.class, true);
             }
         });
     }

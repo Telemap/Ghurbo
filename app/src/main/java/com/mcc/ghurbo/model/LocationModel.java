@@ -4,12 +4,12 @@ package com.mcc.ghurbo.model;
  * Created by Ashiq on 4/2/2018.
  */
 
-public class HotelLocationModel {
+public class LocationModel {
 
     private int hotelId;
     private String location;
 
-    public HotelLocationModel(int hotelId, String location) {
+    public LocationModel(int hotelId, String location) {
         this.hotelId = hotelId;
         this.location = location;
     }

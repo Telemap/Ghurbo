@@ -16,4 +16,6 @@ public class HttpParams {
 
     public static final String API_HOTELS = "hotel_locations";
 
+    public static final String API_TOURS = "tour_locations";
+
 }
