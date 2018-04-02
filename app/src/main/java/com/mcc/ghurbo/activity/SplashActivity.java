@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.mcc.ghurbo.R;
+import com.mcc.ghurbo.data.preference.AppPreference;
+import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.Utils;
 
@@ -22,6 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         initView();
+        initFunctionality();
 
     }
 
@@ -31,21 +34,20 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void initFunctionality() {
-        if (Utils.isNetworkAvailable(getApplicationContext())) {
-            splashIcon.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ActivityUtils.getInstance().invokeActivity(SplashActivity.this, MainActivity.class, true);
-                }
-            }, SPLASH_DURATION);
-        } else {
-            Utils.noInternetWarning(splashIcon, getApplicationContext());
-        }
-    }
+        splashIcon.postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initFunctionality();
+                boolean isLoggedIn = AppPreference.getInstance(getApplicationContext()).getBoolean(PrefKey.LOGIN);
+                boolean isSkipped = AppPreference.getInstance(getApplicationContext()).getBoolean(PrefKey.SKIPPED);
+
+                if (isLoggedIn || isSkipped) {
+                    ActivityUtils.getInstance().invokeActivity(SplashActivity.this, MainActivity.class, true);
+                } else {
+                    ActivityUtils.getInstance().invokeActivity(SplashActivity.this, LoginActivity.class, true);
+                }
+
+            }
+        }, SPLASH_DURATION);
     }
 }

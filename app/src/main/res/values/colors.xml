@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#ffffff</color>
+
+    <color name="accKitPrimary">#cccccc</color>
+    <color name="accKitPrimaryDark">#775C6CA8</color>
+    <color name="title_color">#242323</color>
+    <color name="title_color_deep">#3c4e94</color>
+
 </resources>

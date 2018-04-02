@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,19 +39,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.mcc.ghurbo.R;
 
 import org.json.JSONObject;
 
-public class BaseLoginActivity  extends AppCompatActivity {
+public abstract class BaseLoginActivity extends AppCompatActivity {
 
     private static final int FB_REQUEST_CODE = 99,
             PERMISSION_REQ = 100,
             GOOGLE_REQUEST_CODE = 101;
-    private LoginListener loginListener;
-    private LoginButton loginButton;
     private CallbackManager callbackManager;
 
-    private SignInButton btnLoginGPlus;
+    //private SignInButton btnLoginGPlus;
     private GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -75,17 +75,27 @@ public class BaseLoginActivity  extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (requestCode == PERMISSION_REQ) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                invokePhoneLogin();
+                initPhoneLogin();
             } else {
                 Toast.makeText(BaseLoginActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    public void initPhoneLogin(Button btnPhoneLogin) {
+        if (btnPhoneLogin != null) {
+            btnPhoneLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPhoneLogin();
+                }
+            });
+        }
+    }
 
-    public void invokePhoneLogin() {
+    private void initPhoneLogin() {
         if (grantPermission()) {
-            final Intent intent = new Intent(this, AccountKitActivity.class);
+            final Intent intent = new Intent(BaseLoginActivity.this, AccountKitActivity.class);
             AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
                     new AccountKitConfiguration.AccountKitConfigurationBuilder(
                             LoginType.PHONE,
@@ -104,75 +114,84 @@ public class BaseLoginActivity  extends AppCompatActivity {
         }
     }
 
-    public void invokeEmailLogin() {
-        final Intent intent = new Intent(this, AccountKitActivity.class);
-        AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
-                new AccountKitConfiguration.AccountKitConfigurationBuilder(
-                        LoginType.EMAIL,
-                        AccountKitActivity.ResponseType.TOKEN);
-        intent.putExtra(
-                AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,
-                configurationBuilder.build());
-        startActivityForResult(intent, FB_REQUEST_CODE);
+    public void initEmailLogin(Button btnEmailLogin) {
+        if (btnEmailLogin != null) {
+
+            btnEmailLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final Intent intent = new Intent(BaseLoginActivity.this, AccountKitActivity.class);
+                    AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
+                            new AccountKitConfiguration.AccountKitConfigurationBuilder(
+                                    LoginType.EMAIL,
+                                    AccountKitActivity.ResponseType.TOKEN);
+                    intent.putExtra(
+                            AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,
+                            configurationBuilder.build());
+                    startActivityForResult(intent, FB_REQUEST_CODE);
+
+                }
+            });
+        }
     }
 
-    public void initFbLogin() {
+    public void initFbLogin(LoginButton loginButton) {
 
-        loginButton = (LoginButton) findViewById(R.id.btnLoginFacebook);
-        loginButton.setVisibility(View.VISIBLE);
-        loginButton.setReadPermissions("email");
+        if(loginButton != null) {
+            loginButton.setVisibility(View.VISIBLE);
+            loginButton.setReadPermissions("email");
 
-        callbackManager = CallbackManager.Factory.create();
+            callbackManager = CallbackManager.Factory.create();
 
-        // Callback registration
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                getUserInfo(loginResult.getAccessToken());
-            }
+            // Callback registration
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    getUserInfo(loginResult.getAccessToken());
+                }
 
-            @Override
-            public void onCancel() {
-                Toast.makeText(BaseLoginActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onCancel() {
+                    Toast.makeText(BaseLoginActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                }
 
-            @Override
-            public void onError(FacebookException error) {
-                Toast.makeText(BaseLoginActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onError(FacebookException error) {
+                    Toast.makeText(BaseLoginActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
-    public void initGoogleLogin() {
-        btnLoginGPlus = (SignInButton) findViewById(R.id.btnLoginGPlus);
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(ConnectionResult connectionResult) {
-                        Toast.makeText(BaseLoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
-        btnLoginGPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(signInIntent, GOOGLE_REQUEST_CODE);
-
-                // analytics event trigger
-                // AnalyticsUtils.getAnalyticsUtils(mContext).trackEvent("LoginRequest with google");
-            }
-        });
-
-    }
-
-    public void setGoogleButtonText(String buttonText) {
+    public void initGoogleLogin(SignInButton btnLoginGPlus) {
         if(btnLoginGPlus != null) {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                        @Override
+                        public void onConnectionFailed(ConnectionResult connectionResult) {
+                            Toast.makeText(BaseLoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+
+            btnLoginGPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                    startActivityForResult(signInIntent, GOOGLE_REQUEST_CODE);
+                }
+            });
+        }
+
+    }
+
+    public void setGoogleButtonText(SignInButton btnLoginGPlus, String buttonText) {
+        if (btnLoginGPlus != null) {
             for (int i = 0; i < btnLoginGPlus.getChildCount(); i++) {
                 View v = btnLoginGPlus.getChildAt(i);
 
@@ -197,7 +216,7 @@ public class BaseLoginActivity  extends AppCompatActivity {
             } else {
                 getUserInfo();
             }
-        } else if(requestCode == GOOGLE_REQUEST_CODE) {
+        } else if (requestCode == GOOGLE_REQUEST_CODE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 getUserInfo(result);
@@ -212,15 +231,14 @@ public class BaseLoginActivity  extends AppCompatActivity {
     private void getUserInfo(GoogleSignInResult result) {
         GoogleSignInAccount account = result.getSignInAccount();
 
-        if (loginListener != null) {
-            Uri uri = account.getPhotoUrl();
-            String photo = "";
-            if(uri != null) {
-                photo = uri.toString();
-            }
-            loginListener.onLoginResponse(new LoginModel(account.getId(), account.getDisplayName(), photo, account.getEmail()));
+        Uri uri = account.getPhotoUrl();
+        String photo = "";
+        if (uri != null) {
+            photo = uri.toString();
         }
+        onLoginResponse(new LoginModel(account.getId(), account.getDisplayName(), photo, account.getEmail()));
     }
+
     private void getUserInfo() {
         AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
             @Override
@@ -238,9 +256,8 @@ public class BaseLoginActivity  extends AppCompatActivity {
                 // Get email
                 String email = account.getEmail();
 
-                if (loginListener != null) {
-                    loginListener.onLoginResponse(new LoginModel(accountKitId, email, phoneNumberString));
-                }
+                onLoginResponse(new LoginModel(accountKitId, email, phoneNumberString));
+
             }
 
             @Override
@@ -262,9 +279,8 @@ public class BaseLoginActivity  extends AppCompatActivity {
                             String email = object.getString("email");
                             String profilePic = "https://graph.facebook.com/" + id + "/picture?width=200&height=150";
 
-                            if (loginListener != null) {
-                                loginListener.onLoginResponse(new LoginModel(id, name, profilePic, email));
-                            }
+                            onLoginResponse(new LoginModel(id, name, profilePic, email));
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -281,8 +297,6 @@ public class BaseLoginActivity  extends AppCompatActivity {
         AccountKit.logOut();
     }
 
-    public void setLoginListener(LoginListener loginListener) {
-        this.loginListener = loginListener;
-    }
+    protected abstract void onLoginResponse(LoginModel loginModel);
 
 }

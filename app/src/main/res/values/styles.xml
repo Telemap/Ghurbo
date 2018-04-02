@@ -17,4 +17,22 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <!-- facebook account kit theme -->
+
+    <style name="FbAccountKitTheme" parent="Theme.AccountKit">
+
+        <item name="com_accountkit_primary_color">@color/accKitPrimaryDark</item>
+        <item name="com_accountkit_primary_text_color">@color/title_color</item>
+        <item name="com_accountkit_secondary_text_color">@color/title_color_deep</item>
+        <item name="com_accountkit_status_bar_color">@color/accKitPrimary</item>
+        <item name="com_accountkit_input_accent_color">@color/title_color</item>
+        <item name="com_accountkit_input_border_color">@color/title_color_deep</item>
+        <item name="com_accountkit_secondary_color">@color/white</item>
+        <item name="com_accountkit_background">@drawable/bg_layers</item>
+        <item name="com_accountkit_background_color">@android:color/transparent</item>
+        <item name="com_accountkit_input_text_color">@color/title_color_deep</item>
+
+    </style>
+
 </resources>

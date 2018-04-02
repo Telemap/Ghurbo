@@ -1,4 +1,15 @@
 <resources>
+
+    <!-- Start: do not translate-->
+
+    <!-- credentials -->
+    <string name="facebook_app_id">1723621367940962</string>
+    <string name="facebook_account_kit_client_token">0f4f99bdbf1cbe64da65cd8536bbc274</string>
+
+    <string name="pref_notification_key">perf_notification</string>
+
+    <!-- End: do not translate -->
+
     <string name="app_name">Ghurbo</string>
     <string name="action_settings">Settings</string>
 
@@ -6,6 +17,36 @@
     <string name="no_internet">No internet!</string>
     <string name="connect">Connect</string>
 
-    <string name="splash_image_description">Splash brand logo</string>
+    <string name="brand_logo">Brand logo</string>
+
+    <string name="email">Email</string>
+    <string name="skip">SKIP</string>
+    <string name="facebook_cap">FACEBOOK</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="google_cap">GOOGLE</string>
+    <string name="phone">Phone</string>
+
+    <string name="get_registered">Get Registered</string>
+
+    <string name="empty_result">No data!</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="menu_favorites">Favorites</string>
+    <string name="menu_reservations">Reservations</string>
+    <string name="others">Others</string>
+    <string name="menu_setting">Settings</string>
+    <string name="terms">Terms and Conditions</string>
+    <string name="privacy">Privacy Policy</string>
+    <string name="faq">FAQ</string>
+    <string name="rate">Rate App</string>
+    <string name="share">Share</string>
+
+    <string name="share_text">Install best travel application from:</string>
+
+    <string name="pref_notification_title">Notification</string>
+    <string name="pref_notification_summary">Turn on/off notification</string>
+
+    <string name="hotel_input_hint">Select Location/Hotel</string>
 
 </resources>
