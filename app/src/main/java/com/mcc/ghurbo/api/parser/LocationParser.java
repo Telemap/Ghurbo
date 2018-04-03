@@ -22,12 +22,11 @@ public class LocationParser {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
 
                     for(int i = 0; i < jsonArray.length(); i++) {
-                        int id = -1;
-                        String location = null;
+                        String id = null, location = null;
 
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         if(jsonObject1.has("slug")) {
-                            id = jsonObject1.getInt("slug");
+                            id = jsonObject1.getString("slug");
                         }
 
                         if(jsonObject1.has("location")) {

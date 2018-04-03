@@ -6,15 +6,15 @@ package com.mcc.ghurbo.model;
 
 public class LocationModel {
 
-    private int hotelId;
+    private String hotelId;
     private String location;
 
-    public LocationModel(int hotelId, String location) {
+    public LocationModel(String hotelId, String location) {
         this.hotelId = hotelId;
         this.location = location;
     }
 
-    public int getHotelId() {
+    public String getHotelId() {
         return hotelId;
     }
 

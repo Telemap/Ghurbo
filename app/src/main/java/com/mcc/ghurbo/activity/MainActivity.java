@@ -27,6 +27,10 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /**
+         * TODO 1: Implement profile image page after login
+         */
+
         initVariables();
         initView();
         initFunctionality();
@@ -47,7 +51,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initFunctionality() {
-
+        loadProfileData();
     }
 
     private void initListener(final Bundle savedInstanceState) {

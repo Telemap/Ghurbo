@@ -2,23 +2,24 @@ package com.mcc.ghurbo.login;
 
 public class LoginModel {
 
+    public static final String TYPE_FACEBOOK = "facebook";
+    public static final String TYPE_GOOGLE = "google";
+    public static final String TYPE_ACCOUNT_KIT = "acc-kit";
+
     private String userId;
     private String name;
     private String profilePic;
     private String email;
     private String phone;
+    private String type;
 
-    public LoginModel(String userId, String email, String phone) {
-        this.userId = userId;
-        this.email = email;
-        this.phone = phone;
-    }
-
-    public LoginModel(String userId, String name, String profilePic, String email) {
+    public LoginModel(String userId, String name, String profilePic, String email, String phone, String type) {
         this.userId = userId;
         this.name = name;
         this.profilePic = profilePic;
         this.email = email;
+        this.phone = phone;
+        this.type = type;
     }
 
     public String getUserId() {
@@ -41,4 +42,7 @@ public class LoginModel {
         return profilePic;
     }
 
+    public String getType() {
+        return type;
+    }
 }

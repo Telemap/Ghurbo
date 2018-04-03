@@ -230,7 +230,7 @@ public abstract class BaseLoginActivity extends AppCompatActivity {
         if (uri != null) {
             photo = uri.toString();
         }
-        onLoginResponse(new LoginModel(account.getId(), account.getDisplayName(), photo, account.getEmail()));
+        onLoginResponse(new LoginModel(account.getId(), account.getDisplayName(), photo, account.getEmail(), null, LoginModel.TYPE_GOOGLE));
     }
 
     private void getUserInfo() {
@@ -250,7 +250,7 @@ public abstract class BaseLoginActivity extends AppCompatActivity {
                 // Get email
                 String email = account.getEmail();
 
-                onLoginResponse(new LoginModel(accountKitId, email, phoneNumberString));
+                onLoginResponse(new LoginModel(accountKitId, null, null, email, phoneNumberString, LoginModel.TYPE_ACCOUNT_KIT));
 
             }
 
@@ -273,7 +273,7 @@ public abstract class BaseLoginActivity extends AppCompatActivity {
                             String email = object.getString("email");
                             String profilePic = "https://graph.facebook.com/" + id + "/picture?width=200&height=150";
 
-                            onLoginResponse(new LoginModel(id, name, profilePic, email));
+                            onLoginResponse(new LoginModel(id, name, profilePic, email, null, LoginModel.TYPE_FACEBOOK));
 
                         } catch (Exception e) {
                             e.printStackTrace();

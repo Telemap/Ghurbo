@@ -3,6 +3,7 @@ package com.mcc.ghurbo.api.http;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -133,8 +134,13 @@ public abstract class BaseHttp extends AsyncTask<Void, Void, String> {
             }
             result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
             result.append("=");
-            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            String value = entry.getValue();
+            if(value == null) {
+                value = "";
+            }
+            result.append(URLEncoder.encode(value, "UTF-8"));
         }
+        //Log.e("TAG_REQUEST_PARAMS", "PARAMS: "+result.toString());
         return result.toString();
     }
 

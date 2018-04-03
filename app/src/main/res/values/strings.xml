@@ -53,4 +53,8 @@
     <string name="search_hotel">Search Hotel</string>
     <string name="search_tour">Search Tour</string>
 
+    <string name="login_failed">Login failed.</string>
+
+    <string name="guest_user">Guest</string>
+
 </resources>
