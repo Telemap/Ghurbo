@@ -39,7 +39,8 @@
 
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
 
         <activity
             android:name=".activity.LoginActivity"

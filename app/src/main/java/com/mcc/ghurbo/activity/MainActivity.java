@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.api.helper.RequestHotels;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
 
-    private Button btnSearchHotel, btnSearchTour;
+    private RelativeLayout btnSearchHotel, btnSearchTour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class MainActivity extends BaseActivity {
 
         /**
          * TODO 1: Implement profile image page after login
+         * TODO 2: Registration page landscape view
          */
 
         initVariables();
@@ -46,8 +48,8 @@ public class MainActivity extends BaseActivity {
         initToolbar();
         initDrawer();
 
-        btnSearchHotel = (Button) findViewById(R.id.btn_search_hotel);
-        btnSearchTour = (Button) findViewById(R.id.btn_search_tour);
+        btnSearchHotel = (RelativeLayout) findViewById(R.id.btn_search_hotel);
+        btnSearchTour = (RelativeLayout) findViewById(R.id.btn_search_tour);
     }
 
     private void initFunctionality() {
@@ -60,6 +62,10 @@ public class MainActivity extends BaseActivity {
         btnSearchHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                btnSearchHotel.setBackgroundResource(R.drawable.bg_hotel_tour_selected);
+                btnSearchTour.setBackgroundResource(R.drawable.bg_hotel_tour_normal);
+
                 refreshFragment();
                 getSupportFragmentManager().beginTransaction().add(R.id.input_fragment, new HotelSearchFragment(), "hotelFragment").commit();
             }
@@ -68,6 +74,10 @@ public class MainActivity extends BaseActivity {
         btnSearchTour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                btnSearchHotel.setBackgroundResource(R.drawable.bg_hotel_tour_normal);
+                btnSearchTour.setBackgroundResource(R.drawable.bg_hotel_tour_selected);
+
                 refreshFragment();
                 getSupportFragmentManager().beginTransaction().add(R.id.input_fragment, new TourSearchFragment(), "tourFragment").commit();
             }

@@ -4,43 +4,108 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginEnd="14dp"
-    android:layout_marginStart="14dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.mcc.ghurbo.activity.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context="com.mcc.ghurbo.activity.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/search_switcher"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
+    <!--tools:showIn="@layout/activity_main"-->
 
-        <Button
-            android:id="@+id/btn_search_hotel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:text="@string/search_hotel" />
-
-        <Button
-            android:id="@+id/btn_search_tour"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:text="@string/search_tour" />
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/input_fragment"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/search_switcher"
-        android:layout_marginTop="20dp" />
+        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginStart="@dimen/page_margin">
+
+        <LinearLayout
+            android:id="@+id/search_switcher"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:id="@+id/btn_search_hotel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/bg_hotel_tour_selected"
+                    android:padding="14dp">
+
+                    <ImageView
+                        android:id="@+id/hotel_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_hotel" />
+
+                    <com.mcc.ghurbo.view.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/hotel_icon"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center|bottom"
+                        android:text="@string/search_hotel"
+                        android:textColor="@color/black" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:id="@+id/btn_search_tour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/bg_hotel_tour_normal"
+                    android:padding="14dp">
+
+                    <ImageView
+                        android:id="@+id/tour_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_tour" />
+
+                    <com.mcc.ghurbo.view.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/tour_icon"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center|bottom"
+                        android:text="@string/search_tour"
+                        android:textColor="@color/black" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/input_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/search_switcher"
+            android:layout_marginTop="20dp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
