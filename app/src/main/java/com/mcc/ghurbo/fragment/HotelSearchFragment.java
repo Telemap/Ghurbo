@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -18,7 +19,11 @@ import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.api.helper.RequestHotelLocations;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.model.LocationModel;
+import com.mcc.ghurbo.model.SearchHotelModel;
+import com.mcc.ghurbo.model.SearchTourModel;
+import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.DatePickerUtils;
+import com.mcc.ghurbo.utility.Utils;
 
 import java.util.ArrayList;
 
@@ -28,6 +33,7 @@ public class HotelSearchFragment extends Fragment {
 
     private ArrayAdapter<String> adapter;
     private ArrayList<String> queryList;
+    private ArrayList<LocationModel> locationModels;
 
     private ImageButton ibSelectLocation, minusAdult, plusAdult, minusChild,
             plusChild, minusRooms, plusRooms;
@@ -35,6 +41,9 @@ public class HotelSearchFragment extends Fragment {
     private LinearLayout llCheckIn;
     private LinearLayout llCheckOut;
     private TextView tvCheckIn, tvCheckOut, tvAdult, tvChild, tvRooms;
+    private Button btnSearch;
+
+    private String selectedLocationId;
 
     public HotelSearchFragment() {
 
@@ -46,6 +55,7 @@ public class HotelSearchFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_hotel_search, container, false);
 
         queryList = new ArrayList<>();
+        locationModels = new ArrayList<>();
 
         actLocationHotel = (AutoCompleteTextView) rootView.findViewById(R.id.act_location_hotel);
         ibSelectLocation = (ImageButton) rootView.findViewById(R.id.ib_select_location);
@@ -64,6 +74,7 @@ public class HotelSearchFragment extends Fragment {
         minusRooms = (ImageButton) rootView.findViewById(R.id.minus_rooms);
         tvRooms = (TextView) rootView.findViewById(R.id.tv_rooms);
         plusRooms = (ImageButton) rootView.findViewById(R.id.plus_rooms);
+        btnSearch = (Button) rootView.findViewById(R.id.btn_search);
 
         loadData();
         initListener();
@@ -81,7 +92,9 @@ public class HotelSearchFragment extends Fragment {
             @Override
             public void onResponse(Object data) {
                 if(data != null) {
-                    ArrayList<LocationModel> locationModels = (ArrayList<LocationModel>) data;
+                    locationModels.clear();
+                    queryList.clear();
+                    locationModels = (ArrayList<LocationModel>) data;
 
                     for (LocationModel locationModel : locationModels) {
                         queryList.add(locationModel.getLocation());
@@ -98,16 +111,14 @@ public class HotelSearchFragment extends Fragment {
     }
 
     private void initListener() {
-        /*actLocationHotel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        actLocationHotel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedQuery = queryList.get(position);
-                actLocationHotel.setText(selectedQuery);
-                if(!selectedQuery.isEmpty()) {
-                    actLocationHotel.setSelection(selectedQuery.length());
-                }
+                String selectedText = actLocationHotel.getText().toString();
+                int index = queryList.indexOf(selectedText);
+                selectedLocationId = locationModels.get(index).getId();
             }
-        });*/
+        });
 
         ibSelectLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,6 +193,13 @@ public class HotelSearchFragment extends Fragment {
             }
         });
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateAndInvokeSearch();
+            }
+        });
+
     }
 
     private void increment(TextView textView) {
@@ -203,6 +221,30 @@ public class HotelSearchFragment extends Fragment {
                 count--;
                 textView.setText(String.valueOf(count));
             }
+        }
+    }
+
+    private void validateAndInvokeSearch() {
+        String location = actLocationHotel.getText().toString();
+        String checkIn = tvCheckIn.getText().toString();
+        String checkOut = tvCheckOut.getText().toString();
+        String adult = tvAdult.getText().toString();
+        String child = tvChild.getText().toString();
+        String rooms = tvRooms.getText().toString();
+
+        if(location.isEmpty() || checkIn.isEmpty() || checkOut.isEmpty() || adult.isEmpty()) {
+            Utils.showToast(getActivity().getApplicationContext(), getString(R.string.input_validation));
+        } else {
+            int adultInt = Integer.parseInt(adult);
+            int childInt = 0;
+            if(!child.isEmpty()) {
+                childInt = Integer.parseInt(child);
+            }
+            int roomsInt = 0;
+            if(!rooms.isEmpty()) {
+                roomsInt = Integer.parseInt(rooms);
+            }
+            ActivityUtils.getInstance().invokeHotelListActivity(getActivity(), new SearchHotelModel(selectedLocationId, location, checkIn, checkOut, adultInt, childInt, roomsInt));
         }
     }
 

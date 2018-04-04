@@ -25,4 +25,6 @@ public class HttpParams {
     public static final String PARAM_TOUR_TYPE = "tourtype";
     public static final String PARAM_PAGE = "page";
 
+    public static final String API_HOTELS = "hotels";
+
 }

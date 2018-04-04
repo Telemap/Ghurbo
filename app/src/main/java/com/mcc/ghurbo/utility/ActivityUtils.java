@@ -3,9 +3,11 @@ package com.mcc.ghurbo.utility;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.mcc.ghurbo.activity.HotelListActivity;
 import com.mcc.ghurbo.activity.TourListActivity;
 import com.mcc.ghurbo.activity.WebPageActivity;
 import com.mcc.ghurbo.data.constant.AppConstants;
+import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
 
 public class ActivityUtils {
@@ -37,6 +39,12 @@ public class ActivityUtils {
     public void invokeTourListActivity(Activity activity, SearchTourModel searchTourModel) {
         Intent intent = new Intent(activity, TourListActivity.class);
         intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
+        activity.startActivity(intent);
+    }
+
+    public void invokeHotelListActivity(Activity activity, SearchHotelModel searchHotelModel) {
+        Intent intent = new Intent(activity, HotelListActivity.class);
+        intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
         activity.startActivity(intent);
     }
 }

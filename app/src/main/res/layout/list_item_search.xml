@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     android:paddingBottom="16dp"
     android:paddingTop="16dp">
 
-
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/list_icon_size"
-        android:layout_height="@dimen/list_icon_size"
+        android:layout_width="@dimen/hotel_tour_thumb"
+        android:layout_height="@dimen/hotel_tour_thumb"
+        android:layout_centerVertical="true"
         android:scaleType="centerCrop"
         android:src="@color/placeholder" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_toEndOf="@+id/icon"
         android:orientation="vertical">
@@ -30,13 +31,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/rating"
                 android:ellipsize="end"
+                android:paddingEnd="5dp"
                 android:singleLine="true"
                 android:text="@string/placeholder"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:textSize="16sp" />
+                android:textStyle="bold" />
 
             <RatingBar
                 android:id="@+id/rating"
@@ -44,8 +45,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:numStars="5"
                 android:layout_centerVertical="true"
+                android:numStars="5"
                 android:rating="2.0"
                 android:stepSize="1.0" />
 
@@ -58,8 +59,7 @@
             android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/placeholder"
-            android:textSize="14sp" />
+            android:text="@string/placeholder" />
 
         <com.mcc.ghurbo.view.RobotoTextView
             android:id="@+id/price"
@@ -69,7 +69,6 @@
             android:singleLine="true"
             android:text="@string/placeholder"
             android:textColor="@color/light_blue"
-            android:textSize="16sp"
             android:textStyle="bold" />
 
     </LinearLayout>

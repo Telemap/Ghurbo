@@ -8,26 +8,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.mcc.ghurbo.R;
-import com.mcc.ghurbo.adapter.TourListAdapter;
+import com.mcc.ghurbo.adapter.HotelListAdapter;
+import com.mcc.ghurbo.api.helper.RequestHotels;
 import com.mcc.ghurbo.api.helper.RequestTours;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.listener.ItemClickListener;
-import com.mcc.ghurbo.model.SearchTourModel;
+import com.mcc.ghurbo.model.HotelModel;
+import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.TourModel;
-import com.mcc.ghurbo.utility.ActivityUtils;
 
 import java.util.ArrayList;
 
-public class TourListActivity extends BaseActivity{
+public class HotelListActivity extends BaseActivity{
 
-    private SearchTourModel searchTourModel;
+    private SearchHotelModel searchHotelModel;
     private RecyclerView recyclerView;
-    private TourListAdapter adapter;
-    private ArrayList<TourModel> arrayList;
+    private HotelListAdapter adapter;
+    private ArrayList<HotelModel> arrayList;
     private LinearLayoutManager mLayoutManager;
 
     private ProgressBar pbLoadMore;
@@ -50,8 +50,8 @@ public class TourListActivity extends BaseActivity{
     private void initVariables() {
         Intent intent = getIntent();
 
-        if(intent.hasExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL)) {
-            searchTourModel = intent.getParcelableExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL);
+        if(intent.hasExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL)) {
+            searchHotelModel = intent.getParcelableExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL);
         }
 
         arrayList = new ArrayList<>();
@@ -68,8 +68,8 @@ public class TourListActivity extends BaseActivity{
     }
 
     private void initFunctionality() {
-        mLayoutManager = new LinearLayoutManager(TourListActivity.this);
-        adapter = new TourListAdapter(getApplicationContext(), arrayList);
+        mLayoutManager = new LinearLayoutManager(HotelListActivity.this);
+        adapter = new HotelListAdapter(getApplicationContext(), arrayList);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -116,14 +116,14 @@ public class TourListActivity extends BaseActivity{
         }
         pbLoadMore.setVisibility(View.VISIBLE);
 
-        RequestTours requestTours = new RequestTours(getApplicationContext());
-        requestTours.buildParams(searchTourModel.getLocationId(), searchTourModel.getType(), page);
-        requestTours.setResponseListener(new ResponseListener() {
+        RequestHotels requestHotels = new RequestHotels(getApplicationContext());
+        requestHotels.buildParams(searchHotelModel.getLocationId(), page);
+        requestHotels.setResponseListener(new ResponseListener() {
             @Override
             public void onResponse(Object data) {
 
                 if (data != null) {
-                    arrayList.addAll((ArrayList<TourModel>) data);
+                    arrayList.addAll((ArrayList<HotelModel>) data);
                     if (!arrayList.isEmpty()) {
                         hideLoader();
                         adapter.notifyDataSetChanged();
@@ -138,7 +138,7 @@ public class TourListActivity extends BaseActivity{
 
             }
         });
-        requestTours.execute();
+        requestHotels.execute();
     }
 
     @Override

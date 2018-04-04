@@ -5,15 +5,16 @@ import android.os.Parcelable;
 
 public class SearchTourModel implements Parcelable {
 
-    private String id;
+    private String locationId;
     private String location;
     private String type;
     private String date;
     private int adult;
     private int child;
+    private String tourPackageId;
 
-    public SearchTourModel(String id, String location, String type, String date, int adult, int child) {
-        this.id = id;
+    public SearchTourModel(String locationId, String location, String type, String date, int adult, int child) {
+        this.locationId = locationId;
         this.location = location;
         this.type = type;
         this.date = date;
@@ -21,8 +22,8 @@ public class SearchTourModel implements Parcelable {
         this.child = child;
     }
 
-    public String getId() {
-        return id;
+    public String getLocationId() {
+        return locationId;
     }
 
     public String getLocation() {
@@ -45,6 +46,14 @@ public class SearchTourModel implements Parcelable {
         return date;
     }
 
+    public String getTourPackageId() {
+        return tourPackageId;
+    }
+
+    public void setTourPackageId(String tourPackageId) {
+        this.tourPackageId = tourPackageId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -52,21 +61,23 @@ public class SearchTourModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
+        dest.writeString(this.locationId);
         dest.writeString(this.location);
         dest.writeString(this.type);
         dest.writeString(this.date);
         dest.writeInt(this.adult);
         dest.writeInt(this.child);
+        dest.writeString(this.tourPackageId);
     }
 
     protected SearchTourModel(Parcel in) {
-        this.id = in.readString();
+        this.locationId = in.readString();
         this.location = in.readString();
         this.type = in.readString();
         this.date = in.readString();
         this.adult = in.readInt();
         this.child = in.readInt();
+        this.tourPackageId = in.readString();
     }
 
     public static final Parcelable.Creator<SearchTourModel> CREATOR = new Parcelable.Creator<SearchTourModel>() {
@@ -78,4 +89,5 @@ public class SearchTourModel implements Parcelable {
             return new SearchTourModel[size];
         }
     };
+
 }

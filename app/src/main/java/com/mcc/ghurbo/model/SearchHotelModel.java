@@ -5,15 +5,17 @@ import android.os.Parcelable;
 
 public class SearchHotelModel implements Parcelable{
 
-    private String id;
+    private String locationId;
     private String location;
     private String checkIn;
     private String checkOut;
     private int adult;
     private int child;
     private int rooms;
+    private String hotelId;
 
-    public SearchHotelModel(String location, String checkIn, String checkOut, int adult, int child, int rooms) {
+    public SearchHotelModel(String locationId, String location, String checkIn, String checkOut, int adult, int child, int rooms) {
+        this.locationId = locationId;
         this.location = location;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -22,12 +24,8 @@ public class SearchHotelModel implements Parcelable{
         this.rooms = rooms;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public String getLocationId() {
+        return locationId;
     }
 
     public String getLocation() {
@@ -54,6 +52,14 @@ public class SearchHotelModel implements Parcelable{
         return rooms;
     }
 
+    public String getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -61,23 +67,25 @@ public class SearchHotelModel implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
+        dest.writeString(this.locationId);
         dest.writeString(this.location);
         dest.writeString(this.checkIn);
         dest.writeString(this.checkOut);
         dest.writeInt(this.adult);
         dest.writeInt(this.child);
         dest.writeInt(this.rooms);
+        dest.writeString(this.hotelId);
     }
 
     protected SearchHotelModel(Parcel in) {
-        this.id = in.readString();
+        this.locationId = in.readString();
         this.location = in.readString();
         this.checkIn = in.readString();
         this.checkOut = in.readString();
         this.adult = in.readInt();
         this.child = in.readInt();
         this.rooms = in.readInt();
+        this.hotelId = in.readString();
     }
 
     public static final Parcelable.Creator<SearchHotelModel> CREATOR = new Parcelable.Creator<SearchHotelModel>() {
@@ -89,4 +97,5 @@ public class SearchHotelModel implements Parcelable{
             return new SearchHotelModel[size];
         }
     };
+
 }
