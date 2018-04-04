@@ -28,15 +28,31 @@
                     android:background="@android:color/transparent"
                     android:hint="@string/hotel_input_hint" />
 
-                <ImageButton
-                    android:id="@+id/ib_select_location"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:background="@android:color/transparent"
-                    android:padding="4dp"
-                    android:scaleType="fitEnd"
-                    android:src="@drawable/ic_down_arrow" />
+                    android:layout_weight="0.2">
+
+                    <ImageButton
+                        android:id="@+id/ib_select_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@android:color/transparent"
+                        android:padding="4dp"
+                        android:scaleType="fitEnd"
+                        android:src="@drawable/ic_down_arrow"
+                        android:visibility="invisible" />
+
+                    <ProgressBar
+                        android:id="@+id/pb_location"
+                        style="?android:attr/progressBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -48,25 +64,27 @@
                 android:weightSum="2">
 
                 <LinearLayout
+                    android:id="@+id/ll_check_in"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_input"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:orientation="horizontal"
                     android:padding="10dp"
                     android:weightSum="1">
 
-                    <EditText
-                        android:id="@+id/et_check_in"
+                    <TextView
+                        android:id="@+id/tv_check_in"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.8"
                         android:background="@android:color/transparent"
                         android:hint="@string/check_in_hint" />
 
-                    <ImageButton
-                        android:id="@+id/btn_check_in"
+                    <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
@@ -77,26 +95,27 @@
 
                 </LinearLayout>
 
-
                 <LinearLayout
+                    android:id="@+id/ll_check_out"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_input"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:orientation="horizontal"
                     android:padding="10dp">
 
-                    <EditText
-                        android:id="@+id/et_check_out"
+                    <TextView
+                        android:id="@+id/tv_check_out"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.8"
                         android:background="@android:color/transparent"
                         android:hint="@string/check_out_hint" />
 
-                    <ImageButton
-                        android:id="@+id/btn_check_out"
+                    <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
@@ -131,7 +150,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         android:scaleType="fitStart"
                         android:src="@drawable/ic_minus" />
@@ -150,7 +169,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/ic_plus" />
@@ -171,7 +190,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         android:scaleType="fitStart"
                         android:src="@drawable/ic_minus" />
@@ -190,7 +209,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/ic_plus" />
@@ -222,7 +241,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         android:scaleType="fitStart"
                         android:src="@drawable/ic_minus" />
@@ -241,7 +260,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/ic_plus" />

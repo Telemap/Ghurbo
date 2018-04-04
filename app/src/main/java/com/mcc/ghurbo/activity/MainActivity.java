@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.mcc.ghurbo.R;
@@ -84,6 +85,7 @@ public class MainActivity extends BaseActivity {
                 getSupportFragmentManager().beginTransaction().add(R.id.input_fragment, new TourSearchFragment(), "tourFragment").commit();
             }
         });
+
     }
 
     private void initFragment(Bundle savedInstanceState) {
