@@ -1,18 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <AutoCompleteTextView
-            android:id="@+id/act_location_tour"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/tour_input_hint" />
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_input"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="1">
 
-</RelativeLayout>
+                <AutoCompleteTextView
+                    android:id="@+id/act_location_tour"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/tour_input_hint" />
+
+                <ImageButton
+                    android:id="@+id/ib_select_location"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2"
+                    android:background="@android:color/transparent"
+                    android:padding="4dp"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/ic_down_arrow" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_input"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="1">
+
+                    <EditText
+                        android:id="@+id/et_check_in"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/check_in_hint" />
+
+                    <ImageButton
+                        android:id="@+id/btn_check_in"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:padding="4dp"
+                        android:scaleType="fitEnd"
+                        android:src="@drawable/ic_down_arrow" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_input"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <EditText
+                        android:id="@+id/et_check_out"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/check_out_hint" />
+
+                    <ImageButton
+                        android:id="@+id/btn_check_out"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:padding="4dp"
+                        android:scaleType="fitEnd"
+                        android:src="@drawable/check_in" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_input"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="1">
+
+                    <ImageButton
+                        android:id="@+id/minus_adult"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:padding="4dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_minus" />
+
+                    <TextView
+                        android:id="@+id/tv_adult"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:hint="@string/adult_hint" />
+
+                    <ImageButton
+                        android:id="@+id/plus_adult"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:padding="4dp"
+                        android:scaleType="fitEnd"
+                        android:src="@drawable/ic_plus" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_input"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageButton
+                        android:id="@+id/minus_child"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:padding="4dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_minus" />
+
+                    <TextView
+                        android:id="@+id/tv_child"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:hint="@string/child_hint" />
+
+                    <ImageButton
+                        android:id="@+id/plus_child"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:padding="4dp"
+                        android:scaleType="fitEnd"
+                        android:src="@drawable/ic_plus" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_input"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="1">
+
+                    <ImageButton
+                        android:id="@+id/minus_rooms"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:padding="4dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_minus" />
+
+                    <TextView
+                        android:id="@+id/tv_rooms"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:hint="@string/rooms_hint" />
+
+                    <ImageButton
+                        android:id="@+id/plus_rooms"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:padding="4dp"
+                        android:scaleType="fitEnd"
+                        android:src="@drawable/ic_plus" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
+
+                    <Button
+                        android:id="@+id/btn_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/btn_search"
+                        android:text="@string/search"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

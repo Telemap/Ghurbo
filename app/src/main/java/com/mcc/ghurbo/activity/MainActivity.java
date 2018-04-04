@@ -31,6 +31,8 @@ public class MainActivity extends BaseActivity {
         /**
          * TODO 1: Implement profile image page after login
          * TODO 2: Registration page landscape view
+         * TODO 3: Homepage landscape design
+         *
          */
 
         initVariables();
