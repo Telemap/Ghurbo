@@ -1,7 +1,6 @@
 package com.mcc.ghurbo.fragment;
 
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,22 +9,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mcc.ghurbo.R;
-import com.mcc.ghurbo.api.helper.RequestHotels;
+import com.mcc.ghurbo.api.helper.RequestHotelLocations;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.model.LocationModel;
 import com.mcc.ghurbo.utility.DatePickerUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 
 public class HotelSearchFragment extends Fragment {
 
@@ -80,9 +75,9 @@ public class HotelSearchFragment extends Fragment {
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, queryList);
         actLocationHotel.setAdapter(adapter);
 
-        RequestHotels requestHotels = new RequestHotels(getActivity().getApplication());
-        requestHotels.buildParams();
-        requestHotels.setResponseListener(new ResponseListener() {
+        RequestHotelLocations requestHotelLocations = new RequestHotelLocations(getActivity().getApplication());
+        requestHotelLocations.buildParams();
+        requestHotelLocations.setResponseListener(new ResponseListener() {
             @Override
             public void onResponse(Object data) {
                 if(data != null) {
@@ -99,11 +94,11 @@ public class HotelSearchFragment extends Fragment {
                 }
             }
         });
-        requestHotels.execute();
+        requestHotelLocations.execute();
     }
 
     private void initListener() {
-        actLocationHotel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*actLocationHotel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedQuery = queryList.get(position);
@@ -112,7 +107,7 @@ public class HotelSearchFragment extends Fragment {
                     actLocationHotel.setSelection(selectedQuery.length());
                 }
             }
-        });
+        });*/
 
         ibSelectLocation.setOnClickListener(new View.OnClickListener() {
             @Override

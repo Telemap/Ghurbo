@@ -28,15 +28,31 @@
                     android:background="@android:color/transparent"
                     android:hint="@string/tour_input_hint" />
 
-                <ImageButton
-                    android:id="@+id/ib_select_location"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:background="@android:color/transparent"
-                    android:padding="4dp"
-                    android:scaleType="fitEnd"
-                    android:src="@drawable/ic_down_arrow" />
+                    android:layout_weight="0.2">
+
+                    <ImageButton
+                        android:id="@+id/ib_select_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@android:color/transparent"
+                        android:padding="4dp"
+                        android:scaleType="fitEnd"
+                        android:src="@drawable/ic_down_arrow"
+                        android:visibility="invisible" />
+
+                    <ProgressBar
+                        android:id="@+id/pb_location"
+                        style="?android:attr/progressBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -48,60 +64,82 @@
                 android:weightSum="2">
 
                 <LinearLayout
+                    android:id="@+id/ll_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_input"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:orientation="horizontal"
                     android:padding="10dp"
                     android:weightSum="1">
 
-                    <EditText
-                        android:id="@+id/et_check_in"
+                    <AutoCompleteTextView
+                        android:id="@+id/act_type"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.8"
                         android:background="@android:color/transparent"
-                        android:hint="@string/check_in_hint" />
+                        android:enabled="false"
+                        android:hint="@string/type" />
 
-                    <ImageButton
-                        android:id="@+id/btn_check_in"
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
-                        android:padding="4dp"
-                        android:scaleType="fitEnd"
-                        android:src="@drawable/ic_down_arrow" />
+                        android:layout_weight="0.2">
+
+                        <ImageButton
+                            android:id="@+id/ib_select_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:background="@android:color/transparent"
+                            android:padding="4dp"
+                            android:scaleType="fitEnd"
+                            android:src="@drawable/ic_down_arrow"
+                            android:visibility="invisible" />
+
+                        <ProgressBar
+                            android:id="@+id/pb_type"
+                            style="?android:attr/progressBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:visibility="invisible" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
-
                 <LinearLayout
+                    android:id="@+id/ll_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_input"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:orientation="horizontal"
                     android:padding="10dp">
 
-                    <EditText
-                        android:id="@+id/et_check_out"
+                    <TextView
+                        android:id="@+id/tv_date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.8"
                         android:background="@android:color/transparent"
-                        android:hint="@string/check_out_hint" />
+                        android:hint="@string/date" />
 
-                    <ImageButton
-                        android:id="@+id/btn_check_out"
+                    <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
                         android:background="@android:color/transparent"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/check_in" />
 
@@ -131,7 +169,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         android:scaleType="fitStart"
                         android:src="@drawable/ic_minus" />
@@ -150,7 +188,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/ic_plus" />
@@ -171,7 +209,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         android:scaleType="fitStart"
                         android:src="@drawable/ic_minus" />
@@ -190,7 +228,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/ic_plus" />
@@ -206,47 +244,11 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <LinearLayout
+                <View
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_input"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:weightSum="1">
-
-                    <ImageButton
-                        android:id="@+id/minus_rooms"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
-                        android:padding="4dp"
-                        android:scaleType="fitStart"
-                        android:src="@drawable/ic_minus" />
-
-                    <TextView
-                        android:id="@+id/tv_rooms"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:hint="@string/rooms_hint" />
-
-                    <ImageButton
-                        android:id="@+id/plus_rooms"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2"
-                        android:background="@android:color/transparent"
-                        android:padding="4dp"
-                        android:scaleType="fitEnd"
-                        android:src="@drawable/ic_plus" />
-
-                </LinearLayout>
+                    android:layout_weight="1" />
 
                 <LinearLayout
                     android:layout_width="0dp"

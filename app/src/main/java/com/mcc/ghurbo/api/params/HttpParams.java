@@ -14,9 +14,15 @@ public class HttpParams {
     public static final String PARAM_PHOTO = "image";
     public static final String PARAM_TYPE = "auth_provider";
 
+    public static final String API_HOTEL_LOCATIONS = "hotel_locations";
 
-    public static final String API_HOTELS = "hotel_locations";
+    public static final String API_TOUR_LOCATIONS = "tour_locations";
 
-    public static final String API_TOURS = "tour_locations";
+    public static final String API_TOUR_TYPE = "tour_types";
+    public static final String PARAM_LOCATION_ID = "location_id";
+
+    public static final String API_TOURS = "tours";
+    public static final String PARAM_TOUR_TYPE = "tourtype";
+    public static final String PARAM_PAGE = "page";
 
 }

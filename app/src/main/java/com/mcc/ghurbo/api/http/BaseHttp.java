@@ -140,7 +140,7 @@ public abstract class BaseHttp extends AsyncTask<Void, Void, String> {
             }
             result.append(URLEncoder.encode(value, "UTF-8"));
         }
-        //Log.e("TAG_REQUEST_PARAMS", "PARAMS: "+result.toString());
+        Log.e("TAG_REQUEST_PARAMS", "PARAMS: "+result.toString());
         return result.toString();
     }
 

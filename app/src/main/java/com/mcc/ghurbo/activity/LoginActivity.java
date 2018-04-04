@@ -1,5 +1,6 @@
 package com.mcc.ghurbo.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.login.BaseLoginActivity;
 import com.mcc.ghurbo.login.LoginModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
+import com.mcc.ghurbo.utility.DialogUtils;
 import com.mcc.ghurbo.utility.Utils;
 
 public class LoginActivity extends BaseLoginActivity {
@@ -63,6 +65,8 @@ public class LoginActivity extends BaseLoginActivity {
 
     private void loginGhurbo(LoginModel loginModel) {
 
+        final ProgressDialog dialogUtils = DialogUtils.showProgressDialog(LoginActivity.this, getString(R.string.loading), false);
+
         RequestLogin requestLogin = new RequestLogin(getApplicationContext());
         requestLogin.buildParams(loginModel.getUserId(), loginModel.getEmail(), loginModel.getPhone(), loginModel.getName(), loginModel.getProfilePic(), loginModel.getType());
         requestLogin.setResponseListener(new ResponseListener() {
@@ -84,6 +88,8 @@ public class LoginActivity extends BaseLoginActivity {
                 } else {
                     Utils.showToast(getApplicationContext(), getString(R.string.login_failed));
                 }
+
+                DialogUtils.dismissProgressDialog(dialogUtils);
             }
         });
         requestLogin.execute();

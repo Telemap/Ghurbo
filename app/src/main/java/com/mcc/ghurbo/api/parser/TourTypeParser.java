@@ -2,18 +2,16 @@ package com.mcc.ghurbo.api.parser;
 
 
 
-import com.mcc.ghurbo.model.LocationModel;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class LocationParser {
+public class TourTypeParser {
 
-    public ArrayList<LocationModel> getLocationModels(String response) {
-        ArrayList<LocationModel> arrayList = new ArrayList<>();
+    public ArrayList<String> getTourTypeModels(String response) {
+        ArrayList<String> arrayList = new ArrayList<>();
 
         try {
             if (response != null && !response.isEmpty()) {
@@ -22,17 +20,14 @@ public class LocationParser {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
 
                     for(int i = 0; i < jsonArray.length(); i++) {
-                        String id = null, location = null;
+                        String type = null;
 
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                        if(jsonObject1.has("id")) {
-                            id = jsonObject1.getString("id");
-                        }
 
-                        if(jsonObject1.has("location")) {
-                            location = jsonObject1.getString("location");
+                        if(jsonObject1.has("type")) {
+                            type = jsonObject1.getString("type");
                         }
-                        arrayList.add(new LocationModel(id, location));
+                        arrayList.add(type);
                     }
                 }
             }

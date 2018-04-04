@@ -1,21 +1,17 @@
 package com.mcc.ghurbo.model;
 
-/**
- * Created by Ashiq on 4/2/2018.
- */
-
 public class LocationModel {
 
-    private String hotelId;
+    private String id;
     private String location;
 
-    public LocationModel(String hotelId, String location) {
-        this.hotelId = hotelId;
+    public LocationModel(String id, String location) {
+        this.id = id;
         this.location = location;
     }
 
-    public String getHotelId() {
-        return hotelId;
+    public String getId() {
+        return id;
     }
 
     public String getLocation() {

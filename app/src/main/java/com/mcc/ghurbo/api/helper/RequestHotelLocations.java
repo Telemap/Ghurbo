@@ -11,14 +11,14 @@ import com.mcc.ghurbo.api.parser.LocationParser;
 
 import java.util.HashMap;
 
-public class RequestHotels extends BaseHttp {
+public class RequestHotelLocations extends BaseHttp {
 
     private Context mContext;
     private Object object;
     private ResponseListener responseListener;
 
-    public RequestHotels(Context context) {
-        super(context, HttpParams.BASE_URL + HttpParams.API_HOTELS);
+    public RequestHotelLocations(Context context) {
+        super(context, HttpParams.BASE_URL + HttpParams.API_HOTEL_LOCATIONS);
         mContext = context;
     }
 
@@ -35,7 +35,7 @@ public class RequestHotels extends BaseHttp {
 
     @Override
     public void onBackgroundTask(String response) {
-        object = new LocationParser().getHotelLocationModels(response);
+        object = new LocationParser().getLocationModels(response);
     }
 
     @Override

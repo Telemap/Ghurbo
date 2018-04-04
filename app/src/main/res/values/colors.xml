@@ -12,6 +12,8 @@
     <color name="title_color">#242323</color>
     <color name="title_color_deep">#3c4e94</color>
 
+    <color name="placeholder">#acacac</color>
+
     <color name="gray">#818181</color>
     <color name="light_blue">#4FC3F7</color>
     <color name="btn_bg">#E1F5FE</color>

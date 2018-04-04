@@ -62,5 +62,15 @@
     <string name="login_failed">Login failed.</string>
 
     <string name="guest_user">Guest</string>
+    <string name="date">Date</string>
+    <string name="type">Type</string>
+
+    <string name="select_tour">Select location or tour package name</string>
+    <string name="unavailable">Unavailable</string>
+
+    <string name="loading">Please wait...</string>
+    <string name="input_validation">Please provide all information to search</string>
+
+    <string name="placeholder">text</string>
 
 </resources>

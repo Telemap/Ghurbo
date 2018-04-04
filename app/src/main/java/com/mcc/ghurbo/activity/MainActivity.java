@@ -2,24 +2,12 @@ package com.mcc.ghurbo.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.mcc.ghurbo.R;
-import com.mcc.ghurbo.api.helper.RequestHotels;
-import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.fragment.HotelSearchFragment;
 import com.mcc.ghurbo.fragment.TourSearchFragment;
-import com.mcc.ghurbo.model.LocationModel;
-
-import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
 
@@ -34,9 +22,11 @@ public class MainActivity extends BaseActivity {
          * TODO 2: Registration page landscape view
          * TODO 3: Homepage landscape design
          *
+         *
+         * DONE 4: Progress loader in login
+         *
          */
 
-        initVariables();
         initView();
         initFunctionality();
         initListener(savedInstanceState);
