@@ -1,0 +1,5 @@
+<resources>
+
+    <dimen name="details_image_height">600dp</dimen>
+
+</resources>

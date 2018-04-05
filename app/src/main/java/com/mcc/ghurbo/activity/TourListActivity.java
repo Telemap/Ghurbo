@@ -78,7 +78,9 @@ public class TourListActivity extends BaseActivity{
         adapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                //ActivityUtils.getInstance().invokeDetailsActivity(TourListActivity.this, arrayList.get(position).getId());
+                String tourPackageId = arrayList.get(position).getTourId();
+                searchTourModel.setTourPackageId(tourPackageId);
+                ActivityUtils.getInstance().invokeTourDetailsActivity(TourListActivity.this, searchTourModel);
             }
         });
 
