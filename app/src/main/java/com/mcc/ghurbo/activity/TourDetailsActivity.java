@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.TourListAdapter;
+import com.mcc.ghurbo.api.helper.RequestTourDetails;
 import com.mcc.ghurbo.api.helper.RequestTours;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
@@ -64,7 +65,15 @@ public class TourDetailsActivity extends BaseActivity{
 
 
     private void loadData() {
+        RequestTourDetails requestTourDetails = new RequestTourDetails(getApplicationContext());
+        requestTourDetails.buildParams(searchTourModel.getTourPackageId());
+        requestTourDetails.setResponseListener(new ResponseListener() {
+            @Override
+            public void onResponse(Object data) {
 
+            }
+        });
+        requestTourDetails.execute();
     }
 
     @Override
