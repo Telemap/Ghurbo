@@ -18,11 +18,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         /**
-         * TODO 1: Implement profile image page after login
+         *
          * TODO 2: Registration page landscape view
          * TODO 3: Homepage landscape design
+         * TODO 5: Send bas64 with profile data
          *
          *
+         * DONE 1: Implement profile image page after login
          * DONE 4: Progress loader in login
          *
          */
