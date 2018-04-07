@@ -10,6 +10,6 @@
 
     <dimen name="details_image_height">304dp</dimen>
 
-    <dimen name="profile_app_bar">500dp</dimen>
+    <dimen name="profile_img">160dp</dimen>
 
 </resources>

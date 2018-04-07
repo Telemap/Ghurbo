@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
@@ -32,7 +33,8 @@ public class ProfilingActivity extends BaseActivity {
 
     private ProgressBar progressBar;
     private CircleImageView profileImage;
-    private FloatingActionButton changePic;
+    private FloatingActionButton changePic, fabSave;
+    private EditText etName, etEmail, etPhone;
 
     private String profilePicture, profilePictureData;
 
@@ -58,10 +60,14 @@ public class ProfilingActivity extends BaseActivity {
     }
 
     private void initView() {
-        setContentView(R.layout.content_profiling);
+        setContentView(R.layout.activity_profile);
         profileImage = (CircleImageView) findViewById(R.id.profile_image);
         changePic = (FloatingActionButton) findViewById(R.id.change_pic);
+        fabSave = (FloatingActionButton) findViewById(R.id.fab_save);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        etName = (EditText) findViewById(R.id.et_name);
+        etEmail = (EditText) findViewById(R.id.et_email);
+        etPhone = (EditText) findViewById(R.id.et_phone);
     }
 
     private void initFunctionality() {
@@ -74,6 +80,14 @@ public class ProfilingActivity extends BaseActivity {
                     .error(R.drawable.ic_profile)
                     .into(profileImage);
         }
+
+        String name = loginModel.getName();
+        if(name != null) {
+            etName.setText(name);
+            etName.setSelection(name.length());
+        }
+        etEmail.setText(loginModel.getEmail());
+        etPhone.setText(loginModel.getPhone());
     }
 
     private void initListener() {
@@ -83,6 +97,18 @@ public class ProfilingActivity extends BaseActivity {
                 if (PermissionUtils.isPermissionGranted(ProfilingActivity.this, PermissionUtils.SD_WRITE_PERMISSIONS, PermissionUtils.REQUEST_WRITE_STORAGE)) {
                     invokeImagePickerActivity();
                 }
+            }
+        });
+
+        fabSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                loginModel.setName(etName.getText().toString());
+                loginModel.setEmail(etEmail.getText().toString());
+                loginModel.setPhone(etPhone.getText().toString());
+
+                loginGhurbo(loginModel);
             }
         });
 

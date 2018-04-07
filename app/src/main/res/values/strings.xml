@@ -75,5 +75,8 @@
     <string name="placeholder">text</string>
     <string name="install_messenger">Install facebook messenger</string>
     <string name="permission_not_granted">Permission not granted</string>
+    <string name="name">Name</string>
+
+    <string name="login">Login</string>
 
 </resources>
