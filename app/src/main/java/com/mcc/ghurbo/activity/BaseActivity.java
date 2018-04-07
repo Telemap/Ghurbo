@@ -1,9 +1,7 @@
 package com.mcc.ghurbo.activity;
 
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -154,11 +152,24 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         }
 
         if (profilePic != null) {
+
             Glide.with(getApplicationContext())
                     .load(profilePic)
+                    .crossFade()
                     .error(R.drawable.ic_profile)
                     .into(imageView);
+
         }
+    }
+
+    public void invokeMessenger() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.invokeWeb(BaseActivity.this, getString(R.string.ghurbo_messenger));
+            }
+        });
     }
 
 }

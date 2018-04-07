@@ -21,7 +21,7 @@ import com.mcc.ghurbo.model.TourModel;
 
 import java.util.ArrayList;
 
-public class TourDetailsActivity extends BaseActivity{
+public class TourDetailsActivity extends BaseActivity {
 
     private SearchTourModel searchTourModel;
 
@@ -55,7 +55,7 @@ public class TourDetailsActivity extends BaseActivity{
     }
 
     private void initFunctionality() {
-
+        invokeMessenger();
     }
 
     private void initListener() {

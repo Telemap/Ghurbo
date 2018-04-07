@@ -1,8 +1,10 @@
 package com.mcc.ghurbo.utility;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
@@ -80,5 +82,54 @@ public class Utils {
             e.printStackTrace();
         }
     }
+
+    public static void invokeMessenger(Activity activity) {
+        try {
+            if (isPackageInstalled(activity.getApplicationContext(), "com.facebook.orca")) {
+
+                /**
+                 * get id of your facebook page from here:
+                 * https://findmyfbid.com/
+                 *
+                 * Suppose your facebook page url is: http://www.facebook.com/hiponcho
+                 *
+                 * Visit https://findmyfbid.com/ and put your url and click on "Find Numeric Id"
+                 * You will get and ID like this: 788720331154519
+                 *
+                 * Append an extra 'l' (L in lower case) with the number and please bellow
+                 * So, final ID: 788720331154519l
+                 */
+
+                activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://messaging/" + 262959964039178l))); // replace id
+            } else {
+                showToast(activity.getApplicationContext(),
+                        activity.getApplicationContext().getResources().getString(R.string.install_messenger));
+                activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.facebook.orca")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static boolean isPackageInstalled(Context context, String packagename) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            pm.getPackageInfo(packagename, 0);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static void invokeWeb(Activity activity, String url) {
+        try {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            activity.startActivity(browserIntent);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

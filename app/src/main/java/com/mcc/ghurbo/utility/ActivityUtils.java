@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.mcc.ghurbo.activity.HotelListActivity;
+import com.mcc.ghurbo.activity.ProfilingActivity;
 import com.mcc.ghurbo.activity.TourDetailsActivity;
 import com.mcc.ghurbo.activity.TourListActivity;
 import com.mcc.ghurbo.activity.WebPageActivity;
 import com.mcc.ghurbo.data.constant.AppConstants;
+import com.mcc.ghurbo.login.LoginModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
 
@@ -53,5 +55,12 @@ public class ActivityUtils {
         Intent intent = new Intent(activity, TourDetailsActivity.class);
         intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
         activity.startActivity(intent);
+    }
+
+    public void invokeProfilingActivity(Activity activity, LoginModel loginModel) {
+        Intent intent = new Intent(activity, ProfilingActivity.class);
+        intent.putExtra(AppConstants.BUNDLE_KEY_LOGIN_MODEL, loginModel);
+        activity.startActivity(intent);
+        activity.finish();
     }
 }

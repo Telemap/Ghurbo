@@ -52,6 +52,8 @@ public class MainActivity extends BaseActivity {
     private void initListener(final Bundle savedInstanceState) {
         initFragment(savedInstanceState);
 
+        invokeMessenger();
+
         btnSearchHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

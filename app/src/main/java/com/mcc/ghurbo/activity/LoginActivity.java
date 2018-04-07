@@ -58,45 +58,8 @@ public class LoginActivity extends BaseLoginActivity {
     public void onLoginResponse(LoginModel loginModel) {
 
         if(loginModel.getUserId() != null) {
-            loginGhurbo(loginModel);
+            ActivityUtils.getInstance().invokeProfilingActivity(LoginActivity.this, loginModel);
         }
-
-    }
-
-    private void loginGhurbo(LoginModel loginModel) {
-
-        final ProgressDialog dialogUtils = DialogUtils.showProgressDialog(LoginActivity.this, getString(R.string.loading), false);
-
-        RequestLogin requestLogin = new RequestLogin(getApplicationContext());
-        requestLogin.buildParams(loginModel.getUserId(), loginModel.getEmail(), loginModel.getPhone(), loginModel.getName(), loginModel.getProfilePic(), loginModel.getType());
-        requestLogin.setResponseListener(new ResponseListener() {
-            @Override
-            public void onResponse(Object data) {
-
-                if (data != null) {
-                    LoginModel responseModel = (LoginModel) data;
-
-                    AppPreference.getInstance(getApplicationContext()).setBoolean(PrefKey.LOGIN, true);
-
-                    AppPreference.getInstance(getApplicationContext()).setString(PrefKey.USER_ID, responseModel.getUserId());
-                    AppPreference.getInstance(getApplicationContext()).setString(PrefKey.EMAIL, responseModel.getEmail());
-                    AppPreference.getInstance(getApplicationContext()).setString(PrefKey.PHONE, responseModel.getPhone());
-                    AppPreference.getInstance(getApplicationContext()).setString(PrefKey.NAME, responseModel.getName());
-                    AppPreference.getInstance(getApplicationContext()).setString(PrefKey.PROFILE_PIC, responseModel.getProfilePic());
-
-                    ActivityUtils.getInstance().invokeActivity(LoginActivity.this, MainActivity.class, true);
-                } else {
-                    Utils.showToast(getApplicationContext(), getString(R.string.login_failed));
-                }
-
-                DialogUtils.dismissProgressDialog(dialogUtils);
-            }
-        });
-        requestLogin.execute();
-
-
-
-
 
     }
 

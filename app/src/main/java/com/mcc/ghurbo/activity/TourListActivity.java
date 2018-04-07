@@ -72,6 +72,8 @@ public class TourListActivity extends BaseActivity{
         adapter = new TourListAdapter(getApplicationContext(), arrayList);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
+
+        invokeMessenger();
     }
 
     private void initListener() {

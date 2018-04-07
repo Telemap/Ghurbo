@@ -72,6 +72,8 @@ public class HotelListActivity extends BaseActivity{
         adapter = new HotelListAdapter(getApplicationContext(), arrayList);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
+
+        invokeMessenger();
     }
 
     private void initListener() {

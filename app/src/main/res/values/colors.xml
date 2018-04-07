@@ -17,5 +17,6 @@
     <color name="gray">#818181</color>
     <color name="light_blue">#4FC3F7</color>
     <color name="btn_bg">#E1F5FE</color>
+    <color name="shadowColor">#22000000</color>
 
 </resources>

@@ -1,6 +1,9 @@
 package com.mcc.ghurbo.login;
 
-public class LoginModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class LoginModel implements Parcelable{
 
     public static final String TYPE_FACEBOOK = "facebook";
     public static final String TYPE_GOOGLE = "google";
@@ -45,4 +48,40 @@ public class LoginModel {
     public String getType() {
         return type;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(userId);
+        parcel.writeString(name);
+        parcel.writeString(profilePic);
+        parcel.writeString(email);
+        parcel.writeString(phone);
+        parcel.writeString(type);
+    }
+
+    protected LoginModel(Parcel in) {
+        userId = in.readString();
+        name = in.readString();
+        profilePic = in.readString();
+        email = in.readString();
+        phone = in.readString();
+        type = in.readString();
+    }
+
+    public static final Creator<LoginModel> CREATOR = new Creator<LoginModel>() {
+        @Override
+        public LoginModel createFromParcel(Parcel in) {
+            return new LoginModel(in);
+        }
+
+        @Override
+        public LoginModel[] newArray(int size) {
+            return new LoginModel[size];
+        }
+    };
 }
