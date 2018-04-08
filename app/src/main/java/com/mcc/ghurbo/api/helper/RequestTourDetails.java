@@ -8,6 +8,7 @@ import com.mcc.ghurbo.api.http.BaseHttp;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.api.params.AppSecret;
 import com.mcc.ghurbo.api.params.HttpParams;
+import com.mcc.ghurbo.api.parser.TourDetailsParser;
 import com.mcc.ghurbo.api.parser.TourListParser;
 
 import java.util.HashMap;
@@ -37,8 +38,7 @@ public class RequestTourDetails extends BaseHttp {
 
     @Override
     public void onBackgroundTask(String response) {
-        Log.e("TourDetails", "Response: "+response);
-        //object = new TourListParser().getTourModels(response);
+        object = new TourDetailsParser().getTourDetailsModel(response);
     }
 
     @Override

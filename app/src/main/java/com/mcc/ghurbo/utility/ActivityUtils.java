@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.mcc.ghurbo.activity.HotelListActivity;
+import com.mcc.ghurbo.activity.ImageViewActivity;
 import com.mcc.ghurbo.activity.ProfilingActivity;
 import com.mcc.ghurbo.activity.TourDetailsActivity;
 import com.mcc.ghurbo.activity.TourListActivity;
@@ -12,6 +13,8 @@ import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.login.LoginModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
+
+import java.util.ArrayList;
 
 public class ActivityUtils {
 
@@ -62,5 +65,11 @@ public class ActivityUtils {
         intent.putExtra(AppConstants.BUNDLE_KEY_LOGIN_MODEL, loginModel);
         activity.startActivity(intent);
         activity.finish();
+    }
+
+    public void invokeImages(Activity activity, ArrayList<String> arrayList) {
+        Intent intent = new Intent(activity, ImageViewActivity.class);
+        intent.putExtra(AppConstants.BUNDLE_MULTI_IMAGE, arrayList);
+        activity.startActivity(intent);
     }
 }

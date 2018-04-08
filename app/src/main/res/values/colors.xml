@@ -19,4 +19,6 @@
     <color name="btn_bg">#E1F5FE</color>
     <color name="shadowColor">#22000000</color>
 
+    <color name="line">#D5D8E1</color>
+
 </resources>

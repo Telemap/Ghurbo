@@ -79,4 +79,9 @@
 
     <string name="login">Login</string>
 
+    <string name="person_max">\u0020 person max</string>
+    <string name="currency">\u0020 BDT</string>
+    <string name="infant">Infant</string>
+    <string name="na">N/A</string>
+
 </resources>
