@@ -28,5 +28,6 @@ public class HttpParams {
     public static final String PARAM_PAGE = "page";
 
     public static final String PARAM_ID = "id";
+    public static final String PARAM_TOUR_ID = "tour_id";
 
 }

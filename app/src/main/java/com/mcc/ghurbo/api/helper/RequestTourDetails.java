@@ -30,7 +30,7 @@ public class RequestTourDetails extends BaseHttp {
     public void buildParams(String id) {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(HttpParams.PARAM_SECRET_KEY, AppSecret.getAppSecretKey(mContext));
-        hashMap.put(HttpParams.PARAM_ID, id);
+        hashMap.put(HttpParams.PARAM_TOUR_ID, id);
 
         post(hashMap);
     }
