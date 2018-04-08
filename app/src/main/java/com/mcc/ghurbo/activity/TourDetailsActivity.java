@@ -130,7 +130,7 @@ public class TourDetailsActivity extends BaseActivity {
             childPrice.setText(tourDetailsModel.getChildPrice() + getString(R.string.currency));
             childMax.setText(tourDetailsModel.getMaxChild() + getString(R.string.person_max));
         } else {
-            childPrice.setText(tourDetailsModel.getChildPrice() + getString(R.string.na));
+            childPrice.setText(getString(R.string.na));
         }
 
         String infantStatus = tourDetailsModel.getInfantStatus();
@@ -138,7 +138,7 @@ public class TourDetailsActivity extends BaseActivity {
             infantPrice.setText(tourDetailsModel.getInfantPrice() + getString(R.string.currency));
             infantMax.setText(tourDetailsModel.getMaxInfant() + getString(R.string.person_max));
         } else {
-            infantPrice.setText(tourDetailsModel.getInfantPrice() + getString(R.string.na));
+            infantPrice.setText(getString(R.string.na));
         }
     }
 
