@@ -28,7 +28,7 @@ public class DatePickerUtils implements DatePickerDialog.OnDateSetListener {
         myCalendar.set(Calendar.YEAR, year);
         myCalendar.set(Calendar.MONTH, monthOfYear);
         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String myFormat = "dd/MM/yyyy";
+        String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         String date = sdf.format(myCalendar.getTime());
 

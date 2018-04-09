@@ -5,76 +5,66 @@ import java.util.ArrayList;
 
 public class HotelDetailsModel {
 
-    private String tourId;
-    private String tourTitle;
-    private String tourDesc;
-    private String tourStars;
+    private String hotelId;
+    private String hotelTitle;
+    private String hotelDesc;
+    private String hotelStars;
+    private Object hotelRatings;
+    private String location;
     private String latitude;
     private String longitude;
-    private String location;
-    private String maxAdults;
-    private String maxChild;
-    private String maxInfant;
-    private String adultPrice;
-    private String childPrice;
-    private String infantPrice;
-    private String adultStatus;
-    private String childStatus;
-    private String infantStatus;
-    private String tourDays;
-    private String tourNights;
+    private String checkInTime;
+    private String checkOutTime;
     private String thumbnailImage;
-    private ArrayList<String> allPhotos = null;
+    private String module;
+    private ArrayList<RoomDetailsModel> roomDetails = null;
+    private ArrayList<String> hotelImages = null;
     private ArrayList<AmenityModel> amenities = null;
 
-    public HotelDetailsModel(String tourId, String tourTitle,
-                             String tourDesc, String tourStars,
+    public HotelDetailsModel(String hotelId, String hotelTitle, String hotelDesc,
+                             String hotelStars, Object hotelRatings, String location,
                              String latitude, String longitude,
-                             String location, String maxAdults,
-                             String maxChild, String maxInfant,
-                             String adultPrice, String childPrice,
-                             String infantPrice, String adultStatus,
-                             String childStatus, String infantStatus,
-                             String tourDays, String tourNights,
-                             String thumbnailImage, ArrayList<String> allPhotos,
-                             ArrayList<AmenityModel> amenities) {
-        this.tourId = tourId;
-        this.tourTitle = tourTitle;
-        this.tourDesc = tourDesc;
-        this.tourStars = tourStars;
+                             String checkInTime, String checkOutTime, String thumbnailImage,
+                             String module, ArrayList<String> hotelImages, ArrayList<AmenityModel> amenities, ArrayList<RoomDetailsModel> roomDetails) {
+        this.hotelId = hotelId;
+        this.hotelTitle = hotelTitle;
+        this.hotelDesc = hotelDesc;
+        this.hotelStars = hotelStars;
+        this.hotelRatings = hotelRatings;
+        this.location = location;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.location = location;
-        this.maxAdults = maxAdults;
-        this.maxChild = maxChild;
-        this.maxInfant = maxInfant;
-        this.adultPrice = adultPrice;
-        this.childPrice = childPrice;
-        this.infantPrice = infantPrice;
-        this.adultStatus = adultStatus;
-        this.childStatus = childStatus;
-        this.infantStatus = infantStatus;
-        this.tourDays = tourDays;
-        this.tourNights = tourNights;
-        this.thumbnailImage = thumbnailImage;
-        this.allPhotos = allPhotos;
         this.amenities = amenities;
+        this.checkInTime = checkInTime;
+        this.checkOutTime = checkOutTime;
+        this.thumbnailImage = thumbnailImage;
+        this.module = module;
+        this.hotelImages = hotelImages;
+        this.roomDetails = roomDetails;
     }
 
-    public String getTourId() {
-        return tourId;
+    public String getHotelId() {
+        return hotelId;
     }
 
-    public String getTourTitle() {
-        return tourTitle;
+    public String getHotelTitle() {
+        return hotelTitle;
     }
 
-    public String getTourDesc() {
-        return tourDesc;
+    public String getHotelDesc() {
+        return hotelDesc;
     }
 
-    public String getTourStars() {
-        return tourStars;
+    public String getHotelStars() {
+        return hotelStars;
+    }
+
+    public Object getHotelRatings() {
+        return hotelRatings;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     public String getLatitude() {
@@ -85,68 +75,31 @@ public class HotelDetailsModel {
         return longitude;
     }
 
-    public String getLocation() {
-        return location;
+    public ArrayList<AmenityModel> getAmenities() {
+        return amenities;
     }
 
-    public String getMaxAdults() {
-        return maxAdults;
+    public String getCheckInTime() {
+        return checkInTime;
     }
 
-    public void setMaxAdults(String maxAdults) {
-        this.maxAdults = maxAdults;
-    }
-
-    public String getMaxChild() {
-        return maxChild;
-    }
-
-    public String getMaxInfant() {
-        return maxInfant;
-    }
-
-    public String getAdultPrice() {
-        return adultPrice;
-    }
-
-    public String getChildPrice() {
-        return childPrice;
-    }
-
-    public String getInfantPrice() {
-        return infantPrice;
-    }
-
-    public String getAdultStatus() {
-        return adultStatus;
-    }
-
-    public String getChildStatus() {
-        return childStatus;
-    }
-
-    public String getInfantStatus() {
-        return infantStatus;
-    }
-
-    public String getTourDays() {
-        return tourDays;
-    }
-
-    public String getTourNights() {
-        return tourNights;
+    public String getCheckOutTime() {
+        return checkOutTime;
     }
 
     public String getThumbnailImage() {
         return thumbnailImage;
     }
 
-    public ArrayList<String> getAllPhotos() {
-        return allPhotos;
+    public String getModule() {
+        return module;
     }
 
-    public ArrayList<AmenityModel> getAmenities() {
-        return amenities;
+    public ArrayList<String> getHotelImages() {
+        return hotelImages;
     }
 
+    public ArrayList<RoomDetailsModel> getRoomDetails() {
+        return roomDetails;
+    }
 }
