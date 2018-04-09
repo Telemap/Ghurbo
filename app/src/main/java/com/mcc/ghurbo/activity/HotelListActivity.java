@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.mcc.ghurbo.R;
@@ -19,6 +20,7 @@ import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.HotelModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.TourModel;
+import com.mcc.ghurbo.utility.ActivityUtils;
 
 import java.util.ArrayList;
 
@@ -80,7 +82,16 @@ public class HotelListActivity extends BaseActivity{
         adapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                //ActivityUtils.getInstance().invokeDetailsActivity(TourListActivity.this, arrayList.get(position).getId());
+
+                String hotelId = arrayList.get(position).getHotelId();
+                searchHotelModel.setHotelId(hotelId);
+
+                ImageView imageView = v.findViewById(R.id.icon);
+                String imageUrl = arrayList.get(position).getThumbnailImage();
+                searchHotelModel.setImageUrl(imageUrl);
+
+                ActivityUtils.getInstance().invokeHotelDetailsActivity(HotelListActivity.this, searchHotelModel, imageView);
+
             }
         });
 

@@ -13,6 +13,7 @@ public class HttpParams {
     public static final String API_TOURS = "tours";
     public static final String API_HOTELS = "hotels";
     public static final String API_TOUR_DETAILS = "tour_details";
+    public static final String API_HOTEL_DETAILS = "hotel_details";
 
     // params
     public static final String PARAM_USERID = "auth_uid";
@@ -29,5 +30,8 @@ public class HttpParams {
 
     public static final String PARAM_ID = "id";
     public static final String PARAM_TOUR_ID = "tour_id";
+    public static final String PARAM_HOTEL_ID = "hotel_id";
+    public static final String PARAM_CHECK_IN = "checkin";
+    public static final String PARAM_CHECK_OUT = "checkout";
 
 }

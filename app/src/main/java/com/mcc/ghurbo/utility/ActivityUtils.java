@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.mcc.ghurbo.activity.HotelDetailsActivity;
 import com.mcc.ghurbo.activity.HotelListActivity;
 import com.mcc.ghurbo.activity.ImageViewActivity;
 import com.mcc.ghurbo.activity.ProfilingActivity;
@@ -80,6 +81,18 @@ public class ActivityUtils {
     public void invokeImages(Activity activity, ArrayList<String> arrayList, ImageView imageView) {
         Intent intent = new Intent(activity, ImageViewActivity.class);
         intent.putExtra(AppConstants.BUNDLE_MULTI_IMAGE, arrayList);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(activity, imageView, imageView.getTransitionName()).toBundle();
+            activity.startActivity(intent, bundle);
+        } else {
+            activity.startActivity(intent);
+        }
+    }
+
+    public void invokeHotelDetailsActivity(Activity activity, SearchHotelModel searchHotelModel, ImageView imageView) {
+        Intent intent = new Intent(activity, HotelDetailsActivity.class);
+        intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(activity, imageView, imageView.getTransitionName()).toBundle();
             activity.startActivity(intent, bundle);

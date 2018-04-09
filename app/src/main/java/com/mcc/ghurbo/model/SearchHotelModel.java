@@ -12,7 +12,10 @@ public class SearchHotelModel implements Parcelable{
     private int adult;
     private int child;
     private int rooms;
-    private String hotelId;
+
+    // added as extra
+    private String hotelId; // for booking
+    private String imageUrl; // for booking
 
     public SearchHotelModel(String locationId, String location, String checkIn, String checkOut, int adult, int child, int rooms) {
         this.locationId = locationId;
@@ -60,6 +63,14 @@ public class SearchHotelModel implements Parcelable{
         this.hotelId = hotelId;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -75,6 +86,7 @@ public class SearchHotelModel implements Parcelable{
         dest.writeInt(this.child);
         dest.writeInt(this.rooms);
         dest.writeString(this.hotelId);
+        dest.writeString(this.imageUrl);
     }
 
     protected SearchHotelModel(Parcel in) {
@@ -86,6 +98,7 @@ public class SearchHotelModel implements Parcelable{
         this.child = in.readInt();
         this.rooms = in.readInt();
         this.hotelId = in.readString();
+        this.imageUrl = in.readString();
     }
 
     public static final Parcelable.Creator<SearchHotelModel> CREATOR = new Parcelable.Creator<SearchHotelModel>() {
@@ -97,5 +110,4 @@ public class SearchHotelModel implements Parcelable{
             return new SearchHotelModel[size];
         }
     };
-
 }

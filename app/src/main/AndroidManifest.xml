@@ -79,6 +79,10 @@
             android:name=".activity.ImageViewActivity"
             android:theme="@style/AppTheme" />
 
+        <activity
+            android:name=".activity.HotelDetailsActivity"
+            android:theme="@style/AppTheme" />
+
         <!-- Facebook Login Activity -->
         <activity
             android:name="com.facebook.FacebookActivity"
