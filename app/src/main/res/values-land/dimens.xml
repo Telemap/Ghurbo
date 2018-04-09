@@ -1,5 +1,5 @@
 <resources>
 
-    <dimen name="details_image_height">224dp</dimen>
+    <dimen name="details_image_height">304dp</dimen>
 
 </resources>

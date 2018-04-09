@@ -4,14 +4,10 @@ package com.mcc.ghurbo.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.mcc.ghurbo.R;
-import com.mcc.ghurbo.adapter.MultiImageAdapter;
 import com.mcc.ghurbo.adapter.MultiZoomImageAdapter;
 import com.mcc.ghurbo.data.constant.AppConstants;
-import com.mcc.ghurbo.listener.ItemClickListener;
-import com.mcc.ghurbo.utility.ActivityUtils;
 
 import java.util.ArrayList;
 

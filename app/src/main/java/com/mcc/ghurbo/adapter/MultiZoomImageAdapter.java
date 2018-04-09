@@ -6,8 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.listener.ItemClickListener;
 
@@ -24,7 +28,7 @@ public class MultiZoomImageAdapter extends PagerAdapter {
 
     public MultiZoomImageAdapter(Context context, ArrayList<String> images) {
         this.mContext = context;
-        this.images=images;
+        this.images = images;
         inflater = LayoutInflater.from(context);
     }
 
@@ -43,10 +47,23 @@ public class MultiZoomImageAdapter extends PagerAdapter {
 
         View imageLayout = inflater.inflate(R.layout.item_multi_zoom_image, view, false);
         final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
+        final ProgressBar progressBar = (ProgressBar) imageLayout.findViewById(R.id.progressBar);
 
         Glide.with(mContext)
                 .load(images.get(position))
                 .placeholder(R.color.placeholder)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        progressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+                })
                 .into(imageView);
 
         view.addView(imageLayout);
@@ -54,7 +71,7 @@ public class MultiZoomImageAdapter extends PagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mListener!=null) {
+                if (mListener != null) {
                     mListener.onItemClick(position, view);
                 }
             }
@@ -68,9 +85,8 @@ public class MultiZoomImageAdapter extends PagerAdapter {
         return view.equals(object);
     }
 
-    public void setItemClickListener(ItemClickListener mListener){
+    public void setItemClickListener(ItemClickListener mListener) {
         this.mListener = mListener;
     }
-
 
 }

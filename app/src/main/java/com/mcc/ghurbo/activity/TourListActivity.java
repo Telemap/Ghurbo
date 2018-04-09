@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -80,9 +81,15 @@ public class TourListActivity extends BaseActivity{
         adapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
+
                 String tourPackageId = arrayList.get(position).getTourId();
                 searchTourModel.setTourPackageId(tourPackageId);
-                ActivityUtils.getInstance().invokeTourDetailsActivity(TourListActivity.this, searchTourModel);
+
+                ImageView imageView = v.findViewById(R.id.icon);
+                String imageUrl = arrayList.get(position).getThumbnailImage();
+                searchTourModel.setImageUrl(imageUrl);
+
+                ActivityUtils.getInstance().invokeTourDetailsActivity(TourListActivity.this, searchTourModel, imageView);
             }
         });
 

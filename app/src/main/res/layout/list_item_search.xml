@@ -12,7 +12,8 @@
         android:layout_height="@dimen/hotel_tour_thumb"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
-        android:src="@color/placeholder" />
+        android:src="@color/placeholder"
+        android:transitionName="@string/details_transition" />
 
     <LinearLayout
         android:layout_width="match_parent"

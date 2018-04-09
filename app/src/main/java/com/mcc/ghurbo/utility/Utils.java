@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.mcc.ghurbo.R;
 
+import java.util.Locale;
+
 public class Utils {
 
     private static long backPressed = 0;
@@ -126,6 +128,15 @@ public class Utils {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             activity.startActivity(browserIntent);
         } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void invokeMap(Activity activity, String latitude, String longitude) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:latitude,longitude"));
+            activity.startActivity(intent);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

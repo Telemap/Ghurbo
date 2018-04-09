@@ -22,6 +22,7 @@ public class MainActivity extends BaseActivity {
          * TODO 2: Registration page landscape view
          * TODO 3: Homepage landscape design
          * TODO 5: Send bas64 with profile data
+         * TODO 6: Tour and hotel favorite option
          *
          *
          * DONE 1: Implement profile image page after login

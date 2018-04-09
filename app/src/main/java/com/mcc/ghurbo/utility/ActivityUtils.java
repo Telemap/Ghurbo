@@ -1,7 +1,11 @@
 package com.mcc.ghurbo.utility;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.mcc.ghurbo.activity.HotelListActivity;
 import com.mcc.ghurbo.activity.ImageViewActivity;
@@ -54,10 +58,16 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
-    public void invokeTourDetailsActivity(Activity activity, SearchTourModel searchTourModel) {
+    public void invokeTourDetailsActivity(Activity activity, SearchTourModel searchTourModel, ImageView imageView) {
         Intent intent = new Intent(activity, TourDetailsActivity.class);
         intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
-        activity.startActivity(intent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(activity, imageView, imageView.getTransitionName()).toBundle();
+            activity.startActivity(intent, bundle);
+        } else {
+            activity.startActivity(intent);
+        }
     }
 
     public void invokeProfilingActivity(Activity activity, LoginModel loginModel) {
@@ -67,9 +77,14 @@ public class ActivityUtils {
         activity.finish();
     }
 
-    public void invokeImages(Activity activity, ArrayList<String> arrayList) {
+    public void invokeImages(Activity activity, ArrayList<String> arrayList, ImageView imageView) {
         Intent intent = new Intent(activity, ImageViewActivity.class);
         intent.putExtra(AppConstants.BUNDLE_MULTI_IMAGE, arrayList);
-        activity.startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(activity, imageView, imageView.getTransitionName()).toBundle();
+            activity.startActivity(intent, bundle);
+        } else {
+            activity.startActivity(intent);
+        }
     }
 }

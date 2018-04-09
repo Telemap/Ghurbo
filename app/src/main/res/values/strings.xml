@@ -9,6 +9,9 @@
     <string name="pref_notification_key">perf_notification</string>
     <string name="ghurbo_messenger">https://m.me/ghurbocom</string>
 
+    <string name="details_transition">details_transition</string>
+    <string name="img_transition">img_transition</string>
+
     <!-- End: do not translate -->
 
     <string name="app_name">Ghurbo</string>
@@ -81,7 +84,11 @@
 
     <string name="person_max">\u0020 person max</string>
     <string name="currency">\u0020 BDT</string>
+    <string name="days">\u0020 Days,</string>
+    <string name="nights">\u0020 Nights</string>
     <string name="infant">Infant</string>
     <string name="na">N/A</string>
+
+    <string name="book_now">Book Now</string>
 
 </resources>

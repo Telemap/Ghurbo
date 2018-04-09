@@ -11,7 +11,10 @@ public class SearchTourModel implements Parcelable {
     private String date;
     private int adult;
     private int child;
-    private String tourPackageId;
+
+    // added as extra
+    private String tourPackageId; // for booking
+    private String imageUrl; // for transition
 
     public SearchTourModel(String locationId, String location, String type, String date, int adult, int child) {
         this.locationId = locationId;
@@ -54,6 +57,14 @@ public class SearchTourModel implements Parcelable {
         this.tourPackageId = tourPackageId;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -68,6 +79,7 @@ public class SearchTourModel implements Parcelable {
         dest.writeInt(this.adult);
         dest.writeInt(this.child);
         dest.writeString(this.tourPackageId);
+        dest.writeString(this.imageUrl);
     }
 
     protected SearchTourModel(Parcel in) {
@@ -78,6 +90,7 @@ public class SearchTourModel implements Parcelable {
         this.adult = in.readInt();
         this.child = in.readInt();
         this.tourPackageId = in.readString();
+        this.imageUrl = in.readString();
     }
 
     public static final Parcelable.Creator<SearchTourModel> CREATOR = new Parcelable.Creator<SearchTourModel>() {
@@ -89,5 +102,4 @@ public class SearchTourModel implements Parcelable {
             return new SearchTourModel[size];
         }
     };
-
 }
