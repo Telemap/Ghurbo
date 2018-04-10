@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RoomDetailsModel implements Parcelable{
 
@@ -26,11 +27,10 @@ public class RoomDetailsModel implements Parcelable{
     private String actualPrice;
     private String checkin;
     private String checkout;
-    private String extrabed;
     private String quantity;
 
     private ArrayList<String> images = null;
-    private ArrayList<AmenityModel> amenities = null;
+    private ArrayList<AmenityModel> amenities = new ArrayList<>();
 
     public RoomDetailsModel(String roomId, String title, String desc,
                             String maxAdults, String maxChild, String maxQuantity,
@@ -39,7 +39,7 @@ public class RoomDetailsModel implements Parcelable{
 
                             String perNight, String stay, String totalPrice,
                             String actualPrice, String checkin, String checkout,
-                            String extrabed, String quantity,
+                            String quantity,
 
                             String extrabedCharges, ArrayList<String> images,
                             ArrayList<AmenityModel> amenities) {
@@ -62,14 +62,14 @@ public class RoomDetailsModel implements Parcelable{
         this.actualPrice = actualPrice;
         this.checkin = checkin;
         this.checkout = checkout;
-        this.extrabed = extrabed;
         this.maxAdults = maxAdults;
         this.maxChild = maxChild;
         this.quantity = quantity;
 
 
         this.images = images;
-        this.amenities = amenities;
+        this.amenities.clear();
+        this.amenities.addAll(amenities);
     }
 
     public String getRoomId() {
@@ -152,10 +152,6 @@ public class RoomDetailsModel implements Parcelable{
         return checkout;
     }
 
-    public String getExtrabed() {
-        return extrabed;
-    }
-
     public String getQuantity() {
         return quantity;
     }
@@ -184,9 +180,9 @@ public class RoomDetailsModel implements Parcelable{
         actualPrice = in.readString();
         checkin = in.readString();
         checkout = in.readString();
-        extrabed = in.readString();
         quantity = in.readString();
         images = in.createStringArrayList();
+        in.readTypedList(amenities, AmenityModel.CREATOR);
     }
 
     public static final Creator<RoomDetailsModel> CREATOR = new Creator<RoomDetailsModel>() {
@@ -221,8 +217,8 @@ public class RoomDetailsModel implements Parcelable{
         dest.writeString(actualPrice);
         dest.writeString(checkin);
         dest.writeString(checkout);
-        dest.writeString(extrabed);
         dest.writeString(quantity);
         dest.writeStringList(images);
+        dest.writeTypedList(amenities);
     }
 }

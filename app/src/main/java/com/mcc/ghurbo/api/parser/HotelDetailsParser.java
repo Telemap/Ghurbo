@@ -261,7 +261,7 @@ public class HotelDetailsParser {
                         maxAdults, maxChild, maxQuantity,
                         thumbnailImage, breakfastInclude, price, discount, extraBeds,
                         perNight, stay, totalPrice, actualPrice, checkin, checkout,
-                        extrabed, quantity, extrabedCharges, images, amenities));
+                        quantity, extrabedCharges, images, amenities));
 
             }
         } catch (Exception e) {

@@ -28,54 +28,11 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/line" />
-
-            <LinearLayout
+            <com.mcc.ghurbo.view.RobotoTextView
+                android:id="@+id/capacity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:orientation="vertical">
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="16sp" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/tv_duration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginTop="2dp"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <ImageButton
-                    android:id="@+id/ib_map"
-                    android:layout_width="0dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.2"
-                    android:adjustViewBounds="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:scaleType="fitEnd"
-                    android:src="@drawable/ic_map" />
-
-            </LinearLayout>
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -101,93 +58,93 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/adult_hint" />
+                        android:text="@string/price" />
 
                     <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/adult_price"
+                        android:id="@+id/price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="18sp" />
+
+                    <com.mcc.ghurbo.view.RobotoTextView
+                        android:id="@+id/per_night"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
+
+                    <com.mcc.ghurbo.view.RobotoTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/discount" />
+
+                    <com.mcc.ghurbo.view.RobotoTextView
+                        android:id="@+id/discount_percent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <com.mcc.ghurbo.view.RobotoTextView
+                        android:id="@+id/discount_subtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
+
+                    <com.mcc.ghurbo.view.RobotoTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/final_price" />
+
+                    <com.mcc.ghurbo.view.RobotoTextView
+                        android:id="@+id/final_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/adult_max"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:gravity="center"
-                        android:textSize="10sp" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/line" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/child_hint" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/child_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/child_max"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:gravity="center"
-                        android:textSize="10sp" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/line" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/infant" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/infant_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/infant_max"
+                        android:id="@+id/extra_prices"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
@@ -210,6 +167,35 @@
                 android:layout_marginTop="15dp"
                 android:nestedScrollingEnabled="false"
                 android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:id="@+id/breakfast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:adjustViewBounds="true"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_breakfast" />
+
+                <com.mcc.ghurbo.view.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/complementary"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

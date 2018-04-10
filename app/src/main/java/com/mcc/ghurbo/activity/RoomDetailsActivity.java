@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -37,12 +38,12 @@ public class RoomDetailsActivity extends BaseActivity {
     private RoomDetailsModel roomDetailsModel;
 
     private CollapsingToolbarLayout collapsingToolbar;
-    private TextView title, adultPrice, adultMax, childPrice, childMax,
-            infantPrice, infantMax, tvDuration, location;
-    private ImageButton ibMap;
+    private TextView title, price, perNight, discountPercent, discountSubtitle,
+            finalPrice, extraPrices, capacity;
     private WebView webView;
     private Button btnBookNow;
     private ImageView ivTransitionImg;
+    private LinearLayout breakfast;
 
     private RecyclerView recyclerView;
     private ArrayList<AmenityModel> amenityModels;
@@ -78,15 +79,14 @@ public class RoomDetailsActivity extends BaseActivity {
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         title = (TextView) findViewById(R.id.title);
-        adultPrice = (TextView) findViewById(R.id.adult_price);
-        adultMax = (TextView) findViewById(R.id.adult_max);
-        childPrice = (TextView) findViewById(R.id.child_price);
-        childMax = (TextView) findViewById(R.id.child_max);
-        infantPrice = (TextView) findViewById(R.id.infant_price);
-        infantMax = (TextView) findViewById(R.id.infant_max);
-        tvDuration = (TextView) findViewById(R.id.tv_duration);
-        location = (TextView) findViewById(R.id.location);
-        ibMap = (ImageButton) findViewById(R.id.ib_map);
+        capacity = (TextView) findViewById(R.id.capacity);
+        price = (TextView) findViewById(R.id.price);
+        perNight = (TextView) findViewById(R.id.per_night);
+        discountPercent = (TextView) findViewById(R.id.discount_percent);
+        discountSubtitle = (TextView) findViewById(R.id.discount_subtitle);
+        finalPrice = (TextView) findViewById(R.id.final_price);
+        extraPrices = (TextView) findViewById(R.id.extra_prices);
+        breakfast = (LinearLayout) findViewById(R.id.breakfast);
         webView = (WebView) findViewById(R.id.web_view);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -125,54 +125,43 @@ public class RoomDetailsActivity extends BaseActivity {
 
         collapsingToolbar.setTitle(roomDetailsModel.getTitle());
         title.setText(roomDetailsModel.getTitle());
+        capacity.setText(
+                getString(R.string.capacity) +
+                        roomDetailsModel.getMaxAdults() +
+                        getString(R.string.adult) +
+                        getString(R.string.and) +
+                        roomDetailsModel.getMaxChild() +
+                        getString(R.string.child) +
+                        getString(R.string.max) +
+                        roomDetailsModel.getMaxQuantity() +
+                        getString(R.string.total));
+
+        price.setText(AppConstants.CURRENCY + roomDetailsModel.getPrice());
+        perNight.setText(AppConstants.CURRENCY + roomDetailsModel.getPerNight()+ getString(R.string.per_night));
+        discountPercent.setText(roomDetailsModel.getDiscount()+ getString(R.string.percent));
+        discountSubtitle.setText("");
+        finalPrice.setText(AppConstants.CURRENCY + roomDetailsModel.getTotalPrice());
+
+        if(roomDetailsModel.getExtraBeds() != null && !roomDetailsModel.getExtraBeds().equals("0")) {
+            extraPrices.setText(AppConstants.CURRENCY + roomDetailsModel.getExtrabedCharges() + getString(R.string.extra_bed) + getString(R.string.max) + roomDetailsModel.getExtraBeds() + getString(R.string.total));
+        }
+
+        if(roomDetailsModel.getBreakfastInclude()) {
+            breakfast.setVisibility(View.VISIBLE);
+        } else {
+            breakfast.setVisibility(View.GONE);
+        }
 
         webView.loadData(roomDetailsModel.getDesc(), "text/html; charset=utf-8", "UTF-8");
 
-        /*adultPrice.setText(tourDetailsModel.getAdultPrice() + getString(R.string.currency));
-        adultMax.setText(tourDetailsModel.getMaxAdults() + getString(R.string.person_max));
-
-        String childStatus = tourDetailsModel.getChildStatus();
-        if (childStatus != null && childStatus.equals("1")) {
-            childPrice.setText(tourDetailsModel.getChildPrice() + getString(R.string.currency));
-            childMax.setText(tourDetailsModel.getMaxChild() + getString(R.string.person_max));
-        } else {
-            childPrice.setText(getString(R.string.na));
-        }
-
-        String infantStatus = tourDetailsModel.getInfantStatus();
-        if (infantStatus != null && infantStatus.equals("1")) {
-            infantPrice.setText(tourDetailsModel.getInfantPrice() + getString(R.string.currency));
-            infantMax.setText(tourDetailsModel.getMaxInfant() + getString(R.string.person_max));
-        } else {
-            infantPrice.setText(getString(R.string.na));
-        }
-
-        tvDuration.setText(tourDetailsModel.getTourDays() + getString(R.string.days) +" "+ tourDetailsModel.getTourNights() + getString(R.string.nights));
-        location.setText(tourDetailsModel.getLocation());
-
-        ibMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.invokeMap(RoomDetailsActivity.this, tourDetailsModel.getLatitude(), tourDetailsModel.getLongitude());
-            }
-        });
-
-
         amenityModels.clear();
-        amenityModels.addAll(tourDetailsModel.getAmenities());
+        amenityModels.addAll(roomDetailsModel.getAmenities());
         if(!amenityModels.isEmpty()) {
             recyclerView.setVisibility(View.VISIBLE);
             adapter.notifyDataSetChanged();
         } else {
             recyclerView.setVisibility(View.GONE);
         }
-
-        ivTransitionImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityUtils.getInstance().invokeImages(RoomDetailsActivity.this, tourDetailsModel.getAllPhotos(), ivTransitionImg);
-            }
-        });*/
 
     }
 

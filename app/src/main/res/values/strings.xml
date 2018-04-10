@@ -98,5 +98,19 @@
     <string name="rating">Rating: \u0020</string>
     <string name="no_rating">No rating info</string>
     <string name="rooms">Rooms</string>
+    <string name="price">Price</string>
+    <string name="discount">Discount</string>
+    <string name="final_price">Final Price</string>
+    <string name="capacity">Capacity:\u0020</string>
+    <string name="adult">\u0020adult</string>
+    <string name="and">\u0020&amp;\u0020</string>
+    <string name="child">\u0020child</string>
+    <string name="total">\u0020total)</string>
+    <string name="max">\u0020(max\u0020</string>
+    <string name="per_night">\u0020per night</string>
+    <string name="percent">\u0020%</string>
+    <string name="without_discount">\u0020without discount</string>
+    <string name="extra_bed">\u0020/extra bed</string>
+    <string name="complementary">\u0020 Complementary breakfast</string>
 
 </resources>
