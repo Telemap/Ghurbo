@@ -19,36 +19,14 @@
             android:orientation="vertical"
             android:paddingBottom="100dp">
 
-            <RelativeLayout
-                android:id="@+id/title_panel"
+            <com.mcc.ghurbo.view.RobotoTextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
-
-                <com.mcc.ghurbo.view.RobotoTextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_toStartOf="@+id/rating"
-                    android:paddingEnd="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="17sp" />
-
-                <RatingBar
-                    android:id="@+id/rating"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:numStars="5"
-                    android:rating="2.0"
-                    android:stepSize="1.0" />
-
-            </RelativeLayout>
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -271,7 +249,5 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
-    <include layout="@layout/view_common_loader" />
 
 </RelativeLayout>

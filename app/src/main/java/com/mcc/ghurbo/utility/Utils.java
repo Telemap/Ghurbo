@@ -134,7 +134,9 @@ public class Utils {
 
     public static void invokeMap(Activity activity, String latitude, String longitude) {
         try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:latitude,longitude"));
+
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + latitude + "," + longitude));
+            intent.setPackage("com.google.android.apps.maps");
             activity.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();

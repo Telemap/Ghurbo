@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/room_thumb"
+        android:layout_height="@dimen/room_thumb"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:src="@color/placeholder"
+        android:transitionName="@string/details_transition" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_toEndOf="@+id/icon"
+        android:orientation="vertical">
+
+        <com.mcc.ghurbo.view.RobotoTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/placeholder"
+            android:textStyle="bold" />
+
+        <com.mcc.ghurbo.view.RobotoTextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/placeholder" />
+
+        <com.mcc.ghurbo.view.RobotoTextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:singleLine="true"
+            android:text="@string/placeholder"
+            android:textColor="@color/light_blue"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

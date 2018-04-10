@@ -91,4 +91,12 @@
 
     <string name="book_now">Book Now</string>
 
+    <string name="star_hotel">\u0020star hotel</string>
+    <string name="not_star_info">no star info</string>
+    <string name="checkin">Check In</string>
+    <string name="checkout">Check Out</string>
+    <string name="rating">Rating: \u0020</string>
+    <string name="no_rating">No rating info</string>
+    <string name="rooms">Rooms</string>
+
 </resources>

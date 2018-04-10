@@ -1,49 +1,47 @@
 package com.mcc.ghurbo.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class RoomDetailsModel {
+public class RoomDetailsModel implements Parcelable{
 
     private String roomId;
     private String title;
     private String desc;
     private String maxAdults;
     private String maxChild;
-    private Integer maxQuantity;
+    private String maxQuantity;
     private String thumbnailImage;
-    private String breakfastInclude;
-    private Integer price;
-    private Integer aprice;
-    private Integer aprice1;
-    private Integer discount;
+    private boolean breakfastInclude;
+    private String price;
+    private String discount;
     private String extraBeds;
-    private Integer extrabedCharges;
-
-    private String roomID;
-    private Integer perNight;
-    private Integer stay;
-    private Integer totalPrice;
-    private Integer actualPrice;
+    private String extrabedCharges;
+    private String perNight;
+    private String stay;
+    private String totalPrice;
+    private String actualPrice;
     private String checkin;
     private String checkout;
-    private Integer extrabed;
+    private String extrabed;
     private String quantity;
 
     private ArrayList<String> images = null;
     private ArrayList<AmenityModel> amenities = null;
 
     public RoomDetailsModel(String roomId, String title, String desc,
-                            String maxAdults, String maxChild, Integer maxQuantity,
+                            String maxAdults, String maxChild, String maxQuantity,
                             String thumbnailImage,
-                            String breakfastInclude, Integer price, Integer aprice,
-                            Integer aprice1, Integer discount, String extraBeds,
+                            boolean breakfastInclude, String price, String discount, String extraBeds,
 
-                            String roomID, Integer perNight, Integer stay, Integer totalPrice,
-                            Integer actualPrice, String checkin, String checkout,
-                            Integer extrabed, String quantity,
+                            String perNight, String stay, String totalPrice,
+                            String actualPrice, String checkin, String checkout,
+                            String extrabed, String quantity,
 
-                            Integer extrabedCharges, ArrayList<String> images,
+                            String extrabedCharges, ArrayList<String> images,
                             ArrayList<AmenityModel> amenities) {
         this.roomId = roomId;
         this.title = title;
@@ -54,14 +52,10 @@ public class RoomDetailsModel {
         this.thumbnailImage = thumbnailImage;
         this.breakfastInclude = breakfastInclude;
         this.price = price;
-        this.aprice = aprice;
-        this.aprice1 = aprice1;
         this.discount = discount;
         this.extraBeds = extraBeds;
         this.extrabedCharges = extrabedCharges;
-
-
-        this.roomID = roomID;
+        
         this.perNight = perNight;
         this.stay = stay;
         this.totalPrice = totalPrice;
@@ -98,7 +92,7 @@ public class RoomDetailsModel {
         return maxChild;
     }
 
-    public Integer getMaxQuantity() {
+    public String getMaxQuantity() {
         return maxQuantity;
     }
 
@@ -114,23 +108,15 @@ public class RoomDetailsModel {
         return amenities;
     }
 
-    public String getBreakfastInclude() {
+    public boolean getBreakfastInclude() {
         return breakfastInclude;
     }
 
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public Integer getAprice() {
-        return aprice;
-    }
-
-    public Integer getAprice1() {
-        return aprice1;
-    }
-
-    public Integer getDiscount() {
+    public String getDiscount() {
         return discount;
     }
 
@@ -138,30 +124,23 @@ public class RoomDetailsModel {
         return extraBeds;
     }
 
-    public Integer getExtrabedCharges() {
+    public String getExtrabedCharges() {
         return extrabedCharges;
     }
 
-
-
-
-    public String getRoomID() {
-        return roomID;
-    }
-
-    public Integer getPerNight() {
+    public String getPerNight() {
         return perNight;
     }
 
-    public Integer getStay() {
+    public String getStay() {
         return stay;
     }
 
-    public Integer getTotalPrice() {
+    public String getTotalPrice() {
         return totalPrice;
     }
 
-    public Integer getActualPrice() {
+    public String getActualPrice() {
         return actualPrice;
     }
 
@@ -173,11 +152,77 @@ public class RoomDetailsModel {
         return checkout;
     }
 
-    public Integer getExtrabed() {
+    public String getExtrabed() {
         return extrabed;
     }
 
     public String getQuantity() {
         return quantity;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    protected RoomDetailsModel(Parcel in) {
+        roomId = in.readString();
+        title = in.readString();
+        desc = in.readString();
+        maxAdults = in.readString();
+        maxChild = in.readString();
+        maxQuantity = in.readString();
+        thumbnailImage = in.readString();
+        breakfastInclude = in.readByte() != 0;
+        price = in.readString();
+        discount = in.readString();
+        extraBeds = in.readString();
+        extrabedCharges = in.readString();
+        perNight = in.readString();
+        stay = in.readString();
+        totalPrice = in.readString();
+        actualPrice = in.readString();
+        checkin = in.readString();
+        checkout = in.readString();
+        extrabed = in.readString();
+        quantity = in.readString();
+        images = in.createStringArrayList();
+    }
+
+    public static final Creator<RoomDetailsModel> CREATOR = new Creator<RoomDetailsModel>() {
+        @Override
+        public RoomDetailsModel createFromParcel(Parcel in) {
+            return new RoomDetailsModel(in);
+        }
+
+        @Override
+        public RoomDetailsModel[] newArray(int size) {
+            return new RoomDetailsModel[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(roomId);
+        dest.writeString(title);
+        dest.writeString(desc);
+        dest.writeString(maxAdults);
+        dest.writeString(maxChild);
+        dest.writeString(maxQuantity);
+        dest.writeString(thumbnailImage);
+        dest.writeByte((byte) (breakfastInclude ? 1 : 0));
+        dest.writeString(price);
+        dest.writeString(discount);
+        dest.writeString(extraBeds);
+        dest.writeString(extrabedCharges);
+        dest.writeString(perNight);
+        dest.writeString(stay);
+        dest.writeString(totalPrice);
+        dest.writeString(actualPrice);
+        dest.writeString(checkin);
+        dest.writeString(checkout);
+        dest.writeString(extrabed);
+        dest.writeString(quantity);
+        dest.writeStringList(images);
     }
 }

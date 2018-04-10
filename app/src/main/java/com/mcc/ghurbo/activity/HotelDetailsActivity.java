@@ -19,12 +19,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mcc.ghurbo.R;
+import com.mcc.ghurbo.adapter.HotelAmenitiesAdapter;
+import com.mcc.ghurbo.adapter.RoomListAdapter;
 import com.mcc.ghurbo.adapter.TourAmenitiesAdapter;
 import com.mcc.ghurbo.api.helper.RequestHotelDetails;
 import com.mcc.ghurbo.api.helper.RequestTourDetails;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
+import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.AmenityModel;
+import com.mcc.ghurbo.model.HotelDetailsModel;
+import com.mcc.ghurbo.model.RoomDetailsModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
 import com.mcc.ghurbo.model.TourDetailsModel;
@@ -38,18 +43,20 @@ public class HotelDetailsActivity extends BaseActivity {
     private SearchHotelModel searchHotelModel;
 
     private CollapsingToolbarLayout collapsingToolbar;
-    private TextView title, adultPrice, adultMax, childPrice, childMax,
-            infantPrice, infantMax, tvDuration, location;
+    private TextView title, location, starInfo, checkin, checkout, ratingValue;
     private ImageButton ibMap;
-    private RatingBar rating;
+    private RatingBar star, rating;
     private WebView webView;
-    private Button btnBookNow;
     private FloatingActionButton fabFav;
     private ImageView ivTransitionImg;
 
     private RecyclerView recyclerView;
     private ArrayList<AmenityModel> amenityModels;
-    private TourAmenitiesAdapter adapter;
+    private HotelAmenitiesAdapter adapter;
+
+    private RecyclerView rvRoomList;
+    private ArrayList<RoomDetailsModel> roomDetailsModels;
+    private RoomListAdapter roomListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +78,7 @@ public class HotelDetailsActivity extends BaseActivity {
         }
 
         amenityModels = new ArrayList<>();
+        roomDetailsModels = new ArrayList<>();
 
     }
 
@@ -82,22 +90,19 @@ public class HotelDetailsActivity extends BaseActivity {
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         title = (TextView) findViewById(R.id.title);
+        star = (RatingBar) findViewById(R.id.star);
         rating = (RatingBar) findViewById(R.id.rating);
-        adultPrice = (TextView) findViewById(R.id.adult_price);
-        adultMax = (TextView) findViewById(R.id.adult_max);
-        childPrice = (TextView) findViewById(R.id.child_price);
-        childMax = (TextView) findViewById(R.id.child_max);
-        infantPrice = (TextView) findViewById(R.id.infant_price);
-        infantMax = (TextView) findViewById(R.id.infant_max);
-        tvDuration = (TextView) findViewById(R.id.tv_duration);
+        checkin = (TextView) findViewById(R.id.checkin);
+        checkout = (TextView) findViewById(R.id.checkout);
+        ratingValue = (TextView) findViewById(R.id.rating_value);
+        starInfo = (TextView) findViewById(R.id.star_info);
         location = (TextView) findViewById(R.id.location);
         ibMap = (ImageButton) findViewById(R.id.ib_map);
         webView = (WebView) findViewById(R.id.web_view);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        btnBookNow = (Button) findViewById(R.id.btn_book_now);
         fabFav = (FloatingActionButton) findViewById(R.id.fab_fav);
         ivTransitionImg = (ImageView) findViewById(R.id.iv_transition);
+        rvRoomList = (RecyclerView) findViewById(R.id.rv_room_list);
 
     }
 
@@ -107,9 +112,13 @@ public class HotelDetailsActivity extends BaseActivity {
         webView.setBackgroundColor(Color.TRANSPARENT);
         webView.setVerticalScrollBarEnabled(false);
 
-        adapter = new TourAmenitiesAdapter(getApplicationContext(), amenityModels);
+        adapter = new HotelAmenitiesAdapter(getApplicationContext(), amenityModels);
         recyclerView.setLayoutManager(new LinearLayoutManager(HotelDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
+
+        roomListAdapter = new RoomListAdapter(getApplicationContext(), roomDetailsModels);
+        rvRoomList.setLayoutManager(new LinearLayoutManager(HotelDetailsActivity.this));
+        rvRoomList.setAdapter(roomListAdapter);
 
         Glide.with(getApplicationContext())
                 .load(searchHotelModel.getImageUrl())
@@ -118,12 +127,6 @@ public class HotelDetailsActivity extends BaseActivity {
     }
 
     private void initListener() {
-        btnBookNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         fabFav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,10 +146,10 @@ public class HotelDetailsActivity extends BaseActivity {
             @Override
             public void onResponse(Object data) {
 
-                TourDetailsModel tourDetailsModel = (TourDetailsModel) data;
-                if (tourDetailsModel != null) {
+                HotelDetailsModel hotelDetailsModel = (HotelDetailsModel) data;
+                if (hotelDetailsModel != null) {
                     hideLoader();
-                    setDataToUi(tourDetailsModel);
+                    setDataToUi(hotelDetailsModel);
                 } else {
                     showEmptyView();
                 }
@@ -155,52 +158,44 @@ public class HotelDetailsActivity extends BaseActivity {
         requestHotelDetails.execute();
     }
 
-    private void setDataToUi(final TourDetailsModel tourDetailsModel) {
+    private void setDataToUi(final HotelDetailsModel hotelDetailsModel) {
 
-        collapsingToolbar.setTitle(tourDetailsModel.getTourTitle());
-        title.setText(tourDetailsModel.getTourTitle());
+        collapsingToolbar.setTitle(hotelDetailsModel.getHotelTitle());
+        title.setText(hotelDetailsModel.getHotelTitle());
 
-        String ratingStr = tourDetailsModel.getTourStars();
+        String starStr = hotelDetailsModel.getHotelStars();
+        if (starStr != null && !starStr.isEmpty()) {
+            starInfo.setText(starStr + getString(R.string.star_hotel));
+            star.setRating(Float.parseFloat(starStr));
+        } else {
+            starInfo.setText(starStr + getString(R.string.not_star_info));
+        }
+
+        String ratingStr = hotelDetailsModel.getHotelRatings();
         if (ratingStr != null && !ratingStr.isEmpty()) {
+            ratingValue.setText(getString(R.string.rating) + ratingStr);
             rating.setRating(Float.parseFloat(ratingStr));
         } else {
-            rating.setVisibility(View.GONE);
+            ratingValue.setText(getString(R.string.no_rating));
         }
 
-        adultPrice.setText(tourDetailsModel.getAdultPrice() + getString(R.string.currency));
-        adultMax.setText(tourDetailsModel.getMaxAdults() + getString(R.string.person_max));
+        checkin.setText(hotelDetailsModel.getCheckInTime());
+        checkout.setText(hotelDetailsModel.getCheckOutTime());
 
-        String childStatus = tourDetailsModel.getChildStatus();
-        if (childStatus != null && childStatus.equals("1")) {
-            childPrice.setText(tourDetailsModel.getChildPrice() + getString(R.string.currency));
-            childMax.setText(tourDetailsModel.getMaxChild() + getString(R.string.person_max));
-        } else {
-            childPrice.setText(getString(R.string.na));
-        }
-
-        String infantStatus = tourDetailsModel.getInfantStatus();
-        if (infantStatus != null && infantStatus.equals("1")) {
-            infantPrice.setText(tourDetailsModel.getInfantPrice() + getString(R.string.currency));
-            infantMax.setText(tourDetailsModel.getMaxInfant() + getString(R.string.person_max));
-        } else {
-            infantPrice.setText(getString(R.string.na));
-        }
-
-        tvDuration.setText(tourDetailsModel.getTourDays() + getString(R.string.days) +" "+ tourDetailsModel.getTourNights() + getString(R.string.nights));
-        location.setText(tourDetailsModel.getLocation());
+        location.setText(hotelDetailsModel.getLocation());
 
         ibMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.invokeMap(HotelDetailsActivity.this, tourDetailsModel.getLatitude(), tourDetailsModel.getLongitude());
+                Utils.invokeMap(HotelDetailsActivity.this, hotelDetailsModel.getLatitude(), hotelDetailsModel.getLongitude());
             }
         });
 
-        webView.loadData(tourDetailsModel.getTourDesc(), "text/html; charset=utf-8", "UTF-8");
+        webView.loadData(hotelDetailsModel.getHotelDesc(), "text/html; charset=utf-8", "UTF-8");
 
         amenityModels.clear();
-        amenityModels.addAll(tourDetailsModel.getAmenities());
-        if(!amenityModels.isEmpty()) {
+        amenityModels.addAll(hotelDetailsModel.getAmenities());
+        if (!amenityModels.isEmpty()) {
             recyclerView.setVisibility(View.VISIBLE);
             adapter.notifyDataSetChanged();
         } else {
@@ -210,7 +205,24 @@ public class HotelDetailsActivity extends BaseActivity {
         ivTransitionImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtils.getInstance().invokeImages(HotelDetailsActivity.this, tourDetailsModel.getAllPhotos(), ivTransitionImg);
+                ActivityUtils.getInstance().invokeImages(HotelDetailsActivity.this, hotelDetailsModel.getHotelImages(), ivTransitionImg);
+            }
+        });
+
+        roomDetailsModels.clear();
+        roomDetailsModels.addAll(hotelDetailsModel.getRoomDetails());
+        if (!roomDetailsModels.isEmpty()) {
+            rvRoomList.setVisibility(View.VISIBLE);
+            roomListAdapter.notifyDataSetChanged();
+        } else {
+            rvRoomList.setVisibility(View.GONE);
+        }
+
+        roomListAdapter.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onItemClick(int position, View view) {
+                ImageView imageView = view.findViewById(R.id.icon);
+                ActivityUtils.getInstance().invokeRoomDetailsActivity(HotelDetailsActivity.this, hotelDetailsModel.getRoomDetails().get(position), imageView);
             }
         });
 

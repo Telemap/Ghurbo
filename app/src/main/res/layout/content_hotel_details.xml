@@ -31,22 +31,37 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_toStartOf="@+id/rating"
+                    android:layout_toStartOf="@+id/star_panel"
                     android:paddingEnd="5dp"
                     android:textColor="@color/black"
                     android:textSize="17sp" />
 
-                <RatingBar
-                    android:id="@+id/rating"
-                    style="?android:attr/ratingBarStyleSmall"
+                <LinearLayout
+                    android:id="@+id/star_panel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:numStars="5"
-                    android:rating="2.0"
-                    android:stepSize="1.0" />
+                    android:orientation="vertical">
+
+                    <RatingBar
+                        android:id="@+id/star"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:rating="0.0"
+                        android:stepSize="1.0" />
+
+                    <com.mcc.ghurbo.view.RobotoTextView
+                        android:id="@+id/star_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -60,30 +75,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 android:weightSum="1">
 
-                <LinearLayout
+                <com.mcc.ghurbo.view.RobotoTextView
+                    android:id="@+id/location"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="0.8"
-                    android:orientation="vertical">
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="16sp" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/tv_duration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginTop="2dp"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
+                    android:textSize="16sp" />
 
                 <ImageButton
                     android:id="@+id/ib_map"
@@ -101,45 +102,37 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="2">
+
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
+                    android:orientation="vertical">
 
                     <com.mcc.ghurbo.view.RobotoTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/adult_hint" />
+                        android:paddingTop="10dp"
+                        android:text="@string/checkin"
+                        android:textSize="11sp" />
 
                     <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/adult_price"
+                        android:id="@+id/checkin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/adult_max"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:gravity="center"
-                        android:textSize="10sp" />
+                        android:paddingBottom="7dp"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -152,68 +145,23 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
+                    android:orientation="vertical">
 
                     <com.mcc.ghurbo.view.RobotoTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/child_hint" />
+                        android:paddingTop="10dp"
+                        android:text="@string/checkout"
+                        android:textSize="11sp" />
 
                     <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/child_price"
+                        android:id="@+id/checkout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/black"
+                        android:paddingBottom="7dp"
                         android:textSize="18sp" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/child_max"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:gravity="center"
-                        android:textSize="10sp" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/line" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/infant" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/infant_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/infant_max"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:gravity="center"
-                        android:textSize="10sp" />
 
                 </LinearLayout>
 
@@ -238,6 +186,62 @@
                 android:layout_marginTop="15dp"
                 android:background="@color/line" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.mcc.ghurbo.view.RobotoTextView
+                    android:id="@+id/rating_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/rating"
+                    android:paddingEnd="5dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RatingBar
+                    android:id="@+id/rating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:numStars="5"
+                    android:rating="0.0"
+                    android:stepSize="1.0" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/line" />
+
+            <com.mcc.ghurbo.view.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/rooms"
+                android:textSize="18sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_room_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/line" />
+
             <WebView
                 android:id="@+id/web_view"
                 android:layout_width="match_parent"
@@ -248,24 +252,6 @@
                 android:background="@android:color/transparent"
                 android:scrollbarSize="0dp"
                 android:scrollbarStyle="insideOverlay" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <Button
-                    android:id="@+id/btn_book_now"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:background="@drawable/btn_search"
-                    android:paddingEnd="30dp"
-                    android:paddingStart="30dp"
-                    android:text="@string/book_now"
-                    android:textColor="@color/white" />
-
-            </RelativeLayout>
 
         </LinearLayout>
 

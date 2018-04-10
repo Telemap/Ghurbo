@@ -9,7 +9,7 @@ public class HotelDetailsModel {
     private String hotelTitle;
     private String hotelDesc;
     private String hotelStars;
-    private Object hotelRatings;
+    private String hotelRatings;
     private String location;
     private String latitude;
     private String longitude;
@@ -22,10 +22,11 @@ public class HotelDetailsModel {
     private ArrayList<AmenityModel> amenities = null;
 
     public HotelDetailsModel(String hotelId, String hotelTitle, String hotelDesc,
-                             String hotelStars, Object hotelRatings, String location,
+                             String hotelStars, String hotelRatings, String location,
                              String latitude, String longitude,
                              String checkInTime, String checkOutTime, String thumbnailImage,
-                             String module, ArrayList<String> hotelImages, ArrayList<AmenityModel> amenities, ArrayList<RoomDetailsModel> roomDetails) {
+                             String module, ArrayList<String> hotelImages, ArrayList<AmenityModel> amenities,
+                             ArrayList<RoomDetailsModel> roomDetails) {
         this.hotelId = hotelId;
         this.hotelTitle = hotelTitle;
         this.hotelDesc = hotelDesc;
@@ -59,7 +60,7 @@ public class HotelDetailsModel {
         return hotelStars;
     }
 
-    public Object getHotelRatings() {
+    public String getHotelRatings() {
         return hotelRatings;
     }
 

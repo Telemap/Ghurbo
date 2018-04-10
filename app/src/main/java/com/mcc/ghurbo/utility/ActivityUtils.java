@@ -11,11 +11,13 @@ import com.mcc.ghurbo.activity.HotelDetailsActivity;
 import com.mcc.ghurbo.activity.HotelListActivity;
 import com.mcc.ghurbo.activity.ImageViewActivity;
 import com.mcc.ghurbo.activity.ProfilingActivity;
+import com.mcc.ghurbo.activity.RoomDetailsActivity;
 import com.mcc.ghurbo.activity.TourDetailsActivity;
 import com.mcc.ghurbo.activity.TourListActivity;
 import com.mcc.ghurbo.activity.WebPageActivity;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.login.LoginModel;
+import com.mcc.ghurbo.model.RoomDetailsModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
 
@@ -92,6 +94,18 @@ public class ActivityUtils {
     public void invokeHotelDetailsActivity(Activity activity, SearchHotelModel searchHotelModel, ImageView imageView) {
         Intent intent = new Intent(activity, HotelDetailsActivity.class);
         intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(activity, imageView, imageView.getTransitionName()).toBundle();
+            activity.startActivity(intent, bundle);
+        } else {
+            activity.startActivity(intent);
+        }
+    }
+
+    public void invokeRoomDetailsActivity(Activity activity, RoomDetailsModel roomDetailsModel, ImageView imageView) {
+        Intent intent = new Intent(activity, RoomDetailsActivity.class);
+        intent.putExtra(AppConstants.BUNDLE_ROOM_DETAILS, roomDetailsModel);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(activity, imageView, imageView.getTransitionName()).toBundle();

@@ -34,4 +34,5 @@ public class HttpParams {
     public static final String PARAM_CHECK_IN = "checkin";
     public static final String PARAM_CHECK_OUT = "checkout";
 
+
 }
