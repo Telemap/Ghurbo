@@ -222,7 +222,7 @@ public class HotelDetailsActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, View view) {
                 ImageView imageView = view.findViewById(R.id.icon);
-                ActivityUtils.getInstance().invokeRoomDetailsActivity(HotelDetailsActivity.this, hotelDetailsModel.getRoomDetails().get(position), imageView);
+                ActivityUtils.getInstance().invokeRoomDetailsActivity(HotelDetailsActivity.this, hotelDetailsModel.getRoomDetails().get(position), searchHotelModel, imageView);
             }
         });
 

@@ -1,8 +1,6 @@
 package com.mcc.ghurbo.activity;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -11,7 +9,6 @@ import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.utility.ActivityUtils;
-import com.mcc.ghurbo.utility.Utils;
 
 public class SplashActivity extends AppCompatActivity {
 

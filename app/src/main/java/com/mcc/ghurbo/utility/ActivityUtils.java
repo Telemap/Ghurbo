@@ -11,6 +11,7 @@ import com.mcc.ghurbo.activity.HotelDetailsActivity;
 import com.mcc.ghurbo.activity.HotelListActivity;
 import com.mcc.ghurbo.activity.ImageViewActivity;
 import com.mcc.ghurbo.activity.ProfilingActivity;
+import com.mcc.ghurbo.activity.ReservationNoteActivity;
 import com.mcc.ghurbo.activity.RoomDetailsActivity;
 import com.mcc.ghurbo.activity.TourDetailsActivity;
 import com.mcc.ghurbo.activity.TourListActivity;
@@ -103,9 +104,10 @@ public class ActivityUtils {
         }
     }
 
-    public void invokeRoomDetailsActivity(Activity activity, RoomDetailsModel roomDetailsModel, ImageView imageView) {
+    public void invokeRoomDetailsActivity(Activity activity, RoomDetailsModel roomDetailsModel, SearchHotelModel searchHotelModel, ImageView imageView) {
         Intent intent = new Intent(activity, RoomDetailsActivity.class);
         intent.putExtra(AppConstants.BUNDLE_ROOM_DETAILS, roomDetailsModel);
+        intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(activity, imageView, imageView.getTransitionName()).toBundle();
@@ -113,5 +115,13 @@ public class ActivityUtils {
         } else {
             activity.startActivity(intent);
         }
+    }
+
+    public void invokeReserveNoteActivity(Activity activity, SearchTourModel searchTourModel, SearchHotelModel searchHotelModel) {
+        Intent intent = new Intent(activity, ReservationNoteActivity.class);
+        intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
+        intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
+        activity.startActivity(intent);
+        activity.finish();
     }
 }

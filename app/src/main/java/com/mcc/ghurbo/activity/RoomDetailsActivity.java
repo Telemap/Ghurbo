@@ -26,6 +26,7 @@ import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.model.AmenityModel;
 import com.mcc.ghurbo.model.RoomDetailsModel;
+import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
 import com.mcc.ghurbo.model.TourDetailsModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 public class RoomDetailsActivity extends BaseActivity {
 
     private RoomDetailsModel roomDetailsModel;
+    private SearchHotelModel searchHotelModel;
 
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView title, price, perNight, discountPercent, discountSubtitle,
@@ -66,6 +68,10 @@ public class RoomDetailsActivity extends BaseActivity {
 
         if (intent.hasExtra(AppConstants.BUNDLE_ROOM_DETAILS)) {
             roomDetailsModel = intent.getParcelableExtra(AppConstants.BUNDLE_ROOM_DETAILS);
+        }
+
+        if (intent.hasExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL)) {
+            searchHotelModel = intent.getParcelableExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL);
         }
 
         amenityModels = new ArrayList<>();
@@ -115,7 +121,7 @@ public class RoomDetailsActivity extends BaseActivity {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ActivityUtils.getInstance().invokeReserveNoteActivity(RoomDetailsActivity.this, null, searchHotelModel);
             }
         });
 

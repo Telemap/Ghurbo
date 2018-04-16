@@ -14,6 +14,8 @@ public class HttpParams {
     public static final String API_HOTELS = "hotels";
     public static final String API_TOUR_DETAILS = "tour_details";
     public static final String API_HOTEL_DETAILS = "hotel_details";
+    public static final String API_RESERVE_HOTEL = "reservation_hotel";
+    public static final String API_RESERVE_TOUR = "reservation_tour";
 
     // params
     public static final String PARAM_USERID = "auth_uid";
@@ -34,5 +36,12 @@ public class HttpParams {
     public static final String PARAM_CHECK_IN = "checkin";
     public static final String PARAM_CHECK_OUT = "checkout";
 
+    public static final String  PARAM_USER_ID = "user_id";
+    public static final String  PARAM_ITEM_ID = "itemid"; // hotel id
+    public static final String  PARAM_SUBITEM_ID = "subitemid"; // room id
+    public static final String  PARAM_ROOM_COUNT = "roomscount";
+    public static final String  PARAM_ADULTS = "adults";
+    public static final String  PARAM_CHILDREN = "children";
+    public static final String  PARAM_NOTES = "additionalnotes";
 
 }

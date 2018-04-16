@@ -112,5 +112,8 @@
     <string name="without_discount">\u0020without discount</string>
     <string name="extra_bed">\u0020/extra bed</string>
     <string name="complementary">\u0020 Complementary breakfast</string>
+    <string name="note">Additional note</string>
+    <string name="coupon">Coupon</string>
+    <string name="confirm">Confirm Reservation</string>
 
 </resources>
