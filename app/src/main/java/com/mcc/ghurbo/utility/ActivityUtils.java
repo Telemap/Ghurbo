@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import com.mcc.ghurbo.activity.HotelDetailsActivity;
 import com.mcc.ghurbo.activity.HotelListActivity;
 import com.mcc.ghurbo.activity.ImageViewActivity;
+import com.mcc.ghurbo.activity.LoginActivity;
 import com.mcc.ghurbo.activity.ProfilingActivity;
+import com.mcc.ghurbo.activity.ReservationConfirmActivity;
 import com.mcc.ghurbo.activity.ReservationNoteActivity;
 import com.mcc.ghurbo.activity.RoomDetailsActivity;
 import com.mcc.ghurbo.activity.TourDetailsActivity;
@@ -81,6 +83,16 @@ public class ActivityUtils {
         activity.finish();
     }
 
+    public void invokeProfilingActivity(Activity activity, LoginModel loginModel, SearchTourModel searchTourModel, SearchHotelModel searchHotelModel) {
+        Intent intent = new Intent(activity, ProfilingActivity.class);
+        intent.putExtra(AppConstants.BUNDLE_KEY_LOGIN_MODEL, loginModel);
+        intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
+        intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
+        intent.putExtra(AppConstants.BUNDLE_FROM_BOOKING, true);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
     public void invokeImages(Activity activity, ArrayList<String> arrayList, ImageView imageView) {
         Intent intent = new Intent(activity, ImageViewActivity.class);
         intent.putExtra(AppConstants.BUNDLE_MULTI_IMAGE, arrayList);
@@ -121,6 +133,23 @@ public class ActivityUtils {
         Intent intent = new Intent(activity, ReservationNoteActivity.class);
         intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
         intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+    public void invokeReserveConfirmActivity(Activity activity, SearchTourModel searchTourModel, SearchHotelModel searchHotelModel) {
+        Intent intent = new Intent(activity, ReservationConfirmActivity.class);
+        intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
+        intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+    public void invokeLoginActivity(Activity activity, SearchTourModel searchTourModel, SearchHotelModel searchHotelModel) {
+        Intent intent = new Intent(activity, LoginActivity.class);
+        intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
+        intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
+        intent.putExtra(AppConstants.BUNDLE_FROM_BOOKING, true);
         activity.startActivity(intent);
         activity.finish();
     }

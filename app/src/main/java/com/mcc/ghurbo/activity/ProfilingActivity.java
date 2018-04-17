@@ -19,6 +19,8 @@ import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.image.ImageProcessListener;
 import com.mcc.ghurbo.image.ImageProcessor;
 import com.mcc.ghurbo.login.LoginModel;
+import com.mcc.ghurbo.model.SearchHotelModel;
+import com.mcc.ghurbo.model.SearchTourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.DialogUtils;
 import com.mcc.ghurbo.utility.FilePicker;
@@ -30,6 +32,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfilingActivity extends BaseActivity {
 
     private LoginModel loginModel;
+    private SearchTourModel searchTourModel;
+    private SearchHotelModel searchHotelModel;
+    private boolean fromBooking;
 
     private ProgressBar progressBar;
     private CircleImageView profileImage;
@@ -56,6 +61,18 @@ public class ProfilingActivity extends BaseActivity {
 
         if (intent.hasExtra(AppConstants.BUNDLE_KEY_LOGIN_MODEL)) {
             loginModel = intent.getParcelableExtra(AppConstants.BUNDLE_KEY_LOGIN_MODEL);
+        }
+
+        if (intent.hasExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL)) {
+            searchHotelModel = intent.getParcelableExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL);
+        }
+
+        if (intent.hasExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL)) {
+            searchTourModel = intent.getParcelableExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL);
+        }
+
+        if (intent.hasExtra(AppConstants.BUNDLE_FROM_BOOKING)) {
+            fromBooking = intent.getBooleanExtra(AppConstants.BUNDLE_FROM_BOOKING, false);
         }
     }
 
@@ -141,8 +158,12 @@ public class ProfilingActivity extends BaseActivity {
                         AppPreference.getInstance(getApplicationContext()).setString(PrefKey.PROFILE_PIC, profilePicture);
                     }
 
-                    ActivityUtils.getInstance().invokeActivity(ProfilingActivity.this, MainActivity.class, true);
-                } else {
+                    if (fromBooking) {
+                        ActivityUtils.getInstance().invokeReserveConfirmActivity(ProfilingActivity.this, searchTourModel, searchHotelModel);
+                    } else {
+                        ActivityUtils.getInstance().invokeActivity(ProfilingActivity.this, MainActivity.class, true);
+                    }
+                }else {
                     Utils.showToast(getApplicationContext(), getString(R.string.login_failed));
                 }
 

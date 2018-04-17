@@ -112,6 +112,7 @@ public class TourDetailsActivity extends BaseActivity {
         Glide.with(getApplicationContext())
                 .load(searchTourModel.getImageUrl())
                 .error(R.color.placeholder)
+                .placeholder(R.color.placeholder)
                 .into(ivTransitionImg);
     }
 
@@ -119,7 +120,7 @@ public class TourDetailsActivity extends BaseActivity {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ActivityUtils.getInstance().invokeReserveNoteActivity(TourDetailsActivity.this, searchTourModel, null);
             }
         });
 
@@ -129,7 +130,6 @@ public class TourDetailsActivity extends BaseActivity {
 
             }
         });
-
     }
 
     private void loadData() {

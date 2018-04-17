@@ -270,12 +270,13 @@ public class TourSearchFragment extends Fragment {
         if(location.isEmpty() || type.isEmpty() || date.isEmpty() || adult.isEmpty()) {
             Utils.showToast(getActivity().getApplicationContext(), getString(R.string.input_validation));
         } else {
-            int adultInt = Integer.parseInt(adult);
-            int childInt = 0;
-            if(!child.isEmpty()) {
-                childInt = Integer.parseInt(child);
+            if(adult.isEmpty()) {
+                adult = "0";
             }
-            ActivityUtils.getInstance().invokeTourListActivity(getActivity(), new SearchTourModel(selectedTourId, location, type, date, adultInt, childInt));
+            if(child.isEmpty()) {
+                child = "0";
+            }
+            ActivityUtils.getInstance().invokeTourListActivity(getActivity(), new SearchTourModel(selectedTourId, location, type, date, adult, child));
         }
     }
 }

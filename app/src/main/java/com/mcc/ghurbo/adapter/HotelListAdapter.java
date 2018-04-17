@@ -73,7 +73,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
 
         Glide.with(context)
                 .load(arrayList.get(position).getThumbnailImage())
-                .error(R.drawable.ic_profile)
+                .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
                 .into(holder.icon);
 

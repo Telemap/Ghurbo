@@ -13,6 +13,7 @@ public class AppConstants {
     public static final String BUNDLE_KEY_LOGIN_MODEL = "login_model";
     public static final String BUNDLE_MULTI_IMAGE = "multi_image";
     public static final String BUNDLE_ROOM_DETAILS = "room_details";
+    public static final String BUNDLE_FROM_BOOKING = "from_booking";
 
     public static final String CURRENCY = "BDT ";
 }

@@ -44,4 +44,7 @@ public class HttpParams {
     public static final String  PARAM_CHILDREN = "children";
     public static final String  PARAM_NOTES = "additionalnotes";
 
+    public static final String  PARAM_DATE = "date";
+    public static final String  PARAM_INFANT = "infant";
+
 }

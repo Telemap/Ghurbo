@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#03A9F4</color>
-    <color name="colorPrimaryDark">#0288D1</color>
+    <color name="colorPrimary">#0079C0</color>
+    <color name="colorPrimaryDark">#016ba9</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="white">#ffffff</color>
@@ -22,5 +22,13 @@
     <color name="light_bg">#11000000</color>
 
     <color name="line">#D5D8E1</color>
+
+    <color name="btn_blue">#0079C0</color>
+    <color name="btn_blue_hover">#0ea6ff</color>
+
+    <color name="btn_yellow">#fdb713</color>
+    <color name="btn_yellow_hover">#f9ca5b</color>
+
+    <color name="input_boarder">#a1a6a8</color>
 
 </resources>

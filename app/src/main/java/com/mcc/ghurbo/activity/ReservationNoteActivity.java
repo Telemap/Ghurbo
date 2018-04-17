@@ -3,17 +3,21 @@ package com.mcc.ghurbo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.data.constant.AppConstants;
+import com.mcc.ghurbo.data.preference.AppPreference;
+import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
+import com.mcc.ghurbo.utility.ActivityUtils;
+import com.mcc.ghurbo.utility.Utils;
 
 public class ReservationNoteActivity extends BaseActivity {
-
 
     private SearchTourModel searchTourModel;
     private SearchHotelModel searchHotelModel;
@@ -52,7 +56,6 @@ public class ReservationNoteActivity extends BaseActivity {
         etNote = (EditText) findViewById(R.id.et_note);
         etCoupon = (EditText) findViewById(R.id.et_coupon);
         btnConfirm = (Button) findViewById(R.id.btn_confirm);
-
     }
 
     private void initListeners() {
@@ -60,6 +63,23 @@ public class ReservationNoteActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+                if (searchHotelModel != null) {
+                    searchHotelModel.setNotes(etNote.getText().toString());
+                    searchHotelModel.setCouponCode(etCoupon.getText().toString());
+                }
+
+                if (searchTourModel != null) {
+                    searchTourModel.setNotes(etNote.getText().toString());
+                    searchTourModel.setCouponCode(etCoupon.getText().toString());
+                }
+
+                boolean isLogin = AppPreference.getInstance(getApplicationContext()).getBoolean(PrefKey.LOGIN);
+                if(isLogin) {
+                    ActivityUtils.getInstance().invokeReserveConfirmActivity(ReservationNoteActivity.this, searchTourModel, searchHotelModel);
+                } else {
+                    Utils.showToast(getApplicationContext(), getString(R.string.login_message));
+                    ActivityUtils.getInstance().invokeLoginActivity(ReservationNoteActivity.this, searchTourModel, searchHotelModel);
+                }
             }
         });
     }

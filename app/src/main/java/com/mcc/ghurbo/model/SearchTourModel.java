@@ -9,14 +9,16 @@ public class SearchTourModel implements Parcelable {
     private String location;
     private String type;
     private String date;
-    private int adult;
-    private int child;
+    private String adult;
+    private String child;
 
     // added as extra
     private String tourPackageId; // for booking
+    private String notes; // for booking
+    private String couponCode; // for booking
     private String imageUrl; // for transition
 
-    public SearchTourModel(String locationId, String location, String type, String date, int adult, int child) {
+    public SearchTourModel(String locationId, String location, String type, String date, String adult, String child) {
         this.locationId = locationId;
         this.location = location;
         this.type = type;
@@ -33,11 +35,11 @@ public class SearchTourModel implements Parcelable {
         return location;
     }
 
-    public int getAdult() {
+    public String getAdult() {
         return adult;
     }
 
-    public int getChild() {
+    public String getChild() {
         return child;
     }
 
@@ -65,6 +67,22 @@ public class SearchTourModel implements Parcelable {
         this.imageUrl = imageUrl;
     }
 
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getCouponCode() {
+        return couponCode;
+    }
+
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -76,10 +94,12 @@ public class SearchTourModel implements Parcelable {
         dest.writeString(this.location);
         dest.writeString(this.type);
         dest.writeString(this.date);
-        dest.writeInt(this.adult);
-        dest.writeInt(this.child);
+        dest.writeString(this.adult);
+        dest.writeString(this.child);
         dest.writeString(this.tourPackageId);
         dest.writeString(this.imageUrl);
+        dest.writeString(this.notes);
+        dest.writeString(this.couponCode);
     }
 
     protected SearchTourModel(Parcel in) {
@@ -87,10 +107,12 @@ public class SearchTourModel implements Parcelable {
         this.location = in.readString();
         this.type = in.readString();
         this.date = in.readString();
-        this.adult = in.readInt();
-        this.child = in.readInt();
+        this.adult = in.readString();
+        this.child = in.readString();
         this.tourPackageId = in.readString();
         this.imageUrl = in.readString();
+        this.notes = in.readString();
+        this.couponCode = in.readString();
     }
 
     public static final Parcelable.Creator<SearchTourModel> CREATOR = new Parcelable.Creator<SearchTourModel>() {

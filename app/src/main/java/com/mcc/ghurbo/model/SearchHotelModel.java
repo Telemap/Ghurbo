@@ -9,15 +9,18 @@ public class SearchHotelModel implements Parcelable{
     private String location;
     private String checkIn;
     private String checkOut;
-    private int adult;
-    private int child;
-    private int rooms;
+    private String adult;
+    private String child;
+    private String rooms;
 
     // added as extra
     private String hotelId; // for booking
+    private String roomId; // for booking
+    private String notes; // for booking
+    private String couponCode; // for booking
     private String imageUrl; // for booking
 
-    public SearchHotelModel(String locationId, String location, String checkIn, String checkOut, int adult, int child, int rooms) {
+    public SearchHotelModel(String locationId, String location, String checkIn, String checkOut, String adult, String child, String rooms) {
         this.locationId = locationId;
         this.location = location;
         this.checkIn = checkIn;
@@ -43,15 +46,15 @@ public class SearchHotelModel implements Parcelable{
         return checkOut;
     }
 
-    public int getAdult() {
+    public String getAdult() {
         return adult;
     }
 
-    public int getChild() {
+    public String getChild() {
         return child;
     }
 
-    public int getRooms() {
+    public String getRooms() {
         return rooms;
     }
 
@@ -71,6 +74,30 @@ public class SearchHotelModel implements Parcelable{
         this.imageUrl = imageUrl;
     }
 
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getCouponCode() {
+        return couponCode;
+    }
+
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -82,11 +109,14 @@ public class SearchHotelModel implements Parcelable{
         dest.writeString(this.location);
         dest.writeString(this.checkIn);
         dest.writeString(this.checkOut);
-        dest.writeInt(this.adult);
-        dest.writeInt(this.child);
-        dest.writeInt(this.rooms);
+        dest.writeString(this.adult);
+        dest.writeString(this.child);
+        dest.writeString(this.rooms);
         dest.writeString(this.hotelId);
         dest.writeString(this.imageUrl);
+        dest.writeString(this.notes);
+        dest.writeString(this.couponCode);
+        dest.writeString(this.roomId);
     }
 
     protected SearchHotelModel(Parcel in) {
@@ -94,11 +124,14 @@ public class SearchHotelModel implements Parcelable{
         this.location = in.readString();
         this.checkIn = in.readString();
         this.checkOut = in.readString();
-        this.adult = in.readInt();
-        this.child = in.readInt();
-        this.rooms = in.readInt();
+        this.adult = in.readString();
+        this.child = in.readString();
+        this.rooms = in.readString();
         this.hotelId = in.readString();
         this.imageUrl = in.readString();
+        this.notes = in.readString();
+        this.couponCode = in.readString();
+        this.roomId = in.readString();
     }
 
     public static final Parcelable.Creator<SearchHotelModel> CREATOR = new Parcelable.Creator<SearchHotelModel>() {
@@ -110,4 +143,5 @@ public class SearchHotelModel implements Parcelable{
             return new SearchHotelModel[size];
         }
     };
+
 }

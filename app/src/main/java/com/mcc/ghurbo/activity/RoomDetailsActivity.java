@@ -114,6 +114,7 @@ public class RoomDetailsActivity extends BaseActivity {
         Glide.with(getApplicationContext())
                 .load(roomDetailsModel.getThumbnailImage())
                 .error(R.color.placeholder)
+                .placeholder(R.color.placeholder)
                 .into(ivTransitionImg);
     }
 
@@ -121,6 +122,7 @@ public class RoomDetailsActivity extends BaseActivity {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                searchHotelModel.setRoomId(roomDetailsModel.getRoomId());
                 ActivityUtils.getInstance().invokeReserveNoteActivity(RoomDetailsActivity.this, null, searchHotelModel);
             }
         });

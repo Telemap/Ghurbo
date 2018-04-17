@@ -7,6 +7,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -45,8 +46,8 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
             title = (TextView) view.findViewById(R.id.title);
             subtitle = (TextView) view.findViewById(R.id.subtitle);
             price = (TextView) view.findViewById(R.id.price);
-            itemView.setOnClickListener(this);
 
+            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -72,7 +73,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
 
         Glide.with(context)
                 .load(arrayList.get(position).getThumbnailImage())
-                .error(R.drawable.ic_profile)
+                .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
                 .into(holder.icon);
 

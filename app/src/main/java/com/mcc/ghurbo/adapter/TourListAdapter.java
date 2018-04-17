@@ -72,7 +72,7 @@ public class TourListAdapter extends RecyclerView.Adapter<TourListAdapter.ViewHo
 
         Glide.with(context)
                 .load(arrayList.get(position).getThumbnailImage())
-                .error(R.drawable.ic_profile)
+                .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
                 .into(holder.icon);
 

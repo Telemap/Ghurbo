@@ -34,40 +34,14 @@
             android:hint="@string/coupon"
             android:padding="10dp" />
 
-
-        <LinearLayout
+        <Button
+            android:id="@+id/btn_confirm"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="0.8" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1.2"
-                android:orientation="horizontal"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp">
-
-                <Button
-                    android:id="@+id/btn_confirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/btn_search"
-                    android:text="@string/confirm"
-                    android:textColor="@color/white" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_blue"
+            android:text="@string/confirm"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

@@ -235,16 +235,17 @@ public class HotelSearchFragment extends Fragment {
         if(location.isEmpty() || checkIn.isEmpty() || checkOut.isEmpty() || adult.isEmpty()) {
             Utils.showToast(getActivity().getApplicationContext(), getString(R.string.input_validation));
         } else {
-            int adultInt = Integer.parseInt(adult);
-            int childInt = 0;
-            if(!child.isEmpty()) {
-                childInt = Integer.parseInt(child);
+
+            if(adult.isEmpty()) {
+                adult = "0";
             }
-            int roomsInt = 0;
-            if(!rooms.isEmpty()) {
-                roomsInt = Integer.parseInt(rooms);
+            if(child.isEmpty()) {
+                child = "0";
             }
-            ActivityUtils.getInstance().invokeHotelListActivity(getActivity(), new SearchHotelModel(selectedLocationId, location, checkIn, checkOut, adultInt, childInt, roomsInt));
+            if(rooms.isEmpty()) {
+                rooms = "0";
+            }
+            ActivityUtils.getInstance().invokeHotelListActivity(getActivity(), new SearchHotelModel(selectedLocationId, location, checkIn, checkOut, adult, child, rooms));
         }
     }
 

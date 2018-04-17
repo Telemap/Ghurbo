@@ -37,7 +37,7 @@ public class AppPreference {
         editor.commit();
     }
     public String getString(String key) {
-        return sharedPreferences.getString(key,"");
+        return sharedPreferences.getString(key,null);
     }
 
     public void setBoolean(String key, boolean value) {

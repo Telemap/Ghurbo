@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/icon"
         android:orientation="vertical">
 
@@ -32,14 +32,38 @@
             android:text="@string/placeholder"
             android:textStyle="bold" />
 
-        <com.mcc.ghurbo.view.RobotoTextView
-            android:id="@+id/subtitle"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="@string/placeholder" />
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <com.mcc.ghurbo.view.RobotoTextView
+                android:id="@+id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/reserve"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:paddingEnd="5dp"
+                android:text="@string/placeholder" />
+
+            <com.mcc.ghurbo.view.RobotoTextView
+                android:id="@+id/reserve"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/btn_blue"
+                android:gravity="center"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:text="@string/book_now"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
 
         <com.mcc.ghurbo.view.RobotoTextView
             android:id="@+id/price"
@@ -52,6 +76,5 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

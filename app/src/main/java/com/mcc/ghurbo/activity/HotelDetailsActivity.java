@@ -123,6 +123,7 @@ public class HotelDetailsActivity extends BaseActivity {
         Glide.with(getApplicationContext())
                 .load(searchHotelModel.getImageUrl())
                 .error(R.color.placeholder)
+                .placeholder(R.color.placeholder)
                 .into(ivTransitionImg);
     }
 

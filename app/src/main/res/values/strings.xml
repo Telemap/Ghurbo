@@ -116,4 +116,11 @@
     <string name="coupon">Coupon</string>
     <string name="confirm">Confirm Reservation</string>
 
+    <string name="concat_note">Note:</string>
+    <string name="concat_coupon">, Coupon:</string>
+    <string name="login_now">Login Now</string>
+    <string name="login_message">Please login to book</string>
+
+    <string name="print">Print</string>
+
 </resources>
