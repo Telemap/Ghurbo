@@ -82,7 +82,9 @@ public class TourListActivity extends BaseActivity{
             @Override
             public void onItemClick(int position, View v) {
 
+                String tourPackageName = arrayList.get(position).getTourTitle();
                 String tourPackageId = arrayList.get(position).getTourId();
+                searchTourModel.setTourPackageName(tourPackageName);
                 searchTourModel.setTourPackageId(tourPackageId);
 
                 ImageView imageView = v.findViewById(R.id.icon);

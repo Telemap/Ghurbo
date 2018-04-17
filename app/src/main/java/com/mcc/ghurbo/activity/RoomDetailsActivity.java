@@ -122,7 +122,9 @@ public class RoomDetailsActivity extends BaseActivity {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                searchHotelModel.setRate(roomDetailsModel.getTotalPrice());
                 searchHotelModel.setRoomId(roomDetailsModel.getRoomId());
+                searchHotelModel.setRoomName(roomDetailsModel.getTitle());
                 ActivityUtils.getInstance().invokeReserveNoteActivity(RoomDetailsActivity.this, null, searchHotelModel);
             }
         });

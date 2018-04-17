@@ -26,7 +26,8 @@
     <color name="btn_blue">#0079C0</color>
     <color name="btn_blue_hover">#0ea6ff</color>
 
-    <color name="btn_yellow">#fdb713</color>
+    <color name="yellow">#fdb713</color>
+    <color name="btn_yellow">@color/yellow</color>
     <color name="btn_yellow_hover">#f9ca5b</color>
 
     <color name="input_boarder">#a1a6a8</color>

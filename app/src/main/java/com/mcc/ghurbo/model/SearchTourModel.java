@@ -14,6 +14,9 @@ public class SearchTourModel implements Parcelable {
 
     // added as extra
     private String tourPackageId; // for booking
+    private String tourPackageName; // for booking
+    private String rateAdult; // for booking
+    private String rateChild; // for booking
     private String notes; // for booking
     private String couponCode; // for booking
     private String imageUrl; // for transition
@@ -83,6 +86,31 @@ public class SearchTourModel implements Parcelable {
         this.couponCode = couponCode;
     }
 
+    public String getTourPackageName() {
+        return tourPackageName;
+    }
+
+    public void setTourPackageName(String tourPackageName) {
+        this.tourPackageName = tourPackageName;
+    }
+
+    public String getRateAdult() {
+        return rateAdult;
+    }
+
+    public void setRateAdult(String rateAdult) {
+        this.rateAdult = rateAdult;
+    }
+
+    public String getRateChild() {
+        return rateChild;
+    }
+
+    public void setRateChild(String rateChild) {
+        this.rateChild = rateChild;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -100,6 +128,9 @@ public class SearchTourModel implements Parcelable {
         dest.writeString(this.imageUrl);
         dest.writeString(this.notes);
         dest.writeString(this.couponCode);
+        dest.writeString(this.tourPackageName);
+        dest.writeString(this.rateAdult);
+        dest.writeString(this.rateChild);
     }
 
     protected SearchTourModel(Parcel in) {
@@ -113,6 +144,9 @@ public class SearchTourModel implements Parcelable {
         this.imageUrl = in.readString();
         this.notes = in.readString();
         this.couponCode = in.readString();
+        this.tourPackageName = in.readString();
+        this.rateAdult = in.readString();
+        this.rateChild = in.readString();
     }
 
     public static final Parcelable.Creator<SearchTourModel> CREATOR = new Parcelable.Creator<SearchTourModel>() {
@@ -124,4 +158,6 @@ public class SearchTourModel implements Parcelable {
             return new SearchTourModel[size];
         }
     };
+
+
 }

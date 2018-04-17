@@ -122,5 +122,14 @@
     <string name="login_message">Please login to book</string>
 
     <string name="print">Print</string>
+    <string name="simply_rate">Rate:</string>
+    <string name="rate_adult">Adult Rate:</string>
+    <string name="rate_child">Child Rate:</string>
+    <string name="total_adult">Total Adult:</string>
+    <string name="total_child">Total Child:</string>
+    <string name="total_rooms">Total Rooms:</string>
+    <string name="price_total">Total:</string>
+    <string name="booking_no">Booking Number:\u0020</string>
+    <string name="booking_failed">Booking Failed!</string>
 
 </resources>

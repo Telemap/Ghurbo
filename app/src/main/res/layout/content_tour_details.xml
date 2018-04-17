@@ -109,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="2">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -173,43 +173,6 @@
 
                     <com.mcc.ghurbo.view.RobotoTextView
                         android:id="@+id/child_max"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:gravity="center"
-                        android:textSize="10sp" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/line" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/infant" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/infant_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <com.mcc.ghurbo.view.RobotoTextView
-                        android:id="@+id/infant_max"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"

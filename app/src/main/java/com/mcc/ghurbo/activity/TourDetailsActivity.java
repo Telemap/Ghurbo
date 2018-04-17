@@ -37,7 +37,7 @@ public class TourDetailsActivity extends BaseActivity {
 
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView title, adultPrice, adultMax, childPrice, childMax,
-            infantPrice, infantMax, tvDuration, location;
+             tvDuration, location;
     private ImageButton ibMap;
     private RatingBar rating;
     private WebView webView;
@@ -85,8 +85,6 @@ public class TourDetailsActivity extends BaseActivity {
         adultMax = (TextView) findViewById(R.id.adult_max);
         childPrice = (TextView) findViewById(R.id.child_price);
         childMax = (TextView) findViewById(R.id.child_max);
-        infantPrice = (TextView) findViewById(R.id.infant_price);
-        infantMax = (TextView) findViewById(R.id.infant_max);
         tvDuration = (TextView) findViewById(R.id.tv_duration);
         location = (TextView) findViewById(R.id.location);
         ibMap = (ImageButton) findViewById(R.id.ib_map);
@@ -176,14 +174,6 @@ public class TourDetailsActivity extends BaseActivity {
             childPrice.setText(getString(R.string.na));
         }
 
-        String infantStatus = tourDetailsModel.getInfantStatus();
-        if (infantStatus != null && infantStatus.equals("1")) {
-            infantPrice.setText(tourDetailsModel.getInfantPrice() + getString(R.string.currency));
-            infantMax.setText(tourDetailsModel.getMaxInfant() + getString(R.string.person_max));
-        } else {
-            infantPrice.setText(getString(R.string.na));
-        }
-
         tvDuration.setText(tourDetailsModel.getTourDays() + getString(R.string.days) +" "+ tourDetailsModel.getTourNights() + getString(R.string.nights));
         location.setText(tourDetailsModel.getLocation());
 
@@ -211,6 +201,10 @@ public class TourDetailsActivity extends BaseActivity {
                 ActivityUtils.getInstance().invokeImages(TourDetailsActivity.this, tourDetailsModel.getAllPhotos(), ivTransitionImg);
             }
         });
+
+        // set pricing
+        searchTourModel.setRateAdult(tourDetailsModel.getAdultPrice());
+        searchTourModel.setRateChild(tourDetailsModel.getChildPrice());
 
     }
 

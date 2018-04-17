@@ -83,7 +83,9 @@ public class HotelListActivity extends BaseActivity{
             @Override
             public void onItemClick(int position, View v) {
 
+                String hotelName = arrayList.get(position).getHotelTitle();
                 String hotelId = arrayList.get(position).getHotelId();
+                searchHotelModel.setHotelName(hotelName);
                 searchHotelModel.setHotelId(hotelId);
 
                 ImageView imageView = v.findViewById(R.id.icon);

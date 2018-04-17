@@ -15,6 +15,9 @@ public class SearchHotelModel implements Parcelable{
 
     // added as extra
     private String hotelId; // for booking
+    private String hotelName; // for booking
+    private String roomName; // for booking
+    private String rate; // for booking
     private String roomId; // for booking
     private String notes; // for booking
     private String couponCode; // for booking
@@ -98,6 +101,31 @@ public class SearchHotelModel implements Parcelable{
         this.roomId = roomId;
     }
 
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -117,6 +145,9 @@ public class SearchHotelModel implements Parcelable{
         dest.writeString(this.notes);
         dest.writeString(this.couponCode);
         dest.writeString(this.roomId);
+        dest.writeString(this.hotelName);
+        dest.writeString(this.rate);
+        dest.writeString(this.roomName);
     }
 
     protected SearchHotelModel(Parcel in) {
@@ -132,6 +163,9 @@ public class SearchHotelModel implements Parcelable{
         this.notes = in.readString();
         this.couponCode = in.readString();
         this.roomId = in.readString();
+        this.hotelName = in.readString();
+        this.rate = in.readString();
+        this.roomName = in.readString();
     }
 
     public static final Parcelable.Creator<SearchHotelModel> CREATOR = new Parcelable.Creator<SearchHotelModel>() {
