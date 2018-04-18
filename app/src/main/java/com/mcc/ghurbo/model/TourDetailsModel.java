@@ -24,6 +24,7 @@ public class TourDetailsModel {
     private String tourDays;
     private String tourNights;
     private String thumbnailImage;
+    private String phoneNumber;
     private ArrayList<String> allPhotos = null;
     private ArrayList<AmenityModel> amenities = null;
 
@@ -36,7 +37,7 @@ public class TourDetailsModel {
                             String infantPrice, String adultStatus,
                             String childStatus, String infantStatus,
                             String tourDays, String tourNights,
-                            String thumbnailImage, ArrayList<String> allPhotos,
+                            String thumbnailImage, String phoneNumber, ArrayList<String> allPhotos,
                             ArrayList<AmenityModel> amenities) {
         this.tourId = tourId;
         this.tourTitle = tourTitle;
@@ -57,6 +58,7 @@ public class TourDetailsModel {
         this.tourDays = tourDays;
         this.tourNights = tourNights;
         this.thumbnailImage = thumbnailImage;
+        this.phoneNumber = phoneNumber;
         this.allPhotos = allPhotos;
         this.amenities = amenities;
     }
@@ -149,4 +151,7 @@ public class TourDetailsModel {
         return amenities;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 }

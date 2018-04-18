@@ -23,7 +23,7 @@ public class HotelDetailsParser {
                             hotelStars = null, hotelRatings = null, location = null,
                             latitude = null, longitude = null,
                             checkInTime = null, checkOutTime = null, thumbnailImage = null,
-                            module = null;
+                            module = null, phone = null;
 
                     ArrayList<String> hotelImages = null;
                     ArrayList<AmenityModel> amenities = null;
@@ -80,6 +80,10 @@ public class HotelDetailsParser {
                         module = jsonData.getString("module");
                     }
 
+                    if (jsonData.has("phone")) {
+                        phone = jsonData.getString("phone");
+                    }
+
                     if (jsonData.has("hotel_images")) {
                         JSONArray photos = jsonData.getJSONArray("hotel_images");
                         hotelImages = getPhotos(photos);
@@ -99,7 +103,7 @@ public class HotelDetailsParser {
                             hotelStars, hotelRatings, location,
                             latitude, longitude,
                             checkInTime, checkOutTime, thumbnailImage,
-                            module, hotelImages, amenities,
+                            module, phone, hotelImages, amenities,
                             roomDetails);
                 }
             }

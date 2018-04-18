@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:transitionName="@string/details_transition" />
+                    android:transitionName="@string/room_transition" />
 
                 <View
                     android:layout_width="match_parent"

@@ -143,6 +143,16 @@ public class Utils {
         }
     }
 
+    public static void makePhoneCall(Activity activity, String phoneNumber) {
+        if (phoneNumber != null) {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + phoneNumber));
+            if (PermissionUtils.isPermissionGranted(activity, PermissionUtils.CALL_PERMISSIONS, PermissionUtils.REQUEST_CALL)) {
+                activity.startActivity(callIntent);
+            }
+        }
+    }
+
 
 
 }

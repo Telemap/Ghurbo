@@ -21,20 +21,24 @@ import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
+import com.mcc.ghurbo.utility.PermissionUtils;
+import com.mcc.ghurbo.utility.Utils;
 
 public class ReservationConfirmActivity extends BaseActivity {
 
     private SearchTourModel searchTourModel;
     private SearchHotelModel searchHotelModel;
 
-    private TextView hotelName, tvBookingNumber, checkin,
-            checkout, tvRoomName, tvRateAdult, tvTotalAdult,
+    private TextView hotelName, tvBookingNumber, checkin, tvLocation,
+            checkout, tvRoomName, tvRateAdult, tvTotalAdult, tvCall,
             tvRateChild, tvTotalChild, date, tvTotal, tvRooms, tvRate, infoText;
     private RelativeLayout btnLocation, btnCall, roomInfoView;
     private LinearLayout roomsView, checkInOutPanel, datePanel, adultRatePanel,
             adultCountPanel, childRatePanel, childCountPanel, ratePanel;
     private Button btnEmail, btnPrint;
     private ImageView ivRoom;
+
+    private String callTo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,8 @@ public class ReservationConfirmActivity extends BaseActivity {
         tvRate = (TextView) findViewById(R.id.tv_rate);
         date = (TextView) findViewById(R.id.date);
         infoText = (TextView) findViewById(R.id.info_text);
+        tvLocation = (TextView) findViewById(R.id.tv_location);
+        tvCall = (TextView) findViewById(R.id.tv_call);
 
         btnLocation = (RelativeLayout) findViewById(R.id.btn_location);
         btnCall = (RelativeLayout) findViewById(R.id.btn_call);
@@ -152,6 +158,9 @@ public class ReservationConfirmActivity extends BaseActivity {
                         roomsView.setVisibility(View.VISIBLE);
                         tvRooms.setText(searchHotelModel.getRooms());
 
+                        tvLocation.setText(searchHotelModel.getAddress());
+                        tvCall.setText(searchHotelModel.getPhoneNumber());
+
                         String price = searchHotelModel.getRate();
                         float rate = 0;
                         if (price != null) {
@@ -173,6 +182,12 @@ public class ReservationConfirmActivity extends BaseActivity {
                                 .error(R.color.placeholder)
                                 .placeholder(R.color.placeholder)
                                 .into(ivRoom);
+
+                        callTo = searchHotelModel.getPhoneNumber();
+
+                        if(callTo == null) {
+                            btnCall.setVisibility(View.GONE);
+                        }
 
                     } else {
                         showEmptyView();
@@ -220,6 +235,9 @@ public class ReservationConfirmActivity extends BaseActivity {
                         tvTotalChild.setText(searchTourModel.getChild());
                         roomsView.setVisibility(View.GONE);
 
+                        tvLocation.setText(searchTourModel.getAddress());
+                        tvCall.setText(searchTourModel.getPhoneNumber());
+
                         String adultPrice = searchTourModel.getRateAdult();
                         float rateAdult = 0;
                         if (adultPrice != null) {
@@ -250,6 +268,12 @@ public class ReservationConfirmActivity extends BaseActivity {
 
                         ratePanel.setVisibility(View.GONE);
 
+                        callTo = searchTourModel.getPhoneNumber();
+
+                        if(callTo == null) {
+                            btnCall.setVisibility(View.GONE);
+                        }
+
                     } else {
                         showEmptyView();
                         infoText.setText(getString(R.string.booking_failed));
@@ -276,6 +300,38 @@ public class ReservationConfirmActivity extends BaseActivity {
 
             }
         });
+
+        btnLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(searchHotelModel != null) {
+                    Utils.invokeMap(ReservationConfirmActivity.this, searchHotelModel.getLatitude(), searchHotelModel.getLongitude());
+                } else {
+                    Utils.invokeMap(ReservationConfirmActivity.this, searchTourModel.getLatitude(), searchTourModel.getLongitude());
+                }
+            }
+        });
+
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.makePhoneCall(ReservationConfirmActivity.this, callTo);
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (PermissionUtils.isPermissionResultGranted(grantResults)) {
+            if (requestCode == PermissionUtils.REQUEST_CALL) {
+                Utils.makePhoneCall(ReservationConfirmActivity.this, callTo);
+            }
+        } else {
+            Utils.showToast(ReservationConfirmActivity.this, getString(R.string.permission_not_granted));
+        }
+
     }
 
 }

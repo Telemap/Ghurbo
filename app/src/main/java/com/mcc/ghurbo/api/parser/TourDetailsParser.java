@@ -28,7 +28,7 @@ public class TourDetailsParser {
                             infantPrice = null, adultStatus = null,
                             childStatus = null, infantStatus = null,
                             tourDays = null, tourNights = null,
-                            thumbnailImage = null;
+                            phone = null, thumbnailImage = null;
 
                     ArrayList<String> allPhotos = null;
                     ArrayList<AmenityModel> amenities = null;
@@ -107,6 +107,10 @@ public class TourDetailsParser {
                         tourNights = jsonData.getString("tour_nights");
                     }
 
+                    if (jsonData.has("phone")) {
+                        phone = jsonData.getString("phone");
+                    }
+
                     if (jsonData.has("thumbnail_image")) {
                         thumbnailImage = jsonData.getString("thumbnail_image");
                     }
@@ -131,7 +135,7 @@ public class TourDetailsParser {
                             adultPrice, childPrice,
                             infantPrice, adultStatus,
                             childStatus, infantStatus,
-                            tourDays, tourNights,
+                            tourDays, tourNights, phone,
                             thumbnailImage, allPhotos,
                             amenities);
                 }

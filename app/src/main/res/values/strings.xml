@@ -10,6 +10,7 @@
     <string name="ghurbo_messenger">https://m.me/ghurbocom</string>
 
     <string name="details_transition">details_transition</string>
+    <string name="room_transition">room_transition</string>
     <string name="img_transition">img_transition</string>
 
     <!-- End: do not translate -->

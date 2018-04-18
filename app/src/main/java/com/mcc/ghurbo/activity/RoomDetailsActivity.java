@@ -173,6 +173,13 @@ public class RoomDetailsActivity extends BaseActivity {
             recyclerView.setVisibility(View.GONE);
         }
 
+        ivTransitionImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtils.getInstance().invokeImages(RoomDetailsActivity.this, roomDetailsModel.getImages(), ivTransitionImg);
+            }
+        });
+
     }
 
     @Override

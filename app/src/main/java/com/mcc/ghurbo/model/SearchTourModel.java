@@ -20,6 +20,10 @@ public class SearchTourModel implements Parcelable {
     private String notes; // for booking
     private String couponCode; // for booking
     private String imageUrl; // for transition
+    private String address; // for booking
+    private String longitude; // for booking
+    private String latitude; // for booking
+    private String phoneNumber; // for booking
 
     public SearchTourModel(String locationId, String location, String type, String date, String adult, String child) {
         this.locationId = locationId;
@@ -110,6 +114,37 @@ public class SearchTourModel implements Parcelable {
         this.rateChild = rateChild;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     @Override
     public int describeContents() {
@@ -131,6 +166,10 @@ public class SearchTourModel implements Parcelable {
         dest.writeString(this.tourPackageName);
         dest.writeString(this.rateAdult);
         dest.writeString(this.rateChild);
+        dest.writeString(this.address);
+        dest.writeString(this.longitude);
+        dest.writeString(this.latitude);
+        dest.writeString(this.phoneNumber);
     }
 
     protected SearchTourModel(Parcel in) {
@@ -147,6 +186,10 @@ public class SearchTourModel implements Parcelable {
         this.tourPackageName = in.readString();
         this.rateAdult = in.readString();
         this.rateChild = in.readString();
+        this.address = in.readString();
+        this.longitude = in.readString();
+        this.latitude = in.readString();
+        this.phoneNumber = in.readString();
     }
 
     public static final Parcelable.Creator<SearchTourModel> CREATOR = new Parcelable.Creator<SearchTourModel>() {

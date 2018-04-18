@@ -17,6 +17,7 @@ public class HotelDetailsModel {
     private String checkOutTime;
     private String thumbnailImage;
     private String module;
+    private String phoneNumber;
     private ArrayList<RoomDetailsModel> roomDetails = null;
     private ArrayList<String> hotelImages = null;
     private ArrayList<AmenityModel> amenities = null;
@@ -25,7 +26,7 @@ public class HotelDetailsModel {
                              String hotelStars, String hotelRatings, String location,
                              String latitude, String longitude,
                              String checkInTime, String checkOutTime, String thumbnailImage,
-                             String module, ArrayList<String> hotelImages, ArrayList<AmenityModel> amenities,
+                             String module, String phoneNumber, ArrayList<String> hotelImages, ArrayList<AmenityModel> amenities,
                              ArrayList<RoomDetailsModel> roomDetails) {
         this.hotelId = hotelId;
         this.hotelTitle = hotelTitle;
@@ -40,6 +41,7 @@ public class HotelDetailsModel {
         this.checkOutTime = checkOutTime;
         this.thumbnailImage = thumbnailImage;
         this.module = module;
+        this.phoneNumber = phoneNumber;
         this.hotelImages = hotelImages;
         this.roomDetails = roomDetails;
     }
@@ -102,5 +104,9 @@ public class HotelDetailsModel {
 
     public ArrayList<RoomDetailsModel> getRoomDetails() {
         return roomDetails;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 }

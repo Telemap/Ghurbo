@@ -82,15 +82,11 @@ public class TourListActivity extends BaseActivity{
             @Override
             public void onItemClick(int position, View v) {
 
-                String tourPackageName = arrayList.get(position).getTourTitle();
-                String tourPackageId = arrayList.get(position).getTourId();
-                searchTourModel.setTourPackageName(tourPackageName);
-                searchTourModel.setTourPackageId(tourPackageId);
+                searchTourModel.setTourPackageName(arrayList.get(position).getTourTitle());
+                searchTourModel.setTourPackageId(arrayList.get(position).getTourId());
+                searchTourModel.setImageUrl(arrayList.get(position).getThumbnailImage());
 
                 ImageView imageView = v.findViewById(R.id.icon);
-                String imageUrl = arrayList.get(position).getThumbnailImage();
-                searchTourModel.setImageUrl(imageUrl);
-
                 ActivityUtils.getInstance().invokeTourDetailsActivity(TourListActivity.this, searchTourModel, imageView);
             }
         });

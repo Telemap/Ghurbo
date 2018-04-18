@@ -22,6 +22,10 @@ public class SearchHotelModel implements Parcelable{
     private String notes; // for booking
     private String couponCode; // for booking
     private String imageUrl; // for booking
+    private String address; // for booking
+    private String longitude; // for booking
+    private String latitude; // for booking
+    private String phoneNumber; // for booking
 
     public SearchHotelModel(String locationId, String location, String checkIn, String checkOut, String adult, String child, String rooms) {
         this.locationId = locationId;
@@ -117,13 +121,44 @@ public class SearchHotelModel implements Parcelable{
         this.rate = rate;
     }
 
-
     public String getRoomName() {
         return roomName;
     }
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
@@ -148,6 +183,10 @@ public class SearchHotelModel implements Parcelable{
         dest.writeString(this.hotelName);
         dest.writeString(this.rate);
         dest.writeString(this.roomName);
+        dest.writeString(this.address);
+        dest.writeString(this.longitude);
+        dest.writeString(this.latitude);
+        dest.writeString(this.phoneNumber);
     }
 
     protected SearchHotelModel(Parcel in) {
@@ -166,6 +205,10 @@ public class SearchHotelModel implements Parcelable{
         this.hotelName = in.readString();
         this.rate = in.readString();
         this.roomName = in.readString();
+        this.address = in.readString();
+        this.longitude = in.readString();
+        this.latitude = in.readString();
+        this.phoneNumber = in.readString();
     }
 
     public static final Parcelable.Creator<SearchHotelModel> CREATOR = new Parcelable.Creator<SearchHotelModel>() {

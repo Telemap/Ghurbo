@@ -17,6 +17,13 @@ public class PermissionUtils {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
+    public static final int REQUEST_CALL = 114;
+
+    // permission to make a phone call
+    public static final String[] CALL_PERMISSIONS = {
+            Manifest.permission.CALL_PHONE
+    };
+
 
     public static boolean isPermissionGranted(Activity activity, String[] permissions, int requestCode) {
         boolean requirePermission = false;

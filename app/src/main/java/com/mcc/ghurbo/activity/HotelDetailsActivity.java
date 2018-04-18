@@ -222,6 +222,12 @@ public class HotelDetailsActivity extends BaseActivity {
         roomListAdapter.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
+
+                searchHotelModel.setAddress(hotelDetailsModel.getLocation());
+                searchHotelModel.setLatitude(hotelDetailsModel.getLatitude());
+                searchHotelModel.setLongitude(hotelDetailsModel.getLongitude());
+                searchHotelModel.setPhoneNumber(hotelDetailsModel.getPhoneNumber());
+
                 ImageView imageView = view.findViewById(R.id.icon);
                 ActivityUtils.getInstance().invokeRoomDetailsActivity(HotelDetailsActivity.this, hotelDetailsModel.getRoomDetails().get(position), searchHotelModel, imageView);
             }

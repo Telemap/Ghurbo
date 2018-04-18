@@ -205,7 +205,10 @@ public class TourDetailsActivity extends BaseActivity {
         // set pricing
         searchTourModel.setRateAdult(tourDetailsModel.getAdultPrice());
         searchTourModel.setRateChild(tourDetailsModel.getChildPrice());
-
+        searchTourModel.setAddress(tourDetailsModel.getLocation());
+        searchTourModel.setLatitude(tourDetailsModel.getLatitude());
+        searchTourModel.setLongitude(tourDetailsModel.getLongitude());
+        searchTourModel.setPhoneNumber(tourDetailsModel.getPhoneNumber());
     }
 
     @Override
