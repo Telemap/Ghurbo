@@ -21,7 +21,9 @@ import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
+import com.mcc.ghurbo.utility.BitmapEmailUtils;
 import com.mcc.ghurbo.utility.PermissionUtils;
+import com.mcc.ghurbo.utility.PrintUtils;
 import com.mcc.ghurbo.utility.Utils;
 
 public class ReservationConfirmActivity extends BaseActivity {
@@ -34,7 +36,7 @@ public class ReservationConfirmActivity extends BaseActivity {
             tvRateChild, tvTotalChild, date, tvTotal, tvRooms, tvRate, infoText;
     private RelativeLayout btnLocation, btnCall, roomInfoView;
     private LinearLayout roomsView, checkInOutPanel, datePanel, adultRatePanel,
-            adultCountPanel, childRatePanel, childCountPanel, ratePanel;
+            adultCountPanel, childRatePanel, childCountPanel, ratePanel, parentView;
     private Button btnEmail, btnPrint;
     private ImageView ivRoom;
 
@@ -104,6 +106,7 @@ public class ReservationConfirmActivity extends BaseActivity {
         btnPrint = (Button) findViewById(R.id.btn_print);
 
         ivRoom = (ImageView) findViewById(R.id.iv_room);
+        parentView = (LinearLayout) findViewById(R.id.parent_view);
 
     }
 
@@ -290,21 +293,23 @@ public class ReservationConfirmActivity extends BaseActivity {
         btnEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (PermissionUtils.isPermissionGranted(ReservationConfirmActivity.this, PermissionUtils.SD_WRITE_PERMISSIONS, PermissionUtils.REQUEST_WRITE_STORAGE)) {
+                    new BitmapEmailUtils(parentView, ReservationConfirmActivity.this, getString(R.string.ghurbo_print)).execute();
+                }
             }
         });
 
         btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                new PrintUtils(parentView, ReservationConfirmActivity.this, getString(R.string.ghurbo_print)).execute();
             }
         });
 
         btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(searchHotelModel != null) {
+                if (searchHotelModel != null) {
                     Utils.invokeMap(ReservationConfirmActivity.this, searchHotelModel.getLatitude(), searchHotelModel.getLongitude());
                 } else {
                     Utils.invokeMap(ReservationConfirmActivity.this, searchTourModel.getLatitude(), searchTourModel.getLongitude());
@@ -327,6 +332,8 @@ public class ReservationConfirmActivity extends BaseActivity {
         if (PermissionUtils.isPermissionResultGranted(grantResults)) {
             if (requestCode == PermissionUtils.REQUEST_CALL) {
                 Utils.makePhoneCall(ReservationConfirmActivity.this, callTo);
+            } else if (requestCode == PermissionUtils.REQUEST_WRITE_STORAGE) {
+                new BitmapEmailUtils(parentView, ReservationConfirmActivity.this, getString(R.string.ghurbo_print)).execute();
             }
         } else {
             Utils.showToast(ReservationConfirmActivity.this, getString(R.string.permission_not_granted));

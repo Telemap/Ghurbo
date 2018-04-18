@@ -11,6 +11,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/parent_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/page_margin"
@@ -29,8 +30,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="15dp"
+                android:orientation="horizontal"
                 android:weightSum="1">
 
                 <RelativeLayout
@@ -212,7 +213,7 @@
                 android:background="@drawable/boarder_blue"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="30dp"
+                android:padding="15dp"
                 android:visibility="gone">
 
                 <com.mcc.ghurbo.view.RobotoTextView
@@ -293,8 +294,8 @@
                     android:id="@+id/rate_panel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
                     android:weightSum="1">
 
                     <com.mcc.ghurbo.view.RobotoTextView

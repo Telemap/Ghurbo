@@ -135,8 +135,8 @@ public class TourDetailsParser {
                             adultPrice, childPrice,
                             infantPrice, adultStatus,
                             childStatus, infantStatus,
-                            tourDays, tourNights, phone,
-                            thumbnailImage, allPhotos,
+                            tourDays, tourNights,
+                            thumbnailImage, phone, allPhotos,
                             amenities);
                 }
             }

@@ -133,4 +133,7 @@
     <string name="booking_no">Booking Number:\u0020</string>
     <string name="booking_failed">Booking Failed!</string>
 
+    <string name="ghurbo_print">Ghurbo Booking Confirmation</string>
+    <string name="initiating">Initiating...</string>
+
 </resources>
