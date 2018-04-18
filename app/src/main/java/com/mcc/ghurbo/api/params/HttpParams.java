@@ -16,6 +16,7 @@ public class HttpParams {
     public static final String API_HOTEL_DETAILS = "hotel_details";
     public static final String API_RESERVE_HOTEL = "reservation_hotel";
     public static final String API_RESERVE_TOUR = "reservation_tour";
+    public static final String API_ADD_TO_FAVORITE = "add_to_fav";
 
     // params
     public static final String PARAM_USERID = "auth_uid";
@@ -46,5 +47,7 @@ public class HttpParams {
 
     public static final String  PARAM_DATE = "date";
     public static final String  PARAM_INFANT = "infant";
+
+    public static final String  PARAM_FAV_TYPE = "type";
 
 }

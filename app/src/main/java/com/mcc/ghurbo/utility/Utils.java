@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.mcc.ghurbo.R;
 
+import java.io.File;
 import java.util.Locale;
 
 public class Utils {
@@ -155,20 +156,19 @@ public class Utils {
 
     public static void emailImage(Context context, String email, String subject, String text, String image) {
         try {
-            /*Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
             emailIntent.setType("application/image");
             emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{email});
             emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
             emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, text);
-            emailIntent.putExtra(Intent.EXTRA_STREAM, image);
+
+            Uri uri = Uri.fromFile(new File(image));
+            emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+            //emailIntent.putExtra(Intent.EXTRA_STREAM, image);
             context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-*/
-            // TODO: optimize this portion
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_STREAM, image);
-            shareIntent.setType("*/*");
-            context.startActivity(Intent.createChooser(shareIntent, "Send..."));
+
+
 
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();

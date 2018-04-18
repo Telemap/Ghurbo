@@ -20,9 +20,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.TourAmenitiesAdapter;
+import com.mcc.ghurbo.api.helper.RequestAddToFav;
 import com.mcc.ghurbo.api.helper.RequestTourDetails;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
+import com.mcc.ghurbo.data.preference.AppPreference;
+import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.model.AmenityModel;
 import com.mcc.ghurbo.model.SearchTourModel;
 import com.mcc.ghurbo.model.TourDetailsModel;
@@ -125,7 +128,7 @@ public class TourDetailsActivity extends BaseActivity {
         fabFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                makeFav();
             }
         });
     }
@@ -209,6 +212,13 @@ public class TourDetailsActivity extends BaseActivity {
         searchTourModel.setLatitude(tourDetailsModel.getLatitude());
         searchTourModel.setLongitude(tourDetailsModel.getLongitude());
         searchTourModel.setPhoneNumber(tourDetailsModel.getPhoneNumber());
+    }
+
+    private void makeFav() {
+        String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
+        RequestAddToFav requestAddToFav = new RequestAddToFav(getApplicationContext());
+        requestAddToFav.buildParams(userId, "tour", searchTourModel.getTourPackageId());
+        requestAddToFav.execute();
     }
 
     @Override

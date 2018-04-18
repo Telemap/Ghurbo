@@ -118,6 +118,12 @@
             tools:replace="android:theme" />
         <!-- end of Facebook Login Activity -->
 
+        <provider
+            android:authorities="@string/content_authority"
+            android:name=".data.sqlite.FavouriteProvider"
+            android:exported="false"
+            android:syncable="true"/>
+
     </application>
 
 </manifest>

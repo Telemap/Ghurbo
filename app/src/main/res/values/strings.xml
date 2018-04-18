@@ -13,6 +13,8 @@
     <string name="room_transition">room_transition</string>
     <string name="img_transition">img_transition</string>
 
+    <string name="content_authority">com.mcc.ghurbo.favorites</string>
+
     <!-- End: do not translate -->
 
     <string name="app_name">Ghurbo</string>

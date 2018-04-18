@@ -1,6 +1,8 @@
 package com.mcc.ghurbo.activity;
 
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
+import com.mcc.ghurbo.data.sqlite.DbConstants;
 import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.Utils;
 
@@ -35,7 +38,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void enableBackButton() {
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -77,9 +80,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.action_reservations) {
 
-        }
-
-        else if (id == R.id.action_share) {
+        } else if (id == R.id.action_share) {
             Utils.shareApp(BaseActivity.this);
         } else if (id == R.id.action_rate_app) {
             Utils.rateThisApp(BaseActivity.this);
@@ -131,7 +132,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
 
-        if(mToolbar != null) {
+        if (mToolbar != null) {
             Utils.noInternetWarning(mToolbar, getApplicationContext());
         }
     }
@@ -172,4 +173,46 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
+    private void addToFavorite(String id, String title,
+                               String image, String price,
+                               String location, String type) {
+
+        ContentValues values = new ContentValues();
+        values.put(DbConstants.COLUMN_ID, id);
+        values.put(DbConstants.COLUMN_TITLE, title);
+        values.put(DbConstants.COLUMN_IMAGE, image);
+        values.put(DbConstants.COLUMN_PRICE, price);
+        values.put(DbConstants.COLUMN_LOCATION, location);
+        values.put(DbConstants.COLUMN_LOCATION, type);
+
+        getContentResolver().insert(DbConstants.CONTENT_URI, values);
+    }
+
+    private boolean isFavorite(String id, String type) {
+
+        String[] projection = {
+                DbConstants._ID,
+                DbConstants.COLUMN_ID
+        };
+        String selection = DbConstants.COLUMN_ID + " =? AND " + DbConstants.COLUMN_TYPE + " =?";
+        String[] selectionArgs = {id, type};
+
+        Cursor c = getContentResolver().query(DbConstants.CONTENT_URI,
+                projection,
+                selection,
+                selectionArgs,
+                null);
+
+        if (c != null && c.getCount() > 0) {
+            c.close();
+            return true;
+        }
+        return false;
+    }
+
+    private void removeFromFavorite(String id) {
+        String selection = DbConstants.COLUMN_ID + "=?";
+        String[] selectionArgs = {String.valueOf(id)};
+        getContentResolver().delete(DbConstants.CONTENT_URI, selection, selectionArgs);
+    }
 }

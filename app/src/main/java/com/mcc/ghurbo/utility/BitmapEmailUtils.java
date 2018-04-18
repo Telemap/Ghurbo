@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.support.v4.print.PrintHelper;
 import android.view.View;
 
@@ -23,10 +24,15 @@ public class BitmapEmailUtils extends AsyncTask<Void, Void, String>{
     private WeakReference<Context> weakContext;
     private String title;
 
+    private TaskListener taskListener;
+
     public BitmapEmailUtils(View view, Context context, String title) {
         this.weakWidget = new WeakReference<View>(view);
         this.weakContext = new WeakReference<Context>(context);
         this.title = title;
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
     }
 
     @Override
@@ -49,6 +55,9 @@ public class BitmapEmailUtils extends AsyncTask<Void, Void, String>{
     protected void onPostExecute(String str) {
         super.onPostExecute(str);
         Utils.emailImage(weakContext.get(), "", title, "", str);
+        if(taskListener != null) {
+            taskListener.onTaskComplete();
+        }
     }
 
 
@@ -75,6 +84,14 @@ public class BitmapEmailUtils extends AsyncTask<Void, Void, String>{
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void setTaskListener(TaskListener taskListener) {
+        this.taskListener = taskListener;
+    }
+
+    public interface TaskListener{
+        public void onTaskComplete();
     }
 
 

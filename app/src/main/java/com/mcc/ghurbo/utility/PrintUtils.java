@@ -17,6 +17,8 @@ public class PrintUtils extends AsyncTask<Void, Void, Void>{
     private WeakReference<Context> weakContext;
     private String title;
 
+    private TaskListener taskListener;
+
     public PrintUtils(View view, Context context, String title) {
         this.weakWidget = new WeakReference<View>(view);
         this.weakContext = new WeakReference<Context>(context);
@@ -47,5 +49,16 @@ public class PrintUtils extends AsyncTask<Void, Void, Void>{
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
+        if(taskListener != null) {
+            taskListener.onTaskComplete();
+        }
+    }
+
+    public void setTaskListener(TaskListener taskListener) {
+        this.taskListener = taskListener;
+    }
+
+    public interface TaskListener{
+        public void onTaskComplete();
     }
 }

@@ -232,8 +232,8 @@ public class ReservationConfirmActivity extends BaseActivity {
 
                         roomInfoView.setVisibility(View.GONE);
 
-                        tvRateAdult.setText(searchTourModel.getRateAdult() + AppConstants.CURRENCY);
-                        tvRateChild.setText(searchTourModel.getRateChild() + AppConstants.CURRENCY);
+                        tvRateAdult.setText(searchTourModel.getRateAdult() +" "+ AppConstants.CURRENCY);
+                        tvRateChild.setText(searchTourModel.getRateChild() +" "+ AppConstants.CURRENCY);
                         tvTotalAdult.setText(searchTourModel.getAdult());
                         tvTotalChild.setText(searchTourModel.getChild());
                         roomsView.setVisibility(View.GONE);
@@ -293,16 +293,14 @@ public class ReservationConfirmActivity extends BaseActivity {
         btnEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (PermissionUtils.isPermissionGranted(ReservationConfirmActivity.this, PermissionUtils.SD_WRITE_PERMISSIONS, PermissionUtils.REQUEST_WRITE_STORAGE)) {
-                    new BitmapEmailUtils(parentView, ReservationConfirmActivity.this, getString(R.string.ghurbo_print)).execute();
-                }
+                emailInvoice();
             }
         });
 
         btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new PrintUtils(parentView, ReservationConfirmActivity.this, getString(R.string.ghurbo_print)).execute();
+                printInvoice();
             }
         });
 
@@ -325,6 +323,36 @@ public class ReservationConfirmActivity extends BaseActivity {
         });
     }
 
+    private void printInvoice() {
+        btnEmail.setVisibility(View.INVISIBLE);
+        btnPrint.setVisibility(View.INVISIBLE);
+        PrintUtils printUtils = new PrintUtils(parentView, ReservationConfirmActivity.this, getString(R.string.ghurbo_print));
+        printUtils.setTaskListener(new PrintUtils.TaskListener() {
+            @Override
+            public void onTaskComplete() {
+                btnEmail.setVisibility(View.VISIBLE);
+                btnPrint.setVisibility(View.VISIBLE);
+            }
+        });
+        printUtils.execute();
+    }
+
+    private void emailInvoice() {
+        if (PermissionUtils.isPermissionGranted(ReservationConfirmActivity.this, PermissionUtils.SD_WRITE_PERMISSIONS, PermissionUtils.REQUEST_WRITE_STORAGE)) {
+            btnEmail.setVisibility(View.INVISIBLE);
+            btnPrint.setVisibility(View.INVISIBLE);
+            BitmapEmailUtils bitmapEmailUtils = new BitmapEmailUtils(parentView, ReservationConfirmActivity.this, getString(R.string.ghurbo_print));
+            bitmapEmailUtils.setTaskListener(new BitmapEmailUtils.TaskListener() {
+                @Override
+                public void onTaskComplete() {
+                    btnEmail.setVisibility(View.VISIBLE);
+                    btnPrint.setVisibility(View.VISIBLE);
+                }
+            });
+            bitmapEmailUtils.execute();
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -333,7 +361,7 @@ public class ReservationConfirmActivity extends BaseActivity {
             if (requestCode == PermissionUtils.REQUEST_CALL) {
                 Utils.makePhoneCall(ReservationConfirmActivity.this, callTo);
             } else if (requestCode == PermissionUtils.REQUEST_WRITE_STORAGE) {
-                new BitmapEmailUtils(parentView, ReservationConfirmActivity.this, getString(R.string.ghurbo_print)).execute();
+                emailInvoice();
             }
         } else {
             Utils.showToast(ReservationConfirmActivity.this, getString(R.string.permission_not_granted));
