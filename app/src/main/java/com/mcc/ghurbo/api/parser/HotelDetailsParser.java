@@ -29,6 +29,8 @@ public class HotelDetailsParser {
                     ArrayList<AmenityModel> amenities = null;
                     ArrayList<RoomDetailsModel> roomDetails = null;
 
+                    boolean isFavorite = false;
+
                     JSONObject jsonData = jsonObject.getJSONObject("data");
 
 
@@ -84,6 +86,10 @@ public class HotelDetailsParser {
                         phone = jsonData.getString("phone");
                     }
 
+                    if (jsonData.has("favorite_status")) {
+                        isFavorite = jsonData.getBoolean("favorite_status");
+                    }
+
                     if (jsonData.has("hotel_images")) {
                         JSONArray photos = jsonData.getJSONArray("hotel_images");
                         hotelImages = getPhotos(photos);
@@ -103,8 +109,7 @@ public class HotelDetailsParser {
                             hotelStars, hotelRatings, location,
                             latitude, longitude,
                             checkInTime, checkOutTime, thumbnailImage,
-                            module, phone, hotelImages, amenities,
-                            roomDetails);
+                            module, phone, isFavorite, hotelImages, amenities, roomDetails);
                 }
             }
         } catch (JSONException e) {

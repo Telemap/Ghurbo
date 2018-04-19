@@ -33,6 +33,8 @@ public class TourDetailsParser {
                     ArrayList<String> allPhotos = null;
                     ArrayList<AmenityModel> amenities = null;
 
+                    boolean isFavorite = false;
+
                     JSONObject jsonData = jsonObject.getJSONObject("data");
 
                     if (jsonData.has("tour_id")) {
@@ -111,6 +113,10 @@ public class TourDetailsParser {
                         phone = jsonData.getString("phone");
                     }
 
+                    if (jsonData.has("favorite_status")) {
+                        isFavorite = jsonData.getBoolean("favorite_status");
+                    }
+
                     if (jsonData.has("thumbnail_image")) {
                         thumbnailImage = jsonData.getString("thumbnail_image");
                     }
@@ -136,7 +142,7 @@ public class TourDetailsParser {
                             infantPrice, adultStatus,
                             childStatus, infantStatus,
                             tourDays, tourNights,
-                            thumbnailImage, phone, allPhotos,
+                            thumbnailImage, phone, isFavorite, allPhotos,
                             amenities);
                 }
             }

@@ -27,9 +27,10 @@ public class RequestHotelDetails extends BaseHttp {
         this.responseListener = responseListener;
     }
 
-    public void buildParams(String id, String checkIn, String checkOut) {
+    public void buildParams(String userId, String id, String checkIn, String checkOut) {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(HttpParams.PARAM_SECRET_KEY, AppSecret.getAppSecretKey(mContext));
+        hashMap.put(HttpParams.PARAM_USER_ID, userId);
         hashMap.put(HttpParams.PARAM_HOTEL_ID, id);
         hashMap.put(HttpParams.PARAM_CHECK_IN, checkIn);
         hashMap.put(HttpParams.PARAM_CHECK_OUT, checkOut);

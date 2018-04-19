@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -37,10 +38,11 @@ import java.util.ArrayList;
 public class TourDetailsActivity extends BaseActivity {
 
     private SearchTourModel searchTourModel;
+    private TourDetailsModel tourDetailsModel;
 
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView title, adultPrice, adultMax, childPrice, childMax,
-             tvDuration, location;
+            tvDuration, location;
     private ImageButton ibMap;
     private RatingBar rating;
     private WebView webView;
@@ -135,17 +137,20 @@ public class TourDetailsActivity extends BaseActivity {
 
     private void loadData() {
 
+        String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
+
         showLoader();
         RequestTourDetails requestTourDetails = new RequestTourDetails(getApplicationContext());
-        requestTourDetails.buildParams(searchTourModel.getTourPackageId());
+        requestTourDetails.buildParams(userId, searchTourModel.getTourPackageId());
         requestTourDetails.setResponseListener(new ResponseListener() {
             @Override
             public void onResponse(Object data) {
 
-                TourDetailsModel tourDetailsModel = (TourDetailsModel) data;
-                if (tourDetailsModel != null) {
+                TourDetailsModel model = (TourDetailsModel) data;
+                if (model != null) {
                     hideLoader();
-                    setDataToUi(tourDetailsModel);
+                    tourDetailsModel = model;
+                    setDataToUi();
                 } else {
                     showEmptyView();
                 }
@@ -154,7 +159,7 @@ public class TourDetailsActivity extends BaseActivity {
         requestTourDetails.execute();
     }
 
-    private void setDataToUi(final TourDetailsModel tourDetailsModel) {
+    private void setDataToUi() {
 
         collapsingToolbar.setTitle(tourDetailsModel.getTourTitle());
         title.setText(tourDetailsModel.getTourTitle());
@@ -177,7 +182,7 @@ public class TourDetailsActivity extends BaseActivity {
             childPrice.setText(getString(R.string.na));
         }
 
-        tvDuration.setText(tourDetailsModel.getTourDays() + getString(R.string.days) +" "+ tourDetailsModel.getTourNights() + getString(R.string.nights));
+        tvDuration.setText(tourDetailsModel.getTourDays() + getString(R.string.days) + " " + tourDetailsModel.getTourNights() + getString(R.string.nights));
         location.setText(tourDetailsModel.getLocation());
 
         ibMap.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +196,7 @@ public class TourDetailsActivity extends BaseActivity {
 
         amenityModels.clear();
         amenityModels.addAll(tourDetailsModel.getAmenities());
-        if(!amenityModels.isEmpty()) {
+        if (!amenityModels.isEmpty()) {
             recyclerView.setVisibility(View.VISIBLE);
             adapter.notifyDataSetChanged();
         } else {
@@ -205,6 +210,8 @@ public class TourDetailsActivity extends BaseActivity {
             }
         });
 
+        setFavStatus(tourDetailsModel.isFavorite());
+
         // set pricing
         searchTourModel.setRateAdult(tourDetailsModel.getAdultPrice());
         searchTourModel.setRateChild(tourDetailsModel.getChildPrice());
@@ -215,10 +222,45 @@ public class TourDetailsActivity extends BaseActivity {
     }
 
     private void makeFav() {
-        String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
-        RequestAddToFav requestAddToFav = new RequestAddToFav(getApplicationContext());
-        requestAddToFav.buildParams(userId, "tour", searchTourModel.getTourPackageId());
-        requestAddToFav.execute();
+        boolean isLoggedIn = AppPreference.getInstance(getApplicationContext()).getBoolean(PrefKey.LOGIN);
+
+        if (isLoggedIn) {
+            if (tourDetailsModel != null) {
+                String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
+                RequestAddToFav requestAddToFav = new RequestAddToFav(getApplicationContext());
+                requestAddToFav.buildParams(userId, AppConstants.TYPE_TOURS, searchTourModel.getTourPackageId());
+                requestAddToFav.execute();
+
+                if (tourDetailsModel.isFavorite()) {
+                    removeFromFavorite(searchTourModel.getTourPackageId());
+                    tourDetailsModel.setFavorite(false);
+                } else {
+                    addToFavorite(tourDetailsModel.getTourId(), tourDetailsModel.getTourTitle(),
+                            tourDetailsModel.getThumbnailImage(), tourDetailsModel.getAdultPrice(),
+                            tourDetailsModel.getLocation(), AppConstants.TYPE_TOURS, searchTourModel.getDate(),
+                            searchTourModel.getAdult(), searchTourModel.getChild(), "", "", "");
+                    tourDetailsModel.setFavorite(true);
+                }
+                setFavStatus(tourDetailsModel.isFavorite());
+            }
+        } else {
+            Snackbar snackbar = Snackbar.make(fabFav, getString(R.string.login_msg), Snackbar.LENGTH_LONG);
+            snackbar.setAction(getString(R.string.login), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ActivityUtils.getInstance().invokeLoginForFavActivity(TourDetailsActivity.this);
+                }
+            });
+            snackbar.show();
+        }
+    }
+
+    private void setFavStatus(boolean isFav) {
+        if (isFav) {
+            fabFav.setImageResource(R.drawable.ic_fav_marked);
+        } else {
+            fabFav.setImageResource(R.drawable.ic_fav_unmarked);
+        }
     }
 
     @Override

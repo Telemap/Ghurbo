@@ -18,6 +18,7 @@ public class HotelDetailsModel {
     private String thumbnailImage;
     private String module;
     private String phoneNumber;
+    private boolean isFavorite;
     private ArrayList<RoomDetailsModel> roomDetails = null;
     private ArrayList<String> hotelImages = null;
     private ArrayList<AmenityModel> amenities = null;
@@ -26,8 +27,8 @@ public class HotelDetailsModel {
                              String hotelStars, String hotelRatings, String location,
                              String latitude, String longitude,
                              String checkInTime, String checkOutTime, String thumbnailImage,
-                             String module, String phoneNumber, ArrayList<String> hotelImages, ArrayList<AmenityModel> amenities,
-                             ArrayList<RoomDetailsModel> roomDetails) {
+                             String module, String phoneNumber, boolean isFavorite, ArrayList<String> hotelImages,
+                             ArrayList<AmenityModel> amenities, ArrayList<RoomDetailsModel> roomDetails) {
         this.hotelId = hotelId;
         this.hotelTitle = hotelTitle;
         this.hotelDesc = hotelDesc;
@@ -42,6 +43,7 @@ public class HotelDetailsModel {
         this.thumbnailImage = thumbnailImage;
         this.module = module;
         this.phoneNumber = phoneNumber;
+        this.isFavorite = isFavorite;
         this.hotelImages = hotelImages;
         this.roomDetails = roomDetails;
     }
@@ -108,5 +110,13 @@ public class HotelDetailsModel {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

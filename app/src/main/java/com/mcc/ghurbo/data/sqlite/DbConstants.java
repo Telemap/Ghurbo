@@ -23,6 +23,13 @@ public class DbConstants implements BaseColumns {
     public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_LOCATION = "location";
     public static final String COLUMN_TYPE = "type";
+    public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_CHECK_IN = "checkin";
+    public static final String COLUMN_CHECK_OUT = "checkout";
+    public static final String COLUMN_ROOMS = "rooms";
+    public static final String COLUMN_ADULT = "adult";
+    public static final String COLUMN_CHILD = "child";
+
 
     public static final String SQL_CREATE_FAV_ENTRIES =
             "CREATE TABLE " + FAV_TABLE_NAME + " (" +
@@ -32,6 +39,12 @@ public class DbConstants implements BaseColumns {
                     COLUMN_IMAGE + TEXT_TYPE + COMMA +
                     COLUMN_PRICE + TEXT_TYPE + COMMA +
                     COLUMN_TYPE + TEXT_TYPE + COMMA +
+                    COLUMN_DATE + TEXT_TYPE + COMMA +
+                    COLUMN_CHECK_IN + TEXT_TYPE + COMMA +
+                    COLUMN_CHECK_OUT + TEXT_TYPE + COMMA +
+                    COLUMN_ROOMS + TEXT_TYPE + COMMA +
+                    COLUMN_ADULT + TEXT_TYPE + COMMA +
+                    COLUMN_CHILD + TEXT_TYPE + COMMA +
                     COLUMN_LOCATION + TEXT_TYPE +
                     " )";
 

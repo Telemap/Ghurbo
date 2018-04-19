@@ -21,8 +21,11 @@ import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.data.sqlite.DbConstants;
+import com.mcc.ghurbo.model.FavoriteModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.Utils;
+
+import java.util.ArrayList;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -76,8 +79,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.action_favorites) {
-
-
+            ActivityUtils.getInstance().invokeActivity(BaseActivity.this, FavoriteActivity.class, false);
         } else if (id == R.id.action_reservations) {
 
         } else if (id == R.id.action_share) {
@@ -173,9 +175,13 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void addToFavorite(String id, String title,
-                               String image, String price,
-                               String location, String type) {
+    public void addToFavorite(String id, String title,
+                              String image, String price,
+                              String location, String type,
+                              String date, String adult,
+                              String child, String checkIn,
+                              String checkOut, String rooms
+    ) {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.COLUMN_ID, id);
@@ -183,12 +189,20 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         values.put(DbConstants.COLUMN_IMAGE, image);
         values.put(DbConstants.COLUMN_PRICE, price);
         values.put(DbConstants.COLUMN_LOCATION, location);
-        values.put(DbConstants.COLUMN_LOCATION, type);
+        values.put(DbConstants.COLUMN_TYPE, type);
+        values.put(DbConstants.COLUMN_DATE, date);
+        values.put(DbConstants.COLUMN_ADULT, adult);
+        values.put(DbConstants.COLUMN_CHILD, child);
+        values.put(DbConstants.COLUMN_CHECK_IN, checkIn);
+        values.put(DbConstants.COLUMN_CHECK_OUT, checkOut);
+        values.put(DbConstants.COLUMN_ROOMS, rooms);
+
 
         getContentResolver().insert(DbConstants.CONTENT_URI, values);
     }
 
-    private boolean isFavorite(String id, String type) {
+
+    public boolean isFavorite(String id, String type) {
 
         String[] projection = {
                 DbConstants._ID,
@@ -210,7 +224,62 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-    private void removeFromFavorite(String id) {
+    public ArrayList<FavoriteModel> getFavoriteList() {
+
+        ArrayList<FavoriteModel> arrayList = new ArrayList<>();
+
+        String[] projection = {
+                DbConstants._ID,
+                DbConstants.COLUMN_ID,
+                DbConstants.COLUMN_TITLE,
+                DbConstants.COLUMN_IMAGE,
+                DbConstants.COLUMN_PRICE,
+                DbConstants.COLUMN_LOCATION,
+                DbConstants.COLUMN_TYPE,
+                DbConstants.COLUMN_DATE,
+                DbConstants.COLUMN_ADULT,
+                DbConstants.COLUMN_CHILD,
+                DbConstants.COLUMN_CHECK_IN,
+                DbConstants.COLUMN_CHECK_OUT,
+                DbConstants.COLUMN_ROOMS,
+        };
+
+        Cursor c = getContentResolver().query(DbConstants.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null);
+
+        if (c != null && c.getCount() > 0) {
+
+            if (c.moveToFirst()) {
+                do {
+                    arrayList.add(
+
+                            new FavoriteModel(
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_ID)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_TITLE)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_IMAGE)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_PRICE)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_LOCATION)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_TYPE)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_DATE)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_ADULT)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_CHILD)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_CHECK_IN)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_CHECK_OUT)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_ROOMS))
+                            )
+                    );
+                } while (c.moveToNext());
+            }
+
+            c.close();
+        }
+        return arrayList;
+    }
+
+    public void removeFromFavorite(String id) {
         String selection = DbConstants.COLUMN_ID + "=?";
         String[] selectionArgs = {String.valueOf(id)};
         getContentResolver().delete(DbConstants.CONTENT_URI, selection, selectionArgs);

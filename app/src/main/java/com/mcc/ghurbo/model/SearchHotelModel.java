@@ -6,7 +6,6 @@ import android.os.Parcelable;
 public class SearchHotelModel implements Parcelable{
 
     private String locationId;
-    private String location;
     private String checkIn;
     private String checkOut;
     private String adult;
@@ -27,9 +26,17 @@ public class SearchHotelModel implements Parcelable{
     private String latitude; // for booking
     private String phoneNumber; // for booking
 
-    public SearchHotelModel(String locationId, String location, String checkIn, String checkOut, String adult, String child, String rooms) {
+    public SearchHotelModel(String locationId, String checkIn, String checkOut, String adult, String child, String rooms) {
         this.locationId = locationId;
-        this.location = location;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.adult = adult;
+        this.child = child;
+        this.rooms = rooms;
+    }
+
+    public SearchHotelModel(String checkIn, String checkOut, String adult, String child, String rooms) {
+        this.locationId = locationId;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.adult = adult;
@@ -39,10 +46,6 @@ public class SearchHotelModel implements Parcelable{
 
     public String getLocationId() {
         return locationId;
-    }
-
-    public String getLocation() {
-        return location;
     }
 
     public String getCheckIn() {
@@ -169,7 +172,6 @@ public class SearchHotelModel implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.locationId);
-        dest.writeString(this.location);
         dest.writeString(this.checkIn);
         dest.writeString(this.checkOut);
         dest.writeString(this.adult);
@@ -191,7 +193,6 @@ public class SearchHotelModel implements Parcelable{
 
     protected SearchHotelModel(Parcel in) {
         this.locationId = in.readString();
-        this.location = in.readString();
         this.checkIn = in.readString();
         this.checkOut = in.readString();
         this.adult = in.readString();

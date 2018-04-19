@@ -138,4 +138,9 @@
     <string name="ghurbo_print">Ghurbo Booking Confirmation</string>
     <string name="initiating">Initiating...</string>
 
+    <string name="login_msg">Please login first</string>
+    <string name="fav_login_msg">Please login to see favorite list</string>
+    <string name="no_fav">No favorite item</string>
+
+
 </resources>

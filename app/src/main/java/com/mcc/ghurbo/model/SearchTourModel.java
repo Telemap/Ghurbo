@@ -6,7 +6,6 @@ import android.os.Parcelable;
 public class SearchTourModel implements Parcelable {
 
     private String locationId;
-    private String location;
     private String type;
     private String date;
     private String adult;
@@ -25,10 +24,15 @@ public class SearchTourModel implements Parcelable {
     private String latitude; // for booking
     private String phoneNumber; // for booking
 
-    public SearchTourModel(String locationId, String location, String type, String date, String adult, String child) {
+    public SearchTourModel(String locationId, String type, String date, String adult, String child) {
         this.locationId = locationId;
-        this.location = location;
         this.type = type;
+        this.date = date;
+        this.adult = adult;
+        this.child = child;
+    }
+
+    public SearchTourModel(String date, String adult, String child) {
         this.date = date;
         this.adult = adult;
         this.child = child;
@@ -36,10 +40,6 @@ public class SearchTourModel implements Parcelable {
 
     public String getLocationId() {
         return locationId;
-    }
-
-    public String getLocation() {
-        return location;
     }
 
     public String getAdult() {
@@ -154,7 +154,6 @@ public class SearchTourModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.locationId);
-        dest.writeString(this.location);
         dest.writeString(this.type);
         dest.writeString(this.date);
         dest.writeString(this.adult);
@@ -174,7 +173,6 @@ public class SearchTourModel implements Parcelable {
 
     protected SearchTourModel(Parcel in) {
         this.locationId = in.readString();
-        this.location = in.readString();
         this.type = in.readString();
         this.date = in.readString();
         this.adult = in.readString();

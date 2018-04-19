@@ -3,9 +3,9 @@ package com.mcc.ghurbo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,6 +21,7 @@ import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
+import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.BitmapEmailUtils;
 import com.mcc.ghurbo.utility.PermissionUtils;
 import com.mcc.ghurbo.utility.PrintUtils;
@@ -369,4 +370,18 @@ public class ReservationConfirmActivity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        ActivityUtils.getInstance().invokeActivity(ReservationConfirmActivity.this, MainActivity.class, true);
+    }
 }

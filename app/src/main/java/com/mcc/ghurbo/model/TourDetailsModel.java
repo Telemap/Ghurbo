@@ -25,6 +25,7 @@ public class TourDetailsModel {
     private String tourNights;
     private String thumbnailImage;
     private String phoneNumber;
+    private boolean isFavorite;
     private ArrayList<String> allPhotos = null;
     private ArrayList<AmenityModel> amenities = null;
 
@@ -37,8 +38,8 @@ public class TourDetailsModel {
                             String infantPrice, String adultStatus,
                             String childStatus, String infantStatus,
                             String tourDays, String tourNights,
-                            String thumbnailImage, String phoneNumber, ArrayList<String> allPhotos,
-                            ArrayList<AmenityModel> amenities) {
+                            String thumbnailImage, String phoneNumber, boolean isFavorite,
+                            ArrayList<String> allPhotos, ArrayList<AmenityModel> amenities) {
         this.tourId = tourId;
         this.tourTitle = tourTitle;
         this.tourDesc = tourDesc;
@@ -59,6 +60,7 @@ public class TourDetailsModel {
         this.tourNights = tourNights;
         this.thumbnailImage = thumbnailImage;
         this.phoneNumber = phoneNumber;
+        this.isFavorite = isFavorite;
         this.allPhotos = allPhotos;
         this.amenities = amenities;
     }
@@ -153,5 +155,13 @@ public class TourDetailsModel {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

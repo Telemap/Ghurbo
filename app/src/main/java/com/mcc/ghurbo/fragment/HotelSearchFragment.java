@@ -245,7 +245,7 @@ public class HotelSearchFragment extends Fragment {
             if(rooms.isEmpty()) {
                 rooms = "0";
             }
-            ActivityUtils.getInstance().invokeHotelListActivity(getActivity(), new SearchHotelModel(selectedLocationId, location, checkIn, checkOut, adult, child, rooms));
+            ActivityUtils.getInstance().invokeHotelListActivity(getActivity(), new SearchHotelModel(selectedLocationId, checkIn, checkOut, adult, child, rooms));
         }
     }
 

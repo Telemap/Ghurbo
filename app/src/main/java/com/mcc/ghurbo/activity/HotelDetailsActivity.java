@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -22,10 +23,13 @@ import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.HotelAmenitiesAdapter;
 import com.mcc.ghurbo.adapter.RoomListAdapter;
 import com.mcc.ghurbo.adapter.TourAmenitiesAdapter;
+import com.mcc.ghurbo.api.helper.RequestAddToFav;
 import com.mcc.ghurbo.api.helper.RequestHotelDetails;
 import com.mcc.ghurbo.api.helper.RequestTourDetails;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
+import com.mcc.ghurbo.data.preference.AppPreference;
+import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.AmenityModel;
 import com.mcc.ghurbo.model.HotelDetailsModel;
@@ -41,6 +45,7 @@ import java.util.ArrayList;
 public class HotelDetailsActivity extends BaseActivity {
 
     private SearchHotelModel searchHotelModel;
+    private HotelDetailsModel hotelDetailsModel;
 
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView title, location, starInfo, checkin, checkout, ratingValue;
@@ -132,7 +137,7 @@ public class HotelDetailsActivity extends BaseActivity {
         fabFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                makeFav();
             }
         });
 
@@ -140,17 +145,20 @@ public class HotelDetailsActivity extends BaseActivity {
 
     private void loadData() {
 
+        String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
+
         showLoader();
         RequestHotelDetails requestHotelDetails = new RequestHotelDetails(getApplicationContext());
-        requestHotelDetails.buildParams(searchHotelModel.getHotelId(), searchHotelModel.getCheckIn(), searchHotelModel.getCheckOut());
+        requestHotelDetails.buildParams(userId, searchHotelModel.getHotelId(), searchHotelModel.getCheckIn(), searchHotelModel.getCheckOut());
         requestHotelDetails.setResponseListener(new ResponseListener() {
             @Override
             public void onResponse(Object data) {
 
-                HotelDetailsModel hotelDetailsModel = (HotelDetailsModel) data;
-                if (hotelDetailsModel != null) {
+                HotelDetailsModel model = (HotelDetailsModel) data;
+                if (model != null) {
                     hideLoader();
-                    setDataToUi(hotelDetailsModel);
+                    hotelDetailsModel = model;
+                    setDataToUi();
                 } else {
                     showEmptyView();
                 }
@@ -159,7 +167,7 @@ public class HotelDetailsActivity extends BaseActivity {
         requestHotelDetails.execute();
     }
 
-    private void setDataToUi(final HotelDetailsModel hotelDetailsModel) {
+    private void setDataToUi() {
 
         collapsingToolbar.setTitle(hotelDetailsModel.getHotelTitle());
         title.setText(hotelDetailsModel.getHotelTitle());
@@ -233,6 +241,51 @@ public class HotelDetailsActivity extends BaseActivity {
             }
         });
 
+        setFavStatus(hotelDetailsModel.isFavorite());
+
+    }
+
+
+    private void makeFav() {
+        boolean isLoggedIn = AppPreference.getInstance(getApplicationContext()).getBoolean(PrefKey.LOGIN);
+
+        if (isLoggedIn) {
+            if (hotelDetailsModel != null) {
+                String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
+                RequestAddToFav requestAddToFav = new RequestAddToFav(getApplicationContext());
+                requestAddToFav.buildParams(userId, AppConstants.TYPE_HOTELS, hotelDetailsModel.getHotelId());
+                requestAddToFav.execute();
+
+                if (hotelDetailsModel.isFavorite()) {
+                    removeFromFavorite(hotelDetailsModel.getHotelId());
+                    hotelDetailsModel.setFavorite(false);
+                } else {
+                    addToFavorite(hotelDetailsModel.getHotelId(), hotelDetailsModel.getHotelTitle(),
+                            hotelDetailsModel.getThumbnailImage(), "", hotelDetailsModel.getLocation(),
+                            AppConstants.TYPE_HOTELS, "", searchHotelModel.getAdult(), searchHotelModel.getChild(),
+                            searchHotelModel.getCheckIn(), searchHotelModel.getCheckOut(), searchHotelModel.getRooms());
+                    hotelDetailsModel.setFavorite(true);
+                }
+                setFavStatus(hotelDetailsModel.isFavorite());
+            }
+        } else {
+            Snackbar snackbar = Snackbar.make(fabFav, getString(R.string.login_msg), Snackbar.LENGTH_LONG);
+            snackbar.setAction(getString(R.string.login), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ActivityUtils.getInstance().invokeLoginForFavActivity(HotelDetailsActivity.this);
+                }
+            });
+            snackbar.show();
+        }
+    }
+
+    private void setFavStatus(boolean isFav) {
+        if (isFav) {
+            fabFav.setImageResource(R.drawable.ic_fav_marked);
+        } else {
+            fabFav.setImageResource(R.drawable.ic_fav_unmarked);
+        }
     }
 
     @Override

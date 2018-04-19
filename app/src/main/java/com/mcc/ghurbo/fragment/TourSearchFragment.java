@@ -276,7 +276,7 @@ public class TourSearchFragment extends Fragment {
             if(child.isEmpty()) {
                 child = "0";
             }
-            ActivityUtils.getInstance().invokeTourListActivity(getActivity(), new SearchTourModel(selectedTourId, location, type, date, adult, child));
+            ActivityUtils.getInstance().invokeTourListActivity(getActivity(), new SearchTourModel(selectedTourId, type, date, adult, child));
         }
     }
 }

@@ -28,10 +28,11 @@ public class RequestTourDetails extends BaseHttp {
         this.responseListener = responseListener;
     }
 
-    public void buildParams(String id) {
+    public void buildParams(String userId, String id) {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(HttpParams.PARAM_SECRET_KEY, AppSecret.getAppSecretKey(mContext));
         hashMap.put(HttpParams.PARAM_TOUR_ID, id);
+        hashMap.put(HttpParams.PARAM_USER_ID, userId);
 
         post(hashMap);
     }

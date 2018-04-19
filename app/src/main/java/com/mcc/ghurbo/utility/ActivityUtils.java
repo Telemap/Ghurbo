@@ -134,15 +134,14 @@ public class ActivityUtils {
         intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
         intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
         activity.startActivity(intent);
-        activity.finish();
     }
 
     public void invokeReserveConfirmActivity(Activity activity, SearchTourModel searchTourModel, SearchHotelModel searchHotelModel) {
         Intent intent = new Intent(activity, ReservationConfirmActivity.class);
         intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
         intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);
-        activity.finish();
     }
 
     public void invokeLoginActivity(Activity activity, SearchTourModel searchTourModel, SearchHotelModel searchHotelModel) {
@@ -150,6 +149,13 @@ public class ActivityUtils {
         intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
         intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
         intent.putExtra(AppConstants.BUNDLE_FROM_BOOKING, true);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+    public void invokeLoginForFavActivity(Activity activity) {
+        Intent intent = new Intent(activity, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);
         activity.finish();
     }
