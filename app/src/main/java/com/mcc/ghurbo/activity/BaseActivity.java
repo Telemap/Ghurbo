@@ -81,7 +81,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.action_favorites) {
             ActivityUtils.getInstance().invokeActivity(BaseActivity.this, FavoriteActivity.class, false);
         } else if (id == R.id.action_reservations) {
-
+            ActivityUtils.getInstance().invokeActivity(BaseActivity.this, MyBookingsActivity.class, false);
         } else if (id == R.id.action_share) {
             Utils.shareApp(BaseActivity.this);
         } else if (id == R.id.action_rate_app) {

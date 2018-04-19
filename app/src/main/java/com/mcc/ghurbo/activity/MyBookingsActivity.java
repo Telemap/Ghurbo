@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mcc.ghurbo.R;
+import com.mcc.ghurbo.api.helper.RequestMyBooking;
+import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.utility.ActivityUtils;
@@ -25,6 +27,7 @@ public class MyBookingsActivity extends BaseActivity {
         initVar();
         initView();
         initListeners();
+        loadData();
         invokeMessenger();
 
     }
@@ -45,6 +48,19 @@ public class MyBookingsActivity extends BaseActivity {
 
     private void initListeners() {
 
+    }
+
+    private void loadData() {
+        String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
+        RequestMyBooking requestMyBooking = new RequestMyBooking(getApplicationContext());
+        requestMyBooking.buildParams(userId);
+        requestMyBooking.setResponseListener(new ResponseListener() {
+            @Override
+            public void onResponse(Object data) {
+
+            }
+        });
+        requestMyBooking.execute();
     }
 
     @Override
