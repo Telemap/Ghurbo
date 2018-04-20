@@ -147,5 +147,7 @@
     <string name="my_favorites">My Booking History</string>
 
     <string name="no_booking">No booking yet</string>
+    <string name="hotel_icon">Hotel button icon</string>
+    <string name="tour_icon">Tour button icon</string>
 
 </resources>

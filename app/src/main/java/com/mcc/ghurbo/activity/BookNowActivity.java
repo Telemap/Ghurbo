@@ -218,7 +218,7 @@ public class BookNowActivity extends BaseActivity {
                                 "",
                                 "",
                                 AppConstants.TYPE_TOURS,
-                                "", searchHotelModel.getRate(),
+                                "", searchTourModel.getRateAdult(),
                                 searchTourModel.getDate(),
                                 "",
                                 "", searchTourModel.getAdult(),
