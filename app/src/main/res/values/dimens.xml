@@ -10,7 +10,10 @@
     <dimen name="ghurbo_logo_size">200dp</dimen>
 
     <dimen name="details_image_height">304dp</dimen>
+    <dimen name="booking_img_height">200dp</dimen>
 
     <dimen name="profile_img">160dp</dimen>
+
+    <integer name="booking_column">1</integer>
 
 </resources>

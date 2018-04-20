@@ -7,6 +7,7 @@ import com.mcc.ghurbo.api.http.BaseHttp;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.api.params.AppSecret;
 import com.mcc.ghurbo.api.params.HttpParams;
+import com.mcc.ghurbo.api.parser.MyBookingsParser;
 import com.mcc.ghurbo.api.parser.TourListParser;
 
 import java.util.HashMap;
@@ -36,7 +37,7 @@ public class RequestMyBooking extends BaseHttp {
 
     @Override
     public void onBackgroundTask(String response) {
-        object = new TourListParser().getTourModels(response);
+        object = new MyBookingsParser().getMyBookingModels(response);
     }
 
     @Override

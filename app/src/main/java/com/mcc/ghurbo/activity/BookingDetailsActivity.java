@@ -19,6 +19,7 @@ import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
+import com.mcc.ghurbo.model.MyBookingModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
@@ -27,21 +28,19 @@ import com.mcc.ghurbo.utility.PermissionUtils;
 import com.mcc.ghurbo.utility.PrintUtils;
 import com.mcc.ghurbo.utility.Utils;
 
-public class ReservationConfirmActivity extends BaseActivity {
+public class BookingDetailsActivity extends BaseActivity {
 
-    private SearchTourModel searchTourModel;
-    private SearchHotelModel searchHotelModel;
+    private MyBookingModel myBookingModel;
 
     private TextView hotelName, tvBookingNumber, checkin, tvLocation,
-            checkout, tvRoomName, tvRateAdult, tvTotalAdult, tvCall,
-            tvRateChild, tvTotalChild, date, tvTotal, tvRooms, tvRate, infoText;
+            checkout, tvRoomName, tvTotalAdult, tvCall, tvTotalChild, date, tvTotal, tvRooms;
     private RelativeLayout btnLocation, btnCall, roomInfoView;
-    private LinearLayout roomsView, checkInOutPanel, datePanel, adultRatePanel,
-            adultCountPanel, childRatePanel, childCountPanel, ratePanel, parentView;
+    private LinearLayout roomsView, checkInOutPanel, datePanel, parentView;
     private Button btnEmail, btnPrint;
     private ImageView ivRoom;
 
     private String callTo;
+    private boolean fromHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class ReservationConfirmActivity extends BaseActivity {
 
         initVar();
         initView();
-        //initFunctionality();
+        initFunctionality();
         initListeners();
         invokeMessenger();
 
@@ -58,35 +57,33 @@ public class ReservationConfirmActivity extends BaseActivity {
     private void initVar() {
         Intent intent = getIntent();
 
-        if (intent.hasExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL)) {
-            searchHotelModel = intent.getParcelableExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL);
+        if (intent.hasExtra(AppConstants.BUNDLE_BOOKING_DETAILS)) {
+            myBookingModel = intent.getParcelableExtra(AppConstants.BUNDLE_BOOKING_DETAILS);
         }
 
-        if (intent.hasExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL)) {
-            searchTourModel = intent.getParcelableExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL);
+        if (intent.hasExtra(AppConstants.BUNDLE_FROM_HISTORY)) {
+            fromHistory = intent.getBooleanExtra(AppConstants.BUNDLE_FROM_HISTORY, false);
         }
+
     }
 
     private void initView() {
-        setContentView(R.layout.activity_reservation_confirm);
+        setContentView(R.layout.activity_booking_details);
         initToolbar();
         enableBackButton();
         initLoader();
+        hideLoader();
 
         hotelName = (TextView) findViewById(R.id.hotel_name);
         tvBookingNumber = (TextView) findViewById(R.id.tv_booking_number);
         checkin = (TextView) findViewById(R.id.checkin);
         checkout = (TextView) findViewById(R.id.checkout);
         tvRoomName = (TextView) findViewById(R.id.tv_room_name);
-        tvRateAdult = (TextView) findViewById(R.id.tv_rate_adult);
         tvTotalAdult = (TextView) findViewById(R.id.tv_total_adult);
-        tvRateChild = (TextView) findViewById(R.id.tv_rate_child);
         tvTotalChild = (TextView) findViewById(R.id.tv_total_child);
         tvTotal = (TextView) findViewById(R.id.tv_total);
         tvRooms = (TextView) findViewById(R.id.tv_rooms);
-        tvRate = (TextView) findViewById(R.id.tv_rate);
         date = (TextView) findViewById(R.id.date);
-        infoText = (TextView) findViewById(R.id.info_text);
         tvLocation = (TextView) findViewById(R.id.tv_location);
         tvCall = (TextView) findViewById(R.id.tv_call);
 
@@ -97,11 +94,6 @@ public class ReservationConfirmActivity extends BaseActivity {
         roomsView = (LinearLayout) findViewById(R.id.rooms_view);
         checkInOutPanel = (LinearLayout) findViewById(R.id.check_in_out_panel);
         datePanel = (LinearLayout) findViewById(R.id.date_panel);
-        ratePanel = (LinearLayout) findViewById(R.id.rate_panel);
-        adultRatePanel = (LinearLayout) findViewById(R.id.adult_rate_panel);
-        adultCountPanel = (LinearLayout) findViewById(R.id.adult_count_panel);
-        childRatePanel = (LinearLayout) findViewById(R.id.child_rate_panel);
-        childCountPanel = (LinearLayout) findViewById(R.id.child_count_panel);
 
         btnEmail = (Button) findViewById(R.id.btn_email);
         btnPrint = (Button) findViewById(R.id.btn_print);
@@ -111,7 +103,49 @@ public class ReservationConfirmActivity extends BaseActivity {
 
     }
 
+    private void initFunctionality() {
 
+        String title = null;
+        if (myBookingModel.getType().equals(AppConstants.TYPE_HOTELS)) {
+            title = myBookingModel.getHotelName();
+
+            Glide.with(getApplicationContext())
+                    .load(myBookingModel.getPhoto())
+                    .error(R.color.placeholder)
+                    .placeholder(R.color.placeholder)
+                    .into(ivRoom);
+            tvRoomName.setText(myBookingModel.getRoomName());
+            tvRooms.setText(myBookingModel.getRoomNumber());
+
+            checkInOutPanel.setVisibility(View.VISIBLE);
+            datePanel.setVisibility(View.GONE);
+            roomsView.setVisibility(View.VISIBLE);
+            roomInfoView.setVisibility(View.VISIBLE);
+        } else if (myBookingModel.getType().equals(AppConstants.TYPE_TOURS)) {
+            title = myBookingModel.getTourName();
+
+            checkInOutPanel.setVisibility(View.GONE);
+            datePanel.setVisibility(View.VISIBLE);
+            roomsView.setVisibility(View.GONE);
+            roomInfoView.setVisibility(View.GONE);
+        }
+        hotelName.setText(title);
+        tvBookingNumber.setText(getString(R.string.booking_no) + myBookingModel.getBookingId());
+        checkin.setText(myBookingModel.getCheckin());
+        checkout.setText(myBookingModel.getCheckout());
+        date.setText(myBookingModel.getCheckin());
+
+        tvTotalAdult.setText(myBookingModel.getAdults());
+        tvTotalChild.setText(myBookingModel.getChild());
+        tvLocation.setText(myBookingModel.getLocation());
+        tvTotal.setText(myBookingModel.getPrice());
+
+        callTo = myBookingModel.getPhone();
+        if (callTo == null) {
+            btnCall.setVisibility(View.GONE);
+        }
+        tvCall.setText(callTo);
+    }
 
     private void initListeners() {
         btnEmail.setOnClickListener(new View.OnClickListener() {
@@ -131,10 +165,10 @@ public class ReservationConfirmActivity extends BaseActivity {
         btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (searchHotelModel != null) {
-                    Utils.invokeMap(ReservationConfirmActivity.this, searchHotelModel.getLatitude(), searchHotelModel.getLongitude());
+                if (myBookingModel != null) {
+                    Utils.invokeMap(BookingDetailsActivity.this, myBookingModel.getLatitude(), myBookingModel.getLongitude());
                 } else {
-                    Utils.invokeMap(ReservationConfirmActivity.this, searchTourModel.getLatitude(), searchTourModel.getLongitude());
+                    Utils.invokeMap(BookingDetailsActivity.this, myBookingModel.getLatitude(), myBookingModel.getLongitude());
                 }
             }
         });
@@ -142,7 +176,7 @@ public class ReservationConfirmActivity extends BaseActivity {
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.makePhoneCall(ReservationConfirmActivity.this, callTo);
+                Utils.makePhoneCall(BookingDetailsActivity.this, callTo);
             }
         });
     }
@@ -150,7 +184,7 @@ public class ReservationConfirmActivity extends BaseActivity {
     private void printInvoice() {
         btnEmail.setVisibility(View.INVISIBLE);
         btnPrint.setVisibility(View.INVISIBLE);
-        PrintUtils printUtils = new PrintUtils(parentView, ReservationConfirmActivity.this, getString(R.string.ghurbo_print));
+        PrintUtils printUtils = new PrintUtils(parentView, BookingDetailsActivity.this, getString(R.string.ghurbo_print));
         printUtils.setTaskListener(new PrintUtils.TaskListener() {
             @Override
             public void onTaskComplete() {
@@ -162,10 +196,10 @@ public class ReservationConfirmActivity extends BaseActivity {
     }
 
     private void emailInvoice() {
-        if (PermissionUtils.isPermissionGranted(ReservationConfirmActivity.this, PermissionUtils.SD_WRITE_PERMISSIONS, PermissionUtils.REQUEST_WRITE_STORAGE)) {
+        if (PermissionUtils.isPermissionGranted(BookingDetailsActivity.this, PermissionUtils.SD_WRITE_PERMISSIONS, PermissionUtils.REQUEST_WRITE_STORAGE)) {
             btnEmail.setVisibility(View.INVISIBLE);
             btnPrint.setVisibility(View.INVISIBLE);
-            BitmapEmailUtils bitmapEmailUtils = new BitmapEmailUtils(parentView, ReservationConfirmActivity.this, getString(R.string.ghurbo_print));
+            BitmapEmailUtils bitmapEmailUtils = new BitmapEmailUtils(parentView, BookingDetailsActivity.this, getString(R.string.ghurbo_print));
             bitmapEmailUtils.setTaskListener(new BitmapEmailUtils.TaskListener() {
                 @Override
                 public void onTaskComplete() {
@@ -183,12 +217,12 @@ public class ReservationConfirmActivity extends BaseActivity {
 
         if (PermissionUtils.isPermissionResultGranted(grantResults)) {
             if (requestCode == PermissionUtils.REQUEST_CALL) {
-                Utils.makePhoneCall(ReservationConfirmActivity.this, callTo);
+                Utils.makePhoneCall(BookingDetailsActivity.this, callTo);
             } else if (requestCode == PermissionUtils.REQUEST_WRITE_STORAGE) {
                 emailInvoice();
             }
         } else {
-            Utils.showToast(ReservationConfirmActivity.this, getString(R.string.permission_not_granted));
+            Utils.showToast(BookingDetailsActivity.this, getString(R.string.permission_not_granted));
         }
 
     }
@@ -196,7 +230,7 @@ public class ReservationConfirmActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
             onBackPressed();
             return true;
         }
@@ -205,6 +239,11 @@ public class ReservationConfirmActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        ActivityUtils.getInstance().invokeActivity(ReservationConfirmActivity.this, MainActivity.class, true);
+        if(fromHistory) {
+            finish();
+        } else {
+            ActivityUtils.getInstance().invokeActivity(BookingDetailsActivity.this, MainActivity.class, true);
+        }
     }
+
 }

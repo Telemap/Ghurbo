@@ -3,22 +3,32 @@ package com.mcc.ghurbo.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mcc.ghurbo.R;
+import com.mcc.ghurbo.adapter.MyBookingAdapter;
 import com.mcc.ghurbo.api.helper.RequestMyBooking;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
+import com.mcc.ghurbo.listener.ItemClickListener;
+import com.mcc.ghurbo.model.MyBookingModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
+
+import java.util.ArrayList;
 
 public class MyBookingsActivity extends BaseActivity {
 
     private TextView infoText;
     private RecyclerView recyclerView;
+    private MyBookingAdapter myBookingAdapter;
+    private ArrayList<MyBookingModel> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +36,7 @@ public class MyBookingsActivity extends BaseActivity {
 
         initVar();
         initView();
+        initFunctionality();
         initListeners();
         loadData();
         invokeMessenger();
@@ -33,31 +44,58 @@ public class MyBookingsActivity extends BaseActivity {
     }
 
     private void initVar() {
-
+        arrayList = new ArrayList<>();
     }
 
     private void initView() {
         setContentView(R.layout.activity_list);
         initToolbar();
         enableBackButton();
+        initLoader();
+        setToolbarTitle(getString(R.string.my_bookings));
 
         infoText = (TextView) findViewById(R.id.info_text);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
     }
 
-    private void initListeners() {
+    private void initFunctionality() {
+        myBookingAdapter = new MyBookingAdapter(getApplicationContext(), arrayList);
+        recyclerView.setLayoutManager(new GridLayoutManager(MyBookingsActivity.this, getResources().getInteger(R.integer.booking_column)));
+        recyclerView.setAdapter(myBookingAdapter);
+    }
 
+    private void initListeners() {
+        myBookingAdapter.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onItemClick(int position, View view) {
+                ActivityUtils.getInstance().invokeBookingDetailsActivity(MyBookingsActivity.this, arrayList.get(position), true);
+            }
+        });
     }
 
     private void loadData() {
+        showLoader();
         String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
         RequestMyBooking requestMyBooking = new RequestMyBooking(getApplicationContext());
         requestMyBooking.buildParams(userId);
         requestMyBooking.setResponseListener(new ResponseListener() {
             @Override
             public void onResponse(Object data) {
-
+                hideLoader();
+                if(data != null) {
+                    ArrayList<MyBookingModel> responseData = (ArrayList<MyBookingModel>) data;
+                    if(!responseData.isEmpty()) {
+                        arrayList.addAll(responseData);
+                        myBookingAdapter.notifyDataSetChanged();
+                    } else {
+                        infoText.setText(getString(R.string.no_booking));
+                        showEmptyView();
+                    }
+                } else {
+                    infoText.setText(getString(R.string.no_booking));
+                    showEmptyView();
+                }
             }
         });
         requestMyBooking.execute();

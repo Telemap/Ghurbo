@@ -256,6 +256,6 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <include layout="@layout/view_common_loader" />
+    <!--<include layout="@layout/view_common_loader" />-->
 
 </RelativeLayout>

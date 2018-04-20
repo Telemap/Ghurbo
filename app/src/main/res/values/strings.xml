@@ -40,7 +40,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="menu_favorites">Favorites</string>
-    <string name="menu_reservations">Reservations</string>
+    <string name="menu_reservations">Bookings</string>
     <string name="others">Others</string>
     <string name="menu_setting">Settings</string>
     <string name="terms">Terms and Conditions</string>
@@ -142,5 +142,10 @@
     <string name="fav_login_msg">Please login to see favorite list</string>
     <string name="no_fav">No favorite item</string>
 
+    <string name="booking_image_description">Hotel booking image</string>
+    <string name="my_bookings">My Booking History</string>
+    <string name="my_favorites">My Booking History</string>
+
+    <string name="no_booking">No booking yet</string>
 
 </resources>

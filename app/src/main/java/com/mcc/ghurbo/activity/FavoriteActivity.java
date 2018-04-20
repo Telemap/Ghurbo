@@ -53,6 +53,7 @@ public class FavoriteActivity extends BaseActivity {
         initToolbar();
         enableBackButton();
         initLoader();
+        setToolbarTitle(getString(R.string.my_favorites));
 
         infoText = (TextView) findViewById(R.id.info_text);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
