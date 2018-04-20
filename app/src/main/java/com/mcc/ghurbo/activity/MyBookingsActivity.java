@@ -15,11 +15,13 @@ import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.MyBookingAdapter;
 import com.mcc.ghurbo.api.helper.RequestMyBooking;
 import com.mcc.ghurbo.api.http.ResponseListener;
+import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.MyBookingModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
+import com.mcc.ghurbo.utility.PricingUtils;
 
 import java.util.ArrayList;
 
@@ -83,9 +85,33 @@ public class MyBookingsActivity extends BaseActivity {
             @Override
             public void onResponse(Object data) {
                 hideLoader();
-                if(data != null) {
+                if (data != null) {
                     ArrayList<MyBookingModel> responseData = (ArrayList<MyBookingModel>) data;
-                    if(!responseData.isEmpty()) {
+                    if (!responseData.isEmpty()) {
+
+                        //TODO: Optimize pricing, get total price from server
+
+                        for (MyBookingModel myBookingModel : responseData) {
+                            float finalPrice;
+                            if (myBookingModel.getType().equals(AppConstants.TYPE_HOTELS)) {
+                                int nights = 1;
+                                if (myBookingModel.getNights() != null) {
+                                    nights = Integer.parseInt(myBookingModel.getNights());
+                                }
+                                float totalPrice = PricingUtils.getHotelPrice(myBookingModel.getPrice(), myBookingModel.getRoomNumber(), nights);
+                                myBookingModel.setTotalPrice(String.valueOf(totalPrice));
+                            } else if (myBookingModel.getType().equals(AppConstants.TYPE_TOURS)) {
+                                float totalPrice = PricingUtils.getTourPrice(
+                                        myBookingModel.getPrice(),
+                                        myBookingModel.getPrice(), // TODO: get child rate from server for tour
+                                        myBookingModel.getAdults(),
+                                        myBookingModel.getChild()
+                                );
+                                myBookingModel.setTotalPrice(String.valueOf(totalPrice));
+                            }
+                        }
+
+
                         arrayList.addAll(responseData);
                         myBookingAdapter.notifyDataSetChanged();
                     } else {
@@ -104,7 +130,7 @@ public class MyBookingsActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
             finish();
             return true;
         }

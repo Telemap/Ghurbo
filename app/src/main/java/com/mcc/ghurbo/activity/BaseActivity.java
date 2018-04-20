@@ -146,9 +146,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         String name = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.NAME);
         String profilePic = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.PROFILE_PIC);
-        boolean skipped = AppPreference.getInstance(getApplicationContext()).getBoolean(PrefKey.SKIPPED);
+        boolean loggedIn = AppPreference.getInstance(getApplicationContext()).getBoolean(PrefKey.LOGIN);
 
-        if (skipped) {
+        if (!loggedIn) {
             tvUsername.setText(getString(R.string.guest_user));
         } else {
             tvUsername.setText(name);

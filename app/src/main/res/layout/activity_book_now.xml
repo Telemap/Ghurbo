@@ -7,7 +7,7 @@
 
     <include layout="@layout/view_toolbar"/>
 
-    <include layout="@layout/content_reservation_note" />
+    <include layout="@layout/content_book_now" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

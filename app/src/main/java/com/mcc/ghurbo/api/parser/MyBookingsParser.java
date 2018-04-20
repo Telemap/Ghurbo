@@ -138,15 +138,18 @@ public class MyBookingsParser {
                             longitude = userData.getString("longitude");
                         }
 
-                        arrayList.add(new MyBookingModel(bookingId, hotelId,
+                        MyBookingModel myBookingModel = new MyBookingModel(bookingId, hotelId,
                                 hotelName, roomId,
                                 roomName, roomNumber,
-                                type, expiry, userId,
+                                type,
                                 status, price, checkin,
                                 checkout, nights, adults,
                                 child, location, photo,
                                 phone, stars, days,
-                                tourId, tourName, latitude, longitude));
+                                tourId, tourName, latitude,
+                                longitude);
+
+                        arrayList.add(myBookingModel);
                     }
 
                 }

@@ -102,7 +102,7 @@ public class MyBookingAdapter extends RecyclerView.Adapter<MyBookingAdapter.View
         }
 
         holder.subtitle.setText(arrayList.get(position).getLocation());
-        String price = arrayList.get(position).getPrice();
+        String price = arrayList.get(position).getTotalPrice();
 
         if(price != null && !price.isEmpty()) {
             holder.price.setText(AppConstants.CURRENCY + price);

@@ -145,6 +145,7 @@ public class ProfilingActivity extends BaseActivity {
                 if (data != null) {
                     LoginModel responseModel = (LoginModel) data;
 
+                    AppPreference.getInstance(getApplicationContext()).setBoolean(PrefKey.SKIPPED, false);
                     AppPreference.getInstance(getApplicationContext()).setBoolean(PrefKey.LOGIN, true);
 
                     AppPreference.getInstance(getApplicationContext()).setString(PrefKey.USER_ID, responseModel.getUserId());
@@ -159,7 +160,7 @@ public class ProfilingActivity extends BaseActivity {
                     }
 
                     if (fromBooking) {
-                        ActivityUtils.getInstance().invokeReserveConfirmActivity(ProfilingActivity.this, searchTourModel, searchHotelModel);
+                        ActivityUtils.getInstance().invokeBookNowActivity(ProfilingActivity.this, searchTourModel, searchHotelModel, true);
                     } else {
                         ActivityUtils.getInstance().invokeActivity(ProfilingActivity.this, MainActivity.class, true);
                     }

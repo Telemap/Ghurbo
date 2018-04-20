@@ -125,7 +125,7 @@ public class RoomDetailsActivity extends BaseActivity {
                 searchHotelModel.setRate(roomDetailsModel.getTotalPrice());
                 searchHotelModel.setRoomId(roomDetailsModel.getRoomId());
                 searchHotelModel.setRoomName(roomDetailsModel.getTitle());
-                ActivityUtils.getInstance().invokeReserveNoteActivity(RoomDetailsActivity.this, null, searchHotelModel);
+                ActivityUtils.getInstance().invokeBookNowActivity(RoomDetailsActivity.this, null, searchHotelModel, false);
             }
         });
 

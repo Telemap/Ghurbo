@@ -13,8 +13,7 @@ import com.mcc.ghurbo.activity.HotelListActivity;
 import com.mcc.ghurbo.activity.ImageViewActivity;
 import com.mcc.ghurbo.activity.LoginActivity;
 import com.mcc.ghurbo.activity.ProfilingActivity;
-import com.mcc.ghurbo.activity.ReservationConfirmActivity;
-import com.mcc.ghurbo.activity.ReservationNoteActivity;
+import com.mcc.ghurbo.activity.BookNowActivity;
 import com.mcc.ghurbo.activity.RoomDetailsActivity;
 import com.mcc.ghurbo.activity.TourDetailsActivity;
 import com.mcc.ghurbo.activity.TourListActivity;
@@ -131,19 +130,15 @@ public class ActivityUtils {
         }
     }
 
-    public void invokeReserveNoteActivity(Activity activity, SearchTourModel searchTourModel, SearchHotelModel searchHotelModel) {
-        Intent intent = new Intent(activity, ReservationNoteActivity.class);
+    public void invokeBookNowActivity(Activity activity, SearchTourModel searchTourModel, SearchHotelModel searchHotelModel, boolean fromLogin) {
+        Intent intent = new Intent(activity, BookNowActivity.class);
         intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
         intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
+        intent.putExtra(AppConstants.BUNDLE_FROM_LOGIN, fromLogin);
         activity.startActivity(intent);
-    }
-
-    public void invokeReserveConfirmActivity(Activity activity, SearchTourModel searchTourModel, SearchHotelModel searchHotelModel) {
-        Intent intent = new Intent(activity, ReservationConfirmActivity.class);
-        intent.putExtra(AppConstants.BUNDLE_KEY_HOTEL_MODEL, searchHotelModel);
-        intent.putExtra(AppConstants.BUNDLE_KEY_TOUR_MODEL, searchTourModel);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        activity.startActivity(intent);
+        if (fromLogin) {
+            activity.finish();
+        }
     }
 
     public void invokeLoginActivity(Activity activity, SearchTourModel searchTourModel, SearchHotelModel searchHotelModel) {

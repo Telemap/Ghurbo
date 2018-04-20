@@ -88,11 +88,7 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".activity.ReservationNoteActivity"
-            android:theme="@style/AppTheme" />
-
-        <activity
-            android:name=".activity.ReservationConfirmActivity"
+            android:name=".activity.BookNowActivity"
             android:theme="@style/AppTheme" />
 
         <activity

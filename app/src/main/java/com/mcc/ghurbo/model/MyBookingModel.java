@@ -13,8 +13,6 @@ public class MyBookingModel implements Parcelable{
     private String roomName;
     private String roomNumber;
     private String type;
-    private String expiry;
-    private String userId;
     private String status;
     private String price;
     private String checkin;
@@ -32,10 +30,13 @@ public class MyBookingModel implements Parcelable{
     private String latitude;
     private String longitude;
 
+    // extra
+    private String totalPrice;
+
     public MyBookingModel(String bookingId, String hotelId,
                           String hotelName, String roomId,
                           String roomName, String roomNumber,
-                          String type, String expiry, String userId,
+                          String type,
                           String status, String price, String checkin,
                           String checkout, String nights, String adults,
                           String child, String location, String photo,
@@ -50,8 +51,6 @@ public class MyBookingModel implements Parcelable{
         this.roomName = roomName;
         this.roomNumber = roomNumber;
         this.type = type;
-        this.expiry = expiry;
-        this.userId = userId;
         this.status = status;
         this.price = price;
         this.checkin = checkin;
@@ -96,14 +95,6 @@ public class MyBookingModel implements Parcelable{
 
     public String getType() {
         return type;
-    }
-
-    public String getExpiry() {
-        return expiry;
-    }
-
-    public String getUserId() {
-        return userId;
     }
 
     public String getStatus() {
@@ -170,6 +161,14 @@ public class MyBookingModel implements Parcelable{
         return longitude;
     }
 
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     protected MyBookingModel(Parcel in) {
         bookingId = in.readString();
         hotelId = in.readString();
@@ -178,8 +177,6 @@ public class MyBookingModel implements Parcelable{
         roomName = in.readString();
         roomNumber = in.readString();
         type = in.readString();
-        expiry = in.readString();
-        userId = in.readString();
         status = in.readString();
         price = in.readString();
         checkin = in.readString();
@@ -196,6 +193,7 @@ public class MyBookingModel implements Parcelable{
         tourName = in.readString();
         latitude = in.readString();
         longitude = in.readString();
+        totalPrice = in.readString();
     }
 
     public static final Creator<MyBookingModel> CREATOR = new Creator<MyBookingModel>() {
@@ -224,8 +222,6 @@ public class MyBookingModel implements Parcelable{
         parcel.writeString(roomName);
         parcel.writeString(roomNumber);
         parcel.writeString(type);
-        parcel.writeString(expiry);
-        parcel.writeString(userId);
         parcel.writeString(status);
         parcel.writeString(price);
         parcel.writeString(checkin);
@@ -242,5 +238,6 @@ public class MyBookingModel implements Parcelable{
         parcel.writeString(tourName);
         parcel.writeString(latitude);
         parcel.writeString(longitude);
+        parcel.writeString(totalPrice);
     }
 }

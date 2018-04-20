@@ -16,6 +16,7 @@ public class AppConstants {
     public static final String BUNDLE_FROM_BOOKING = "from_booking";
     public static final String BUNDLE_BOOKING_DETAILS = "booking_details";
     public static final String BUNDLE_FROM_HISTORY = "from_history";
+    public static final String BUNDLE_FROM_LOGIN = "from_login";
 
     public static final String CURRENCY = "BDT ";
 

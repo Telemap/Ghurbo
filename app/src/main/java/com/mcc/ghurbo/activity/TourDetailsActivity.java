@@ -123,7 +123,7 @@ public class TourDetailsActivity extends BaseActivity {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtils.getInstance().invokeReserveNoteActivity(TourDetailsActivity.this, searchTourModel, null);
+                ActivityUtils.getInstance().invokeBookNowActivity(TourDetailsActivity.this, searchTourModel, null, false);
             }
         });
 

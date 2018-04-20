@@ -138,7 +138,7 @@ public class BookingDetailsActivity extends BaseActivity {
         tvTotalAdult.setText(myBookingModel.getAdults());
         tvTotalChild.setText(myBookingModel.getChild());
         tvLocation.setText(myBookingModel.getLocation());
-        tvTotal.setText(myBookingModel.getPrice());
+        tvTotal.setText(myBookingModel.getTotalPrice());
 
         callTo = myBookingModel.getPhone();
         if (callTo == null) {
