@@ -34,5 +34,6 @@
     <color name="btn_yellow_hover">#f9ca5b</color>
 
     <color name="input_boarder">#a1a6a8</color>
+    <color name="notification_item_bg">#EFEFEF</color>
 
 </resources>

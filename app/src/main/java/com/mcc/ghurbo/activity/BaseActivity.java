@@ -18,10 +18,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mcc.ghurbo.R;
+import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.data.sqlite.DbConstants;
 import com.mcc.ghurbo.model.FavoriteModel;
+import com.mcc.ghurbo.model.NotificationModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.Utils;
 
@@ -198,7 +200,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         values.put(DbConstants.COLUMN_ROOMS, rooms);
 
 
-        getContentResolver().insert(DbConstants.CONTENT_URI, values);
+        getContentResolver().insert(DbConstants.FAV_CONTENT_URI, values);
     }
 
 
@@ -211,7 +213,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         String selection = DbConstants.COLUMN_ID + " =? AND " + DbConstants.COLUMN_TYPE + " =?";
         String[] selectionArgs = {id, type};
 
-        Cursor c = getContentResolver().query(DbConstants.CONTENT_URI,
+        Cursor c = getContentResolver().query(DbConstants.FAV_CONTENT_URI,
                 projection,
                 selection,
                 selectionArgs,
@@ -224,65 +226,39 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-    public ArrayList<FavoriteModel> getFavoriteList() {
 
-        ArrayList<FavoriteModel> arrayList = new ArrayList<>();
+    public int getUnseenNotificationCount() {
+
+        int count = 0;
 
         String[] projection = {
                 DbConstants._ID,
-                DbConstants.COLUMN_ID,
-                DbConstants.COLUMN_TITLE,
-                DbConstants.COLUMN_IMAGE,
-                DbConstants.COLUMN_PRICE,
-                DbConstants.COLUMN_LOCATION,
-                DbConstants.COLUMN_TYPE,
-                DbConstants.COLUMN_DATE,
-                DbConstants.COLUMN_ADULT,
-                DbConstants.COLUMN_CHILD,
-                DbConstants.COLUMN_CHECK_IN,
-                DbConstants.COLUMN_CHECK_OUT,
-                DbConstants.COLUMN_ROOMS,
+                DbConstants.COLUMN_STATUS
         };
 
-        Cursor c = getContentResolver().query(DbConstants.CONTENT_URI,
+        String selection = DbConstants.COLUMN_STATUS + "=?";
+        String[] selectionArgs = {AppConstants.STATUS_UNSEEN};
+
+        Cursor c = getContentResolver().query(DbConstants.NOTI_CONTENT_URI,
                 projection,
-                null,
-                null,
+                selection,
+                selectionArgs,
                 null);
 
         if (c != null && c.getCount() > 0) {
 
-            if (c.moveToFirst()) {
-                do {
-                    arrayList.add(
-
-                            new FavoriteModel(
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_ID)),
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_TITLE)),
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_IMAGE)),
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_PRICE)),
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_LOCATION)),
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_TYPE)),
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_DATE)),
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_ADULT)),
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_CHILD)),
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_CHECK_IN)),
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_CHECK_OUT)),
-                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_ROOMS))
-                            )
-                    );
-                } while (c.moveToNext());
-            }
+            count = c.getCount();
 
             c.close();
         }
-        return arrayList;
+        return count;
     }
+
 
     public void removeFromFavorite(String id) {
         String selection = DbConstants.COLUMN_ID + "=?";
         String[] selectionArgs = {String.valueOf(id)};
-        getContentResolver().delete(DbConstants.CONTENT_URI, selection, selectionArgs);
+        getContentResolver().delete(DbConstants.FAV_CONTENT_URI, selection, selectionArgs);
     }
 
 

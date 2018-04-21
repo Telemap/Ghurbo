@@ -7,9 +7,6 @@ import android.provider.BaseColumns;
 
 public class DbConstants implements BaseColumns {
 
-    private static final String CONTENT_AUTHORITY = "com.mcc.ghurbo.favorites";
-    private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
-
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
     private static final String PRIMARY = "  PRIMARY KEY";
@@ -29,7 +26,6 @@ public class DbConstants implements BaseColumns {
     public static final String COLUMN_ROOMS = "rooms";
     public static final String COLUMN_ADULT = "adult";
     public static final String COLUMN_CHILD = "child";
-
 
     public static final String SQL_CREATE_FAV_ENTRIES =
             "CREATE TABLE " + FAV_TABLE_NAME + " (" +
@@ -51,13 +47,46 @@ public class DbConstants implements BaseColumns {
     public static final String SQL_DELETE_FAV_ENTRIES =
             "DROP TABLE IF EXISTS " + FAV_TABLE_NAME;
 
-    public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
-            .appendPath(FAV_TABLE_NAME).build();
-    public static final String CONTENT_ITEM_TYPE =
-            ContentResolver.CURSOR_ITEM_BASE_TYPE +"/" + CONTENT_AUTHORITY + "/" + FAV_TABLE_NAME;
 
-    public static Uri buildFavUri(long id){
-        return ContentUris.withAppendedId(CONTENT_URI, id);
+    private static final String FAV_AUTHORITY = "com.mcc.ghurbo.favorites";
+    public static final Uri FAV_CONTENT_URI =
+            Uri.parse("content://" + FAV_AUTHORITY).buildUpon().
+                    appendPath(FAV_TABLE_NAME).build();
+    public static final String CONTENT_FAV_ITEM_TYPE =
+            ContentResolver.CURSOR_ITEM_BASE_TYPE + "/"
+                    + FAV_AUTHORITY + "/" + FAV_TABLE_NAME;
+
+    public static Uri buildFavUri(long id) {
+        return ContentUris.withAppendedId(FAV_CONTENT_URI, id);
+    }
+
+
+    public static final String NOTI_TABLE_NAME = "noti_items";
+    public static final String COLUMN_BODY = "body";
+    public static final String COLUMN_STATUS = "status";
+
+    public static final String SQL_CREATE_NOTI_ENTRIES =
+            "CREATE TABLE " + NOTI_TABLE_NAME + " (" +
+                    _ID + INTEGER_TYPE + PRIMARY + COMMA +
+                    COLUMN_TITLE + TEXT_TYPE + COMMA +
+                    COLUMN_BODY + TEXT_TYPE + COMMA +
+                    COLUMN_STATUS + TEXT_TYPE + COMMA +
+                    COLUMN_IMAGE + TEXT_TYPE +
+                    " )";
+
+    public static final String SQL_DELETE_NOTI_ENTRIES =
+            "DROP TABLE IF EXISTS " + NOTI_TABLE_NAME;
+
+    private static final String NOTI_AUTHORITY = "com.mcc.ghurbo.notifications";
+    public static final Uri NOTI_CONTENT_URI =
+            Uri.parse("content://" + NOTI_AUTHORITY).buildUpon().
+                    appendPath(NOTI_TABLE_NAME).build();
+    public static final String CONTENT_NOTI_ITEM_TYPE =
+            ContentResolver.CURSOR_ITEM_BASE_TYPE + "/"
+                    + NOTI_AUTHORITY + "/" + NOTI_TABLE_NAME;
+
+    public static Uri buildNotiUri(long id) {
+        return ContentUris.withAppendedId(NOTI_CONTENT_URI, id);
     }
 
 }

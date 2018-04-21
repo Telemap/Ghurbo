@@ -26,10 +26,12 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DbConstants.SQL_CREATE_FAV_ENTRIES);
+        db.execSQL(DbConstants.SQL_CREATE_NOTI_ENTRIES);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DbConstants.SQL_DELETE_FAV_ENTRIES);
+        db.execSQL(DbConstants.SQL_DELETE_NOTI_ENTRIES);
         onCreate(db);
     }
 

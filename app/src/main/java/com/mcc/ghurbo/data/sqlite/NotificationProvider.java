@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-public class FavouriteProvider extends ContentProvider {
+public class NotificationProvider extends ContentProvider {
 
     private SQLiteDatabase db;
 
@@ -23,7 +23,7 @@ public class FavouriteProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         return db.query(
-                DbConstants.FAV_TABLE_NAME,  // The table name to query
+                DbConstants.NOTI_TABLE_NAME,  // The table name to query
                 projection,                               // The columns to return
                 selection,                                // The columns for the WHERE clause
                 selectionArgs,                            // The values for the WHERE clause
@@ -36,7 +36,7 @@ public class FavouriteProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        return DbConstants.CONTENT_FAV_ITEM_TYPE;
+        return DbConstants.CONTENT_NOTI_ITEM_TYPE;
     }
 
     @Nullable
@@ -44,12 +44,12 @@ public class FavouriteProvider extends ContentProvider {
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
         Uri returnUri;
         long _id = db.insert(
-                DbConstants.FAV_TABLE_NAME,
+                DbConstants.NOTI_TABLE_NAME,
                 DbConstants.COLUMN_NAME_NULLABLE,
                 contentValues);
 
         if (_id > 0) {
-            returnUri = DbConstants.buildFavUri(_id);
+            returnUri = DbConstants.buildNotiUri(_id);
         } else {
             throw new android.database.SQLException("Failed to insert row into: " + uri);
         }
@@ -72,7 +72,7 @@ public class FavouriteProvider extends ContentProvider {
                 }
                 long id = -1;
                 try {
-                    id = db.insertOrThrow(DbConstants.FAV_TABLE_NAME,
+                    id = db.insertOrThrow(DbConstants.NOTI_TABLE_NAME,
                             null, value);
                 } catch (SQLiteConstraintException e) {
                     e.printStackTrace();
@@ -97,7 +97,7 @@ public class FavouriteProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         return db.delete(
-                DbConstants.FAV_TABLE_NAME,
+                DbConstants.NOTI_TABLE_NAME,
                 selection,
                 selectionArgs);
     }
@@ -109,7 +109,7 @@ public class FavouriteProvider extends ContentProvider {
         if (contentValues == null) {
             throw new IllegalArgumentException("Cannot have null content values");
         }
-        numUpdated = db.update(DbConstants.FAV_TABLE_NAME,
+        numUpdated = db.update(DbConstants.NOTI_TABLE_NAME,
                 contentValues,
                 selection,
                 selectionArgs);

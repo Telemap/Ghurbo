@@ -12,6 +12,7 @@ import com.mcc.ghurbo.activity.HotelDetailsActivity;
 import com.mcc.ghurbo.activity.HotelListActivity;
 import com.mcc.ghurbo.activity.ImageViewActivity;
 import com.mcc.ghurbo.activity.LoginActivity;
+import com.mcc.ghurbo.activity.NotificationDetailsActivity;
 import com.mcc.ghurbo.activity.ProfilingActivity;
 import com.mcc.ghurbo.activity.BookNowActivity;
 import com.mcc.ghurbo.activity.RoomDetailsActivity;
@@ -21,6 +22,7 @@ import com.mcc.ghurbo.activity.WebPageActivity;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.login.LoginModel;
 import com.mcc.ghurbo.model.MyBookingModel;
+import com.mcc.ghurbo.model.NotificationModel;
 import com.mcc.ghurbo.model.RoomDetailsModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
@@ -164,6 +166,12 @@ public class ActivityUtils {
         if(!fromHistory) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
+        activity.startActivity(intent);
+    }
+
+    public void invokeNotificationDetailsActivity(Activity activity, NotificationModel notificationModel) {
+        Intent intent = new Intent(activity, NotificationDetailsActivity.class);
+        intent.putExtra(AppConstants.BUNDLE_NOTI_DETAILS, notificationModel);
         activity.startActivity(intent);
     }
 }

@@ -19,6 +19,12 @@ public class AppConstants {
     public static final String BUNDLE_FROM_LOGIN = "from_login";
     public static final String BUNDLE_HOTEL_SEARCH = "hotel_search";
     public static final String BUNDLE_TOUR_SEARCH = "tour_search";
+    public static final String BUNDLE_NOTI_DETAILS = "noti_details";
+
+    public static final String NEW_NOTIFICATION = "new_notification";
+
+    public static final String STATUS_SEEN = "seen";
+    public static final String STATUS_UNSEEN = "unseen";
 
     public static final String CURRENCY = "BDT ";
 

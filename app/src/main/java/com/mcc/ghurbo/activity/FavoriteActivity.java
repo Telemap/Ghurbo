@@ -1,6 +1,10 @@
 package com.mcc.ghurbo.activity;
 
 
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +19,7 @@ import com.mcc.ghurbo.adapter.FavoriteAdapter;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
+import com.mcc.ghurbo.data.sqlite.DbConstants;
 import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.FavoriteModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
@@ -23,7 +28,7 @@ import com.mcc.ghurbo.utility.ActivityUtils;
 
 import java.util.ArrayList;
 
-public class FavoriteActivity extends BaseActivity {
+public class FavoriteActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private TextView infoText;
     private RecyclerView recyclerView;
@@ -45,7 +50,7 @@ public class FavoriteActivity extends BaseActivity {
     }
 
     private void initVar() {
-        arrayList = getFavoriteList();
+        arrayList = new ArrayList<>();
     }
 
     private void initView() {
@@ -66,11 +71,9 @@ public class FavoriteActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
 
 
-        if (arrayList.isEmpty()) {
-            showEmptyView();
-        } else {
-            hideLoader();
-        }
+        getLoaderManager().initLoader(0, null, this);
+
+
     }
 
     private void initListeners() {
@@ -135,5 +138,70 @@ public class FavoriteActivity extends BaseActivity {
             });
             snackbar.show();
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        String[] projection = {
+                DbConstants._ID,
+                DbConstants.COLUMN_ID,
+                DbConstants.COLUMN_TITLE,
+                DbConstants.COLUMN_IMAGE,
+                DbConstants.COLUMN_PRICE,
+                DbConstants.COLUMN_LOCATION,
+                DbConstants.COLUMN_TYPE,
+                DbConstants.COLUMN_DATE,
+                DbConstants.COLUMN_ADULT,
+                DbConstants.COLUMN_CHILD,
+                DbConstants.COLUMN_CHECK_IN,
+                DbConstants.COLUMN_CHECK_OUT,
+                DbConstants.COLUMN_ROOMS,
+        };
+
+        return new CursorLoader(this, DbConstants.FAV_CONTENT_URI, projection, null, null, DbConstants._ID + " DESC");
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+        arrayList.clear();
+        if (c != null && c.getCount() > 0) {
+
+            if (c.moveToFirst()) {
+                do {
+                    arrayList.add(
+
+                            new FavoriteModel(
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_ID)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_TITLE)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_IMAGE)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_PRICE)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_LOCATION)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_TYPE)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_DATE)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_ADULT)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_CHILD)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_CHECK_IN)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_CHECK_OUT)),
+                                    c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_ROOMS))
+                            )
+                    );
+                } while (c.moveToNext());
+            }
+
+            c.close();
+        }
+        if (arrayList.isEmpty()) {
+            showEmptyView();
+        } else {
+            hideLoader();
+        }
+        if(adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

@@ -1,13 +1,18 @@
 package com.mcc.ghurbo.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mcc.ghurbo.R;
@@ -16,7 +21,10 @@ import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.fragment.HotelSearchFragment;
 import com.mcc.ghurbo.fragment.TourSearchFragment;
+import com.mcc.ghurbo.model.NotificationModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
+
+import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
 
@@ -24,6 +32,8 @@ public class MainActivity extends BaseActivity {
     private LinearLayout searchHotelPanel, searchTourPanel;
     private ImageView hotelIcon, tourIcon;
     private TextView tvHotel, tvTour;
+    private RelativeLayout notificationView;
+    private TextView notificationCount, toolbarTitle;
 
     private String searchRequest; // from widget
 
@@ -33,22 +43,24 @@ public class MainActivity extends BaseActivity {
 
         /**
          *
+         * TODO 5: Send bas64 with profile data
+         * TODO 7: Server not returning user image path
+         *
          * TODO 2: Registration page landscape view
          * TODO 3: Homepage landscape design
-         * TODO 5: Send bas64 with profile data
-         * TODO 7: Server nor returning user image path
-         * TODO 8: Integrate push notification
+         *
          * TODO 9: Handle activity rotation
          * TODO 10: RTL
          * TODO 11: Write initialRelease gradle task
          * TODO 12: Dynamic keystore management
-         * TODO 13: Implement loader to load data in a activity
          *
          *
          * DONE 1: Implement profile image page after login
          * DONE 4: Progress loader in login
          * DONE 6: Tour and hotel favorite option
-         *
+         * DONE 8: Integrate push notification
+         * DONE 13: Implement loader to load data in a activity
+
          */
 
         initVars();
@@ -83,9 +95,15 @@ public class MainActivity extends BaseActivity {
         tourIcon = (ImageView) findViewById(R.id.tour_icon);
         tvHotel = (TextView) findViewById(R.id.tv_hotel);
         tvTour = (TextView) findViewById(R.id.tv_tour);
+        notificationView = (RelativeLayout) findViewById(R.id.notification_view);
+        notificationCount = (TextView) findViewById(R.id.notification_count);
+        toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
     }
 
     private void initFunctionality(Bundle savedInstanceState) {
+
+        toolbarTitle.setText(getString(R.string.app_name));
+
         loadProfileData();
 
         if(searchRequest != null && searchRequest.equals(AppConstants.BUNDLE_HOTEL_SEARCH)) {
@@ -115,6 +133,12 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        notificationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityUtils.getInstance().invokeActivity(MainActivity.this, NotificationListActivity.class, false);
+            }
+        });
     }
 
     private void initHotelSearch() {
@@ -161,6 +185,27 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    public void initNotification() {
+        notificationCount.setVisibility(View.INVISIBLE);
+        int count = getUnseenNotificationCount();
+
+        if (count > 0) {
+            notificationCount.setVisibility(View.VISIBLE);
+            notificationCount.setText(String.valueOf(count));
+        } else {
+            notificationCount.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+    private BroadcastReceiver newNotificationReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            initNotification();
+        }
+    };
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -171,5 +216,18 @@ public class MainActivity extends BaseActivity {
         if (!isLoggedIn && !isSkipped) {
             ActivityUtils.getInstance().invokeActivity(MainActivity.this, SplashActivity.class, true);
         }
+
+        IntentFilter intentFilter = new IntentFilter(AppConstants.NEW_NOTIFICATION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(newNotificationReceiver, intentFilter);
+
+        initNotification();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(newNotificationReceiver);
+    }
+
+
 }
