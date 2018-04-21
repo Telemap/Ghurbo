@@ -34,6 +34,7 @@
                     android:id="@+id/iv_transition"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/room_image"
                     android:scaleType="centerCrop"
                     android:transitionName="@string/room_transition" />
 

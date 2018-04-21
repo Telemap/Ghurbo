@@ -149,5 +149,17 @@
     <string name="no_booking">No booking yet</string>
     <string name="hotel_icon">Hotel button icon</string>
     <string name="tour_icon">Tour button icon</string>
+    <string name="hotel_image">Hotel image</string>
+    <string name="user_image">Profile picture</string>
+    <string name="room_image">Room image</string>
+    <string name="location_icon">Location icon</string>
+    <string name="call_icon">Call icon</string>
+    <string name="checkin_icon">Check in icon</string>
+    <string name="checkout_icon">Checkout icon</string>
+    <string name="date_icon">Date icon</string>
+    <string name="list_item_icon">List item icon</string>
+    <string name="full_image">Fullscreen image</string>
+    <string name="data_warning_icon">Data warning icon</string>
+    <string name="breakfast_icon">Complementary breakfast icon</string>
 
 </resources>

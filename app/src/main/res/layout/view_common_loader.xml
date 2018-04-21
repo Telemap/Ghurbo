@@ -16,6 +16,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
+            android:contentDescription="@string/data_warning_icon"
             android:src="@drawable/ic_no_data" />
 
         <TextView

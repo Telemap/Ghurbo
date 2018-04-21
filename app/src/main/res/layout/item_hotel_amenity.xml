@@ -26,6 +26,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="3dp"
+            android:contentDescription="@string/list_item_icon"
             android:src="@color/placeholder" />
 
         <com.mcc.ghurbo.view.RobotoTextView

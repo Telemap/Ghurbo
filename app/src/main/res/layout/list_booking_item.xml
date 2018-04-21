@@ -153,21 +153,21 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                        <com.mcc.ghurbo.view.RobotoTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="10dp"
-                            android:text="@string/date"
-                            android:textSize="11sp" />
+                    <com.mcc.ghurbo.view.RobotoTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:text="@string/date"
+                        android:textSize="11sp" />
 
-                        <com.mcc.ghurbo.view.RobotoTextView
-                            android:id="@+id/tour_date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingBottom="7dp"
-                            android:textSize="18sp" />
+                    <com.mcc.ghurbo.view.RobotoTextView
+                        android:id="@+id/tour_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingBottom="7dp"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 

@@ -11,6 +11,7 @@
         android:layout_width="@dimen/hotel_tour_thumb"
         android:layout_height="@dimen/hotel_tour_thumb"
         android:layout_centerVertical="true"
+        android:contentDescription="@string/list_item_icon"
         android:scaleType="centerCrop"
         android:src="@color/placeholder"
         android:transitionName="@string/details_transition" />
