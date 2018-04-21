@@ -37,6 +37,12 @@ public class MainActivity extends BaseActivity {
          * TODO 3: Homepage landscape design
          * TODO 5: Send bas64 with profile data
          * TODO 7: Server nor returning user image path
+         * TODO 8: Integrate push notification
+         * TODO 9: Handle activity rotation
+         * TODO 10: RTL
+         * TODO 11: Write initialRelease gradle task
+         * TODO 12: Dynamic keystore management
+         * TODO 13: Implement loader to load data in a activity
          *
          *
          * DONE 1: Implement profile image page after login
