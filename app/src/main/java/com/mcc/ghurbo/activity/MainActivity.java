@@ -42,7 +42,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         /**
-         *
+         * Send push notification from here: https://mccltd.info/projects/ghurbo/push/index.php
+         * 
          * TODO 5: Send bas64 with profile data
          * TODO 7: Server not returning user image path
          *
