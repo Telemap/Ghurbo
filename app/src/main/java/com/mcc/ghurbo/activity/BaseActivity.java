@@ -284,4 +284,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         String[] selectionArgs = {String.valueOf(id)};
         getContentResolver().delete(DbConstants.CONTENT_URI, selection, selectionArgs);
     }
+
+
 }

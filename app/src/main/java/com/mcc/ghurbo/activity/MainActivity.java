@@ -1,5 +1,6 @@
 package com.mcc.ghurbo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -10,8 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mcc.ghurbo.R;
+import com.mcc.ghurbo.data.constant.AppConstants;
+import com.mcc.ghurbo.data.preference.AppPreference;
+import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.fragment.HotelSearchFragment;
 import com.mcc.ghurbo.fragment.TourSearchFragment;
+import com.mcc.ghurbo.utility.ActivityUtils;
 
 public class MainActivity extends BaseActivity {
 
@@ -19,6 +24,8 @@ public class MainActivity extends BaseActivity {
     private LinearLayout searchHotelPanel, searchTourPanel;
     private ImageView hotelIcon, tourIcon;
     private TextView tvHotel, tvTour;
+
+    private String searchRequest; // from widget
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +45,23 @@ public class MainActivity extends BaseActivity {
          *
          */
 
+        initVars();
         initView();
-        initFunctionality();
-        initListener(savedInstanceState);
+        initFunctionality(savedInstanceState);
+        initListener();
     }
 
-    private void initVariables() {
+    private void initVars() {
+        Intent intent = getIntent();
 
+        String action = intent.getAction();
+        if(action != null && action.equals(AppConstants.BUNDLE_HOTEL_SEARCH)) {
+            searchRequest = AppConstants.BUNDLE_HOTEL_SEARCH;
+        }
+
+        if(action != null && action.equals(AppConstants.BUNDLE_TOUR_SEARCH)) {
+            searchRequest = AppConstants.BUNDLE_TOUR_SEARCH;
+        }
     }
 
     private void initView() {
@@ -62,48 +79,62 @@ public class MainActivity extends BaseActivity {
         tvTour = (TextView) findViewById(R.id.tv_tour);
     }
 
-    private void initFunctionality() {
+    private void initFunctionality(Bundle savedInstanceState) {
         loadProfileData();
+
+        if(searchRequest != null && searchRequest.equals(AppConstants.BUNDLE_HOTEL_SEARCH)) {
+            initHotelSearch();
+        } else if (searchRequest != null && searchRequest.equals(AppConstants.BUNDLE_TOUR_SEARCH)) {
+            initTourSearch();
+        } else {
+            initFragment(savedInstanceState);
+        }
     }
 
-    private void initListener(final Bundle savedInstanceState) {
-        initFragment(savedInstanceState);
+    private void initListener() {
 
         invokeMessenger();
 
         btnSearchHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                searchHotelPanel.setBackgroundResource(R.color.appColor);
-                searchTourPanel.setBackgroundResource(R.color.white);
-                hotelIcon.setImageResource(R.drawable.ic_hotel_white);
-                tourIcon.setImageResource(R.drawable.ic_tour_color);
-                tvHotel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-                tvTour.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.appColor));
-
-                refreshFragment();
-                getSupportFragmentManager().beginTransaction().add(R.id.input_fragment, new HotelSearchFragment(), "hotelFragment").commit();
+                initHotelSearch();
             }
         });
 
         btnSearchTour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                searchHotelPanel.setBackgroundResource(R.color.white);
-                searchTourPanel.setBackgroundResource(R.color.appColor);
-                hotelIcon.setImageResource(R.drawable.ic_hotel_color);
-                tourIcon.setImageResource(R.drawable.ic_tour_white);
-                tvHotel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.appColor));
-                tvTour.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-
-                refreshFragment();
-                getSupportFragmentManager().beginTransaction().add(R.id.input_fragment, new TourSearchFragment(), "tourFragment").commit();
+                initTourSearch();
             }
         });
 
     }
+
+    private void initHotelSearch() {
+        searchHotelPanel.setBackgroundResource(R.color.appColor);
+        searchTourPanel.setBackgroundResource(R.color.white);
+        hotelIcon.setImageResource(R.drawable.ic_hotel_white);
+        tourIcon.setImageResource(R.drawable.ic_tour_color);
+        tvHotel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        tvTour.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.appColor));
+
+        refreshFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.input_fragment, new HotelSearchFragment(), "hotelFragment").commit();
+    }
+
+    private void initTourSearch() {
+        searchHotelPanel.setBackgroundResource(R.color.white);
+        searchTourPanel.setBackgroundResource(R.color.appColor);
+        hotelIcon.setImageResource(R.drawable.ic_hotel_color);
+        tourIcon.setImageResource(R.drawable.ic_tour_white);
+        tvHotel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.appColor));
+        tvTour.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+
+        refreshFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.input_fragment, new TourSearchFragment(), "tourFragment").commit();
+    }
+
 
     private void initFragment(Bundle savedInstanceState) {
         if(savedInstanceState == null) {
@@ -124,7 +155,15 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        boolean isLoggedIn = AppPreference.getInstance(getApplicationContext()).getBoolean(PrefKey.LOGIN);
+        boolean isSkipped = AppPreference.getInstance(getApplicationContext()).getBoolean(PrefKey.SKIPPED);
 
-
+        if (!isLoggedIn && !isSkipped) {
+            ActivityUtils.getInstance().invokeActivity(MainActivity.this, SplashActivity.class, true);
+        }
+    }
 }
