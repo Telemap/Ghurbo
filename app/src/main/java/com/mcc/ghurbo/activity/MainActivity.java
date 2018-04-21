@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity {
 
         /**
          * Send push notification from here: https://mccltd.info/projects/ghurbo/push/index.php
-         * 
+         *
          * TODO 5: Send bas64 with profile data
          * TODO 7: Server not returning user image path
          *
@@ -54,6 +54,7 @@ public class MainActivity extends BaseActivity {
          * TODO 10: RTL
          * TODO 11: Write initialRelease gradle task
          * TODO 12: Dynamic keystore management
+         * TODO 13: Remove empty data from server
          *
          *
          * DONE 1: Implement profile image page after login
