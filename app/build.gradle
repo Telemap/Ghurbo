@@ -9,11 +9,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_SECRET", API_SECRET)
     }
 
     signingConfigs {
         release {
-            storeFile file('$rootDir/files/keystore/keystore-file.jks')
+            storeFile file('../files/keystore/keystore-file.jks')
             storePassword 'ghurbo@app#mcc9'
             keyAlias 'ghurbo-alias'
             keyPassword 'ghurbo@app#mcc9'

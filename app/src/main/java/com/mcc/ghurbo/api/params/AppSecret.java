@@ -7,10 +7,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Log;
 
+import com.mcc.ghurbo.BuildConfig;
+
 import java.security.MessageDigest;
 
 public class AppSecret {
-    private static final String SECRET_KEY = "123456";
 
     public static String getAppSecretKey(Context context) {
         String hashKey = null;
@@ -32,7 +33,7 @@ public class AppSecret {
 
                 Log.e("KeyHash:", "Value: " + hashKey);
                 //return hashKey;
-                return SECRET_KEY;
+                return BuildConfig.API_SECRET; // the testing API_SECRET is: 123456
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -23,7 +23,7 @@
         <item name="com_accountkit_input_accent_color">@color/title_color</item>
         <item name="com_accountkit_input_border_color">@color/title_color_deep</item>
         <item name="com_accountkit_secondary_color">@color/white</item>
-        <item name="com_accountkit_background">@drawable/bg_layers</item>
+        <item name="com_accountkit_background">@drawable/ic_splash</item>
         <item name="com_accountkit_background_color">@android:color/transparent</item>
         <item name="com_accountkit_input_text_color">@color/title_color_deep</item>
 

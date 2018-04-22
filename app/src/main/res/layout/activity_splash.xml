@@ -8,13 +8,14 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/brand_logo"
         android:scaleType="centerCrop"
-        android:src="@drawable/bg_layers" />
+        android:src="@drawable/ic_splash" />
 
     <ImageView
         android:id="@+id/splash_icon"
         android:layout_width="@dimen/ghurbo_logo_size"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/brand_logo"
         android:scaleType="centerInside"

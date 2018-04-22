@@ -51,9 +51,6 @@ public class MainActivity extends BaseActivity {
          * TODO 3: Homepage landscape design
          *
          * TODO 9: Handle activity rotation
-         * TODO 10: RTL
-         * TODO 11: Write initialRelease gradle task
-         * TODO 12: Dynamic keystore management
          * TODO 13: Remove empty data from server
          *
          *
@@ -62,6 +59,12 @@ public class MainActivity extends BaseActivity {
          * DONE 6: Tour and hotel favorite option
          * DONE 8: Integrate push notification
          * DONE 13: Implement loader to load data in a activity
+         * DONE 12: Dynamic keystore management
+         * DONE 11: Write initialRelease gradle task
+         * DONE 10: RTL
+         *
+         *
+         *
 
          */
 
