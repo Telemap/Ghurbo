@@ -20,6 +20,7 @@ import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.MyBookingModel;
+import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.PricingUtils;
 
@@ -30,7 +31,11 @@ public class MyBookingsActivity extends BaseActivity {
     private TextView infoText;
     private RecyclerView recyclerView;
     private MyBookingAdapter myBookingAdapter;
+    private GridLayoutManager mLayoutManager;
     private ArrayList<MyBookingModel> arrayList;
+
+    private final String LIST_STATE_KEY = "list_state";
+    private final String LIST_DATA_KEY = "list_data";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +45,7 @@ public class MyBookingsActivity extends BaseActivity {
         initView();
         initFunctionality();
         initListeners();
-        loadData();
+        loadData(savedInstanceState);
         invokeMessenger();
 
     }
@@ -63,7 +68,8 @@ public class MyBookingsActivity extends BaseActivity {
 
     private void initFunctionality() {
         myBookingAdapter = new MyBookingAdapter(getApplicationContext(), arrayList);
-        recyclerView.setLayoutManager(new GridLayoutManager(MyBookingsActivity.this, getResources().getInteger(R.integer.booking_column)));
+        mLayoutManager = new GridLayoutManager(MyBookingsActivity.this, getResources().getInteger(R.integer.booking_column));
+        recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(myBookingAdapter);
     }
 
@@ -76,55 +82,66 @@ public class MyBookingsActivity extends BaseActivity {
         });
     }
 
-    private void loadData() {
-        showLoader();
-        String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
-        RequestMyBooking requestMyBooking = new RequestMyBooking(getApplicationContext());
-        requestMyBooking.buildParams(userId);
-        requestMyBooking.setResponseListener(new ResponseListener() {
-            @Override
-            public void onResponse(Object data) {
-                hideLoader();
-                if (data != null) {
-                    ArrayList<MyBookingModel> responseData = (ArrayList<MyBookingModel>) data;
-                    if (!responseData.isEmpty()) {
+    private void loadData(Bundle savedInstanceState) {
 
-                        //TODO: Optimize pricing, get total price from server
+        if(savedInstanceState == null) {
+            showLoader();
+            String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
+            RequestMyBooking requestMyBooking = new RequestMyBooking(getApplicationContext());
+            requestMyBooking.buildParams(userId);
+            requestMyBooking.setResponseListener(new ResponseListener() {
+                @Override
+                public void onResponse(Object data) {
+                    hideLoader();
+                    if (data != null) {
+                        ArrayList<MyBookingModel> responseData = (ArrayList<MyBookingModel>) data;
+                        if (!responseData.isEmpty()) {
 
-                        for (MyBookingModel myBookingModel : responseData) {
-                            float finalPrice;
-                            if (myBookingModel.getType().equals(AppConstants.TYPE_HOTELS)) {
-                                int nights = 1;
-                                if (myBookingModel.getNights() != null) {
-                                    nights = Integer.parseInt(myBookingModel.getNights());
+                            //TODO: Optimize pricing, get total price from server
+
+                            for (MyBookingModel myBookingModel : responseData) {
+                                if (myBookingModel.getType().equals(AppConstants.TYPE_HOTELS)) {
+                                    int nights = 1;
+                                    if (myBookingModel.getNights() != null) {
+                                        nights = Integer.parseInt(myBookingModel.getNights());
+                                    }
+                                    float totalPrice = PricingUtils.getHotelPrice(myBookingModel.getPrice(), myBookingModel.getRoomNumber(), nights);
+                                    myBookingModel.setTotalPrice(String.valueOf(totalPrice));
+                                } else if (myBookingModel.getType().equals(AppConstants.TYPE_TOURS)) {
+                                    float totalPrice = PricingUtils.getTourPrice(
+                                            myBookingModel.getPrice(),
+                                            myBookingModel.getPrice(), // TODO: get child rate from server for tour
+                                            myBookingModel.getAdults(),
+                                            myBookingModel.getChild()
+                                    );
+                                    myBookingModel.setTotalPrice(String.valueOf(totalPrice));
                                 }
-                                float totalPrice = PricingUtils.getHotelPrice(myBookingModel.getPrice(), myBookingModel.getRoomNumber(), nights);
-                                myBookingModel.setTotalPrice(String.valueOf(totalPrice));
-                            } else if (myBookingModel.getType().equals(AppConstants.TYPE_TOURS)) {
-                                float totalPrice = PricingUtils.getTourPrice(
-                                        myBookingModel.getPrice(),
-                                        myBookingModel.getPrice(), // TODO: get child rate from server for tour
-                                        myBookingModel.getAdults(),
-                                        myBookingModel.getChild()
-                                );
-                                myBookingModel.setTotalPrice(String.valueOf(totalPrice));
                             }
+
+                            loadListData(responseData);
+                        } else {
+                            infoText.setText(getString(R.string.no_booking));
+                            showEmptyView();
                         }
-
-
-                        arrayList.addAll(responseData);
-                        myBookingAdapter.notifyDataSetChanged();
                     } else {
                         infoText.setText(getString(R.string.no_booking));
                         showEmptyView();
                     }
-                } else {
-                    infoText.setText(getString(R.string.no_booking));
-                    showEmptyView();
                 }
-            }
-        });
-        requestMyBooking.execute();
+            });
+            requestMyBooking.execute();
+        }
+    }
+
+    private void loadListData(ArrayList<MyBookingModel> myBookingModels) {
+        hideLoader();
+        arrayList.clear();
+        arrayList.addAll(myBookingModels);
+        myBookingAdapter.notifyDataSetChanged();
+
+        if(arrayList.isEmpty()) {
+            showEmptyView();
+        }
     }
 
     @Override
@@ -151,6 +168,24 @@ public class MyBookingsActivity extends BaseActivity {
                 }
             });
             snackbar.show();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putParcelable(LIST_STATE_KEY, mLayoutManager.onSaveInstanceState());
+        state.putParcelableArrayList(LIST_DATA_KEY, arrayList);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        if(state != null) {
+            ArrayList<MyBookingModel> restoredList = state.getParcelableArrayList(LIST_DATA_KEY);
+            loadListData(restoredList);
+
+            mLayoutManager.onRestoreInstanceState(state.getParcelable(LIST_STATE_KEY));
         }
     }
 }

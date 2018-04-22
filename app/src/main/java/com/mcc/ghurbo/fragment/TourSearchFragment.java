@@ -2,6 +2,7 @@ package com.mcc.ghurbo.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,7 +33,6 @@ public class TourSearchFragment extends Fragment {
 
     private AutoCompleteTextView actLocationTour, actType;
 
-    private ArrayAdapter<String> adapter, typeAdapter;
     private ArrayList<String> queryList, typeList;
     private ArrayList<LocationModel> locationModels;
 
@@ -45,8 +45,23 @@ public class TourSearchFragment extends Fragment {
 
     private String selectedTourId;
 
+    private static final String
+            LOCATION_LIST_KEY = "location_list",
+            SEARCH_MODEL_KEY = "search_model"
+    ;
+
     public TourSearchFragment() {
 
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(savedInstanceState == null) {
+            locationModels = new ArrayList<>();
+            loadData();
+        }
     }
 
     @Override
@@ -54,9 +69,7 @@ public class TourSearchFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_tour_search, container, false);
 
-        queryList = new ArrayList<>();
         typeList = new ArrayList<>();
-        locationModels = new ArrayList<>();
 
         actLocationTour = (AutoCompleteTextView) rootView.findViewById(R.id.act_location_tour);
         actType = (AutoCompleteTextView) rootView.findViewById(R.id.act_type);
@@ -77,18 +90,12 @@ public class TourSearchFragment extends Fragment {
 
         btnSearch = (Button) rootView.findViewById(R.id.btn_search);
 
-        loadData();
         initListener();
 
         return rootView;
     }
 
     private void loadData() {
-        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, queryList);
-        actLocationTour.setAdapter(adapter);
-
-        typeAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, typeList);
-        actType.setAdapter(typeAdapter);
 
         RequestTourLocations requestTourLocations = new RequestTourLocations(getActivity().getApplication());
         requestTourLocations.buildParams();
@@ -97,18 +104,7 @@ public class TourSearchFragment extends Fragment {
             public void onResponse(Object data) {
                 if(data != null) {
                     locationModels.clear();
-                    queryList.clear();
-
-                    locationModels = (ArrayList<LocationModel>) data;
-
-                    for (LocationModel locationModel : locationModels) {
-                        queryList.add(locationModel.getLocation());
-                    }
-
-                    if (!queryList.isEmpty()) {
-                        pbLocation.setVisibility(View.GONE);
-                        ibSelectLocation.setVisibility(View.VISIBLE);
-                    }
+                    showView((ArrayList<LocationModel>) data, null);
                 }
             }
         });
@@ -137,17 +133,6 @@ public class TourSearchFragment extends Fragment {
                 actLocationTour.showDropDown();
             }
         });
-
-        /*actType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedType = typeList.get(position);
-                actType.setText(selectedType);
-                if(!selectedType.isEmpty()) {
-                    actType.setSelection(selectedType.length());
-                }
-            }
-        });*/
 
         ibSelectType.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,6 +196,9 @@ public class TourSearchFragment extends Fragment {
 
     private void loadTourType(String locationId) {
 
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, typeList);
+        actType.setAdapter(typeAdapter);
+
         pbType.setVisibility(View.VISIBLE);
         ibSelectType.setVisibility(View.INVISIBLE);
 
@@ -261,22 +249,61 @@ public class TourSearchFragment extends Fragment {
     }
 
     private void validateAndInvokeSearch() {
+        SearchTourModel searchTourModel = getInputs();
         String location = actLocationTour.getText().toString();
+        if(location.isEmpty() || searchTourModel.getType().isEmpty() || searchTourModel.getDate().isEmpty() || searchTourModel.getAdult().isEmpty()) {
+            Utils.showToast(getActivity().getApplicationContext(), getString(R.string.input_validation));
+        } else {
+            ActivityUtils.getInstance().invokeTourListActivity(getActivity(), searchTourModel);
+        }
+    }
+
+    private void showView(ArrayList<LocationModel> locationModels, SearchTourModel searchTourModel) {
+        queryList = new ArrayList<>();
+        for (LocationModel locationModel : locationModels) {
+            queryList.add(locationModel.getLocation());
+        }
+        this.locationModels = locationModels;
+        ArrayAdapter<String> adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, queryList);
+        actLocationTour.setAdapter(adapter);
+
+
+        if (!queryList.isEmpty()) {
+            pbLocation.setVisibility(View.GONE);
+            ibSelectLocation.setVisibility(View.VISIBLE);
+        }
+
+        if(searchTourModel != null) {
+            selectedTourId = searchTourModel.getTourPackageId();
+            actType.setText(searchTourModel.getType());
+            tvDate.setText(searchTourModel.getDate());
+            tvAdult.setText(searchTourModel.getAdult());
+            tvChild.setText(searchTourModel.getChild());
+        }
+    }
+
+    private SearchTourModel getInputs() {
         String type = actType.getText().toString();
         String date = tvDate.getText().toString();
         String adult = tvAdult.getText().toString();
         String child = tvChild.getText().toString();
+        return new SearchTourModel(selectedTourId, type, date, adult, child);
+    }
 
-        if(location.isEmpty() || type.isEmpty() || date.isEmpty() || adult.isEmpty()) {
-            Utils.showToast(getActivity().getApplicationContext(), getString(R.string.input_validation));
-        } else {
-            if(adult.isEmpty()) {
-                adult = "0";
-            }
-            if(child.isEmpty()) {
-                child = "0";
-            }
-            ActivityUtils.getInstance().invokeTourListActivity(getActivity(), new SearchTourModel(selectedTourId, type, date, adult, child));
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(LOCATION_LIST_KEY, locationModels);
+        outState.putParcelable(SEARCH_MODEL_KEY, getInputs());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if(savedInstanceState != null) {
+            ArrayList<LocationModel> restoredList = savedInstanceState.getParcelableArrayList(LOCATION_LIST_KEY);
+            SearchTourModel searchTourModel = savedInstanceState.getParcelable(SEARCH_MODEL_KEY);
+            showView(restoredList, searchTourModel);
         }
     }
 }

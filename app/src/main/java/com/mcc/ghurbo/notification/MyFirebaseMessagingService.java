@@ -1,12 +1,15 @@
 package com.mcc.ghurbo.notification;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -28,39 +31,45 @@ public class MyFirebaseMessagingService  extends FirebaseMessagingService {
 
         if (remoteMessage.getData().size() > 0) {
             Map<String, String> params = remoteMessage.getData();
-
-            if (AppPreference.getInstance(MyFirebaseMessagingService.this).isNotificationOn()) {
-                sendNotification(params.get("title"), params.get("body"));
-                broadcastNewNotification();
-            }
+            sendNotification(params.get("title"), params.get("body"));
         }
     }
 
     private void sendNotification(String title, String messageBody) {
 
-        Log.e("Push", "Received: Title: " + title + ", Message: " + messageBody);
-
         insertNotification(title, messageBody, ""); // TODO: Implement push notification image
+        broadcastNewNotification();
+        if (AppPreference.getInstance(MyFirebaseMessagingService.this).isNotificationOn()) {
 
-        Intent intent = new Intent(this, MainActivity.class);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setContentTitle(title)
+                    .setContentText(messageBody)
+                    .setAutoCancel(true)
+                    .setVibrate(new long[]{1000, 1000})
+                    .setSound(defaultSoundUri)
+                    .setContentIntent(pendingIntent);
 
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(title)
-                .setContentText(messageBody)
-                .setAutoCancel(true)
-                .setVibrate(new long[]{1000, 1000})
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel notificationChannel = notificationManager.getNotificationChannel("noti");
+                if (notificationChannel == null) {
+                    notificationChannel = new NotificationChannel("noti", "noti", NotificationManager.IMPORTANCE_HIGH);
+                    notificationChannel.setLightColor(Color.GREEN);
+                    notificationChannel.enableVibration(true);
+                    notificationManager.createNotificationChannel(notificationChannel);
+                }
+            }
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0, notificationBuilder.build());
+            notificationManager.notify(774, notificationBuilder.build());
+        }
     }
 
     private void broadcastNewNotification() {

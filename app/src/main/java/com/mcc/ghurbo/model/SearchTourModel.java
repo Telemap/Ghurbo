@@ -8,8 +8,8 @@ public class SearchTourModel implements Parcelable {
     private String locationId;
     private String type;
     private String date;
-    private String adult;
-    private String child;
+    private String adult = "0";
+    private String child = "0";
 
     // added as extra
     private String tourPackageId; // for booking

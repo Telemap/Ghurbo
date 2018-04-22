@@ -8,9 +8,9 @@ public class SearchHotelModel implements Parcelable{
     private String locationId;
     private String checkIn;
     private String checkOut;
-    private String adult;
-    private String child;
-    private String rooms;
+    private String adult = "0";
+    private String child = "0";
+    private String rooms = "0";
 
     // added as extra
     private String hotelId; // for booking
@@ -36,7 +36,6 @@ public class SearchHotelModel implements Parcelable{
     }
 
     public SearchHotelModel(String checkIn, String checkOut, String adult, String child, String rooms) {
-        this.locationId = locationId;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.adult = adult;

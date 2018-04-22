@@ -24,6 +24,7 @@ import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.FavoriteModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
+import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 
 import java.util.ArrayList;
@@ -33,7 +34,11 @@ public class FavoriteActivity extends BaseActivity implements LoaderManager.Load
     private TextView infoText;
     private RecyclerView recyclerView;
     private FavoriteAdapter adapter;
+    private LinearLayoutManager linearLayoutManager;
     private ArrayList<FavoriteModel> arrayList;
+
+    private final String LIST_STATE_KEY = "list_state";
+    private final String LIST_DATA_KEY = "list_data";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,7 @@ public class FavoriteActivity extends BaseActivity implements LoaderManager.Load
         // TODO: Sync fav list with server data
         initVar();
         initView();
-        initFunctionality();
+        initFunctionality(savedInstanceState);
         initListeners();
         invokeMessenger();
 
@@ -65,14 +70,15 @@ public class FavoriteActivity extends BaseActivity implements LoaderManager.Load
 
     }
 
-    private void initFunctionality() {
+    private void initFunctionality(Bundle savedInstanceState) {
         adapter = new FavoriteAdapter(FavoriteActivity.this, arrayList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(FavoriteActivity.this));
+        linearLayoutManager = new LinearLayoutManager(FavoriteActivity.this);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
-
-        getLoaderManager().initLoader(0, null, this);
-
+        if(savedInstanceState == null) {
+            getLoaderManager().initLoader(0, null, this);
+        }
 
     }
 
@@ -163,12 +169,12 @@ public class FavoriteActivity extends BaseActivity implements LoaderManager.Load
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
-        arrayList.clear();
+        ArrayList<FavoriteModel> favoriteModels = new ArrayList<>();
         if (c != null && c.getCount() > 0) {
 
             if (c.moveToFirst()) {
                 do {
-                    arrayList.add(
+                    favoriteModels.add(
 
                             new FavoriteModel(
                                     c.getString(c.getColumnIndexOrThrow(DbConstants.COLUMN_ID)),
@@ -190,7 +196,13 @@ public class FavoriteActivity extends BaseActivity implements LoaderManager.Load
 
             c.close();
         }
-        if (arrayList.isEmpty()) {
+        loadListData(favoriteModels);
+    }
+
+    private void loadListData(ArrayList<FavoriteModel> arrayList) {
+        this.arrayList.clear();
+        this.arrayList.addAll(arrayList);
+        if (this.arrayList.isEmpty()) {
             showEmptyView();
         } else {
             hideLoader();
@@ -203,5 +215,23 @@ public class FavoriteActivity extends BaseActivity implements LoaderManager.Load
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putParcelable(LIST_STATE_KEY, linearLayoutManager.onSaveInstanceState());
+        state.putParcelableArrayList(LIST_DATA_KEY, arrayList);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        if(state != null) {
+            ArrayList<FavoriteModel> restoredList = state.getParcelableArrayList(LIST_DATA_KEY);
+            loadListData(restoredList);
+
+            linearLayoutManager.onRestoreInstanceState(state.getParcelable(LIST_STATE_KEY));
+        }
     }
 }
