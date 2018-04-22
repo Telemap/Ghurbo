@@ -3,22 +3,22 @@
     <!-- Start: do not translate-->
 
     <!-- credentials -->
-    <string name="facebook_app_id">1723621367940962</string>
-    <string name="facebook_account_kit_client_token">0f4f99bdbf1cbe64da65cd8536bbc274</string>
+    <string translatable="false" name="facebook_app_id">1723621367940962</string>
+    <string translatable="false" name="facebook_account_kit_client_token">0f4f99bdbf1cbe64da65cd8536bbc274</string>
 
-    <string name="pref_notification_key">perf_notification</string>
-    <string name="ghurbo_messenger">https://m.me/ghurbocom</string>
+    <string translatable="false" name="pref_notification_key">perf_notification</string>
+    <string translatable="false" name="ghurbo_messenger">https://m.me/ghurbocom</string>
 
-    <string name="details_transition">details_transition</string>
-    <string name="room_transition">room_transition</string>
-    <string name="img_transition">img_transition</string>
+    <string translatable="false" name="details_transition">details_transition</string>
+    <string translatable="false" name="room_transition">room_transition</string>
+    <string translatable="false" name="img_transition">img_transition</string>
 
-    <string name="fav_authority">com.mcc.ghurbo.favorites</string>
-    <string name="notification_authority">com.mcc.ghurbo.notifications</string>
+    <string translatable="false" name="fav_authority">com.mcc.ghurbo.favorites</string>
+    <string translatable="false" name="notification_authority">com.mcc.ghurbo.notifications</string>
 
     <!-- End: do not translate -->
 
-    <string name="app_name">Ghurbo</string>
+    <string translatable="false" name="app_name">Ghurbo</string>
     <string name="action_settings">Settings</string>
 
     <string name="tapAgain">Tap again to exit!</string>
@@ -115,7 +115,7 @@
     <string name="percent">\u0020%</string>
     <string name="without_discount">\u0020without discount</string>
     <string name="extra_bed">\u0020/extra bed</string>
-    <string name="complementary">\u0020 Complementary breakfast</string>
+    <string name="complementary">\u0020 Complimentary breakfast</string>
     <string name="note">Additional note</string>
     <string name="coupon">Coupon</string>
     <string name="confirm">Confirm Reservation</string>
@@ -163,7 +163,7 @@
     <string name="list_item_icon">List item icon</string>
     <string name="full_image">Fullscreen image</string>
     <string name="data_warning_icon">Data warning icon</string>
-    <string name="breakfast_icon">Complementary breakfast icon</string>
+    <string name="breakfast_icon">Complimentary breakfast icon</string>
     <string name="notification_icon">Notification icon</string>
 
     <string name="no_notification">No notification</string>

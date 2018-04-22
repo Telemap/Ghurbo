@@ -1,0 +1,152 @@
+<resources>
+
+    <string name="action_settings">إعدادات</string>
+
+    <string name="tapAgain">اضغط مرة أخرى للخروج!</string>
+    <string name="no_internet">لا انترنت!</string>
+    <string name="connect">الاتصال</string>
+
+    <string name="brand_logo">شعار العلامة التجارية</string>
+
+    <string name="email">البريد الإلكتروني</string>
+    <string name="skip">تخطى</string>
+    <string name="facebook_cap">FACEBOOK</string>
+    <string name="sign_out">خروج</string>
+    <string name="google_cap">GOOGLE</string>
+    <string name="phone">هاتف</string>
+
+    <string name="get_registered">احصل على مسجل</string>
+
+    <string name="empty_result">لايوجد بيانات!...</string>
+    <string name="navigation_drawer_open">افتح</string>
+    <string name="navigation_drawer_close">أغلق</string>
+
+    <string name="menu_favorites">المفضلة</string>
+    <string name="menu_reservations">الحجوزات</string>
+    <string name="others">الآخرين</string>
+    <string name="menu_setting">إعدادات</string>
+    <string name="terms">الأحكام والشروط</string>
+    <string name="privacy">سياسة الخصوصية</string>
+    <string name="faq">FAQ</string>
+    <string name="rate">معدل التطبيق</string>
+    <string name="share">شارك</string>
+
+    <string name="share_text">تثبيت أفضل تطبيق السفر:</string>
+
+    <string name="pref_notification_title">إعلام</string>
+    <string name="pref_notification_summary">تشغيل / إيقاف الإعلام</string>
+
+    <string name="hotel_input_hint">اختر الموقع / الفندق</string>
+    <string name="tour_input_hint">الموقع / جولة اسم الحزمة</string>
+    <string name="check_in_hint">تحقق في</string>
+    <string name="check_out_hint">الدفع</string>
+    <string name="adult_hint">الكبار</string>
+    <string name="child_hint">طفل</string>
+    <string name="rooms_hint">غرف</string>
+    <string name="search">بحث</string>
+
+    <string name="search_hotel">ابحث عن فندق</string>
+    <string name="search_tour">جولة البحث</string>
+
+    <string name="login_failed">فشل تسجيل الدخول.</string>
+
+    <string name="guest_user">زائر</string>
+    <string name="date">تاريخ</string>
+    <string name="type">اكتب</string>
+
+    <string name="select_tour">حدد اسم حزمة الموقع / الجولة</string>
+    <string name="unavailable">غير متوفره</string>
+
+    <string name="loading">أرجو الإنتظار</string>
+    <string name="input_validation">يرجى تقديم جميع المعلومات للبحث</string>
+
+    <string name="placeholder">نص</string>
+    <string name="install_messenger">تثبيت facebook messenger</string>
+    <string name="permission_not_granted">إذن غير مقبول</string>
+    <string name="name">اسم</string>
+
+    <string name="login">الدخول في</string>
+
+    <string name="person_max">شخص كحد أقصى \u0020</string>
+    <string name="currency">\u0020 BDT</string>
+    <string name="days">\u0020 أيام،</string>
+    <string name="nights">\u0020 ليالي</string>
+    <string name="infant">رضيع</string>
+    <string name="na">N/A</string>
+
+    <string name="book_now">احجز الآن</string>
+
+    <string name="star_hotel">\u0020فندق نجم</string>
+    <string name="not_star_info">لا يوجد معلومات النجوم</string>
+    <string name="checkin">تحقق في</string>
+    <string name="checkout">الدفع</string>
+    <string name="rating">تقييم: \u0020</string>
+    <string name="no_rating">لا معلومات التصنيف</string>
+    <string name="rooms">غرف</string>
+    <string name="price">السعر</string>
+    <string name="discount">خصم</string>
+    <string name="final_price">السعر النهائي</string>
+    <string name="capacity">سعة:\u0020</string>
+    <string name="adult">\u0020 الكبار</string>
+    <string name="and">\u0020&amp;\u0020</string>
+    <string name="child">\u0020 طفل</string>
+    <string name="total">\u0020total)</string>
+    <string name="max">\u0020(max\u0020</string>
+    <string name="per_night">\u0020per night</string>
+    <string name="percent">\u0020%</string>
+    <string name="without_discount">\u0020 بدون خصم</string>
+    <string name="extra_bed">\u0020/ سريرإضافي</string>
+    <string name="complementary">\u0020 إفطار مجاني</string>
+    <string name="note">ملاحظات إضافية</string>
+    <string name="coupon">كوبون</string>
+    <string name="confirm">تأكيد الحجز</string>
+
+    <string name="concat_note">ملحوظة:</string>
+    <string name="concat_coupon">، الكوبون:</string>
+    <string name="login_now">تسجيل الدخول الآن</string>
+    <string name="login_message">الرجاء تسجيل الدخول للحجز</string>
+
+    <string name="print">طباعة</string>
+    <string name="simply_rate">معدل:</string>
+    <string name="rate_adult">سعر البالغين:</string>
+    <string name="rate_child">سعر الطفل:</string>
+    <string name="total_adult">مجموع البالغين:</string>
+    <string name="total_child">مجموع الطفل:</string>
+    <string name="total_rooms">مجموع الغرف:</string>
+    <string name="price_total">مجموع:</string>
+    <string name="booking_no">رقم الحجز:\u0020</string>
+    <string name="booking_failed">فشل الحجز!</string>
+
+    <string name="ghurbo_print">تأكيد حجز Ghurbo</string>
+    <string name="initiating">اعداد...</string>
+
+    <string name="login_msg">الرجاء تسجيل الدخول أولا</string>
+    <string name="fav_login_msg">يرجى تسجيل الدخول لمشاهدة قائمة المفضلة</string>
+    <string name="no_fav">لا يوجد عنصر مفضل</string>
+
+    <string name="booking_image_description">صورة حجز الفندق</string>
+    <string name="my_bookings">سجل الحجز الخاص بي</string>
+    <string name="my_favorites">سجل الحجز الخاص بي</string>
+    <string name="notifications">إخطارات</string>
+    <string name="notification_details">تفاصيل الإخطارات</string>
+
+    <string name="no_booking">لا الحجز بعد</string>
+    <string name="hotel_icon">رمز زر الفندق</string>
+    <string name="tour_icon">رمز زر جولة</string>
+    <string name="hotel_image">صورة الفندق</string>
+    <string name="user_image">الصوره الشخصيه</string>
+    <string name="room_image">صورة الغرفة</string>
+    <string name="location_icon">رمز الموقع</string>
+    <string name="call_icon">رمز المكالمة</string>
+    <string name="checkin_icon">تحقق في أيقونة</string>
+    <string name="checkout_icon">تحقق من أيقونة</string>
+    <string name="date_icon">رمز التاريخ</string>
+    <string name="list_item_icon">رمز عنصر القائمة</string>
+    <string name="full_image">صورة بملء الشاشة</string>
+    <string name="data_warning_icon">رمز تحذير البيانات</string>
+    <string name="breakfast_icon">رمز إفطار مجاني</string>
+    <string name="notification_icon">رمز التنبيه</string>
+
+    <string name="no_notification">لا يوجد إشعارات</string>
+
+</resources>

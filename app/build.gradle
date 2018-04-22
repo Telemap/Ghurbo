@@ -10,12 +10,28 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile file('$rootDir/files/keystore/keystore-file.jks')
+            storePassword 'ghurbo@app#mcc9'
+            keyAlias 'ghurbo-alias'
+            keyPassword 'ghurbo@app#mcc9'
+        }
+    }
+
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable true
+        }
     }
+
 }
 
 dependencies {
@@ -29,17 +45,17 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:design:27.1.0'
 
-    compile 'com.facebook.android:account-kit-sdk:4.26.0'
-    compile 'com.facebook.android:facebook-android-sdk:4.25.0'
+    implementation 'com.facebook.android:account-kit-sdk:4.26.0'
+    implementation 'com.facebook.android:facebook-android-sdk:4.25.0'
 
-    compile 'com.google.android.gms:play-services-auth:15.0.0'
-    compile 'com.google.firebase:firebase-messaging:15.0.0'
-    compile 'com.google.firebase:firebase-core:15.0.0'
+    implementation 'com.google.android.gms:play-services-auth:15.0.0'
+    implementation 'com.google.firebase:firebase-messaging:15.0.0'
+    implementation 'com.google.firebase:firebase-core:15.0.0'
 
-    compile 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 
-    compile 'com.github.bumptech.glide:glide:3.8.0'
-    compile 'me.relex:circleindicator:1.2.2@aar'
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'me.relex:circleindicator:1.2.2@aar'
 
 }
 apply plugin: 'com.google.gms.google-services'
