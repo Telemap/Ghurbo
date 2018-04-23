@@ -151,4 +151,17 @@
     <string name="no_hotel">لم يتم العثور على فندق</string>
     <string name="no_tour">لم يتم العثور على حزمة سياحية</string>
 
+    <string name="tour_details_image">صورة تفاصيل الجولة</string>
+    <string name="hotel_location_selector">محدد موقع الفندق</string>
+    <string name="tour_location_selector">محدد موقع الجولة</string>
+    <string name="minus_adult">ناقص الكبار</string>
+    <string name="plus_adult">بالإضافة إلى الكبار</string>
+    <string name="minus_child">ناقص الطفل</string>
+    <string name="plus_child">بالإضافة إلى طفل</string>
+    <string name="plus_rooms">غرف زائد</string>
+    <string name="minus_rooms">غرف ناقص</string>
+    <string name="noti_icon">رمز التنبيه</string>
+    <string name="map_button">زر الخريطة</string>
+    <string name="tour_type_selector">محدد نوع الجولة</string>
+
 </resources>
