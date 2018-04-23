@@ -22,6 +22,7 @@ import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.fragment.HotelSearchFragment;
 import com.mcc.ghurbo.fragment.TourSearchFragment;
 import com.mcc.ghurbo.model.NotificationModel;
+import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 
 import java.util.ArrayList;
@@ -36,6 +37,10 @@ public class MainActivity extends BaseActivity {
     private TextView notificationCount, toolbarTitle;
 
     private String searchRequest; // from widget
+
+    private static final String SELECTION_KEY = "selection_key";
+    private static final int SELECTED_HOTEL = 1, SELECTED_TOUR = 2;
+    private int currentSelected = SELECTED_HOTEL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class MainActivity extends BaseActivity {
          *
          * TODO 9: Handle activity rotation
          * TODO 13: Remove empty data from server
+         * TODO 14: Push notification issue in Oreo
          *
          *
          * DONE 1: Implement profile image page after login
@@ -80,10 +86,12 @@ public class MainActivity extends BaseActivity {
         String action = intent.getAction();
         if(action != null && action.equals(AppConstants.BUNDLE_HOTEL_SEARCH)) {
             searchRequest = AppConstants.BUNDLE_HOTEL_SEARCH;
+            intent.setAction(null);
         }
 
         if(action != null && action.equals(AppConstants.BUNDLE_TOUR_SEARCH)) {
             searchRequest = AppConstants.BUNDLE_TOUR_SEARCH;
+            intent.setAction(null);
         }
     }
 
@@ -147,27 +155,34 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initHotelSearch() {
-        searchHotelPanel.setBackgroundResource(R.color.appColor);
-        searchTourPanel.setBackgroundResource(R.color.white);
-        hotelIcon.setImageResource(R.drawable.ic_hotel_white);
-        tourIcon.setImageResource(R.drawable.ic_tour_color);
-        tvHotel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-        tvTour.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.appColor));
-
+        showButtonSelection(SELECTED_HOTEL);
         refreshFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.input_fragment, new HotelSearchFragment(), "hotelFragment").commit();
     }
 
     private void initTourSearch() {
-        searchHotelPanel.setBackgroundResource(R.color.white);
-        searchTourPanel.setBackgroundResource(R.color.appColor);
-        hotelIcon.setImageResource(R.drawable.ic_hotel_color);
-        tourIcon.setImageResource(R.drawable.ic_tour_white);
-        tvHotel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.appColor));
-        tvTour.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-
+        showButtonSelection(SELECTED_TOUR);
         refreshFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.input_fragment, new TourSearchFragment(), "tourFragment").commit();
+    }
+
+    private void showButtonSelection(int current) {
+        currentSelected = current;
+        if(current == SELECTED_HOTEL) {
+            searchHotelPanel.setBackgroundResource(R.color.appColor);
+            searchTourPanel.setBackgroundResource(R.color.white);
+            hotelIcon.setImageResource(R.drawable.ic_hotel_white);
+            tourIcon.setImageResource(R.drawable.ic_tour_color);
+            tvHotel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+            tvTour.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.appColor));
+        } else if (current == SELECTED_TOUR) {
+            searchHotelPanel.setBackgroundResource(R.color.white);
+            searchTourPanel.setBackgroundResource(R.color.appColor);
+            hotelIcon.setImageResource(R.drawable.ic_hotel_color);
+            tourIcon.setImageResource(R.drawable.ic_tour_white);
+            tvHotel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.appColor));
+            tvTour.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        }
     }
 
 
@@ -232,6 +247,21 @@ public class MainActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(newNotificationReceiver);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putInt(SELECTION_KEY, currentSelected);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        if(state != null) {
+            currentSelected = state.getInt(SELECTION_KEY);
+            showButtonSelection(currentSelected);
+        }
     }
 
 

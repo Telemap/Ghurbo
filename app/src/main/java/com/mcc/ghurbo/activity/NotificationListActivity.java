@@ -35,7 +35,11 @@ public class NotificationListActivity extends BaseActivity implements LoaderMana
     private TextView infoText;
     private RecyclerView recyclerView;
     private NotificationAdapter adapter;
+    private LinearLayoutManager linearLayoutManager;
     private ArrayList<NotificationModel> arrayList;
+
+    private final String LIST_STATE_KEY = "list_state";
+    private final String LIST_DATA_KEY = "list_data";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,7 @@ public class NotificationListActivity extends BaseActivity implements LoaderMana
 
         initVar();
         initView();
-        initFunctionality();
+        initFunctionality(savedInstanceState);
         initListeners();
         invokeMessenger();
 
@@ -65,13 +69,15 @@ public class NotificationListActivity extends BaseActivity implements LoaderMana
 
     }
 
-    private void initFunctionality() {
+    private void initFunctionality(Bundle savedInstanceState) {
         adapter = new NotificationAdapter(NotificationListActivity.this, arrayList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(NotificationListActivity.this));
+        linearLayoutManager = new LinearLayoutManager(NotificationListActivity.this);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
-        getLoaderManager().initLoader(0, null, this);
-
+        if(savedInstanceState == null) {
+            getLoaderManager().initLoader(0, null, this);
+        }
     }
 
     private void initListeners() {
@@ -84,12 +90,12 @@ public class NotificationListActivity extends BaseActivity implements LoaderMana
     }
 
     private void loadData(Cursor c) {
-        arrayList.clear();
+        ArrayList<NotificationModel> notificationModels = new ArrayList<>();
         if (c != null && c.getCount() > 0) {
 
             if (c.moveToFirst()) {
                 do {
-                    arrayList.add(
+                    notificationModels.add(
 
                             new NotificationModel(
                                     c.getInt(c.getColumnIndexOrThrow(DbConstants._ID)),
@@ -104,15 +110,8 @@ public class NotificationListActivity extends BaseActivity implements LoaderMana
 
             c.close();
         }
-        if(adapter != null) {
-            adapter.notifyDataSetChanged();
-        }
-        if (arrayList.isEmpty()) {
-            infoText.setText(getString(R.string.no_notification));
-            showEmptyView();
-        } else {
-            hideLoader();
-        }
+        loadListData(notificationModels);
+
     }
 
     @Override
@@ -138,10 +137,20 @@ public class NotificationListActivity extends BaseActivity implements LoaderMana
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void loadListData(ArrayList<NotificationModel> notificationModels) {
+        arrayList.clear();
+        arrayList.addAll(notificationModels);
+        if(adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+        if (arrayList.isEmpty()) {
+            infoText.setText(getString(R.string.no_notification));
+            showEmptyView();
+        } else {
+            hideLoader();
+        }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -151,6 +160,24 @@ public class NotificationListActivity extends BaseActivity implements LoaderMana
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putParcelable(LIST_STATE_KEY, linearLayoutManager.onSaveInstanceState());
+        state.putParcelableArrayList(LIST_DATA_KEY, arrayList);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        if(state != null) {
+            ArrayList<NotificationModel> restoredList = state.getParcelableArrayList(LIST_DATA_KEY);
+            loadListData(restoredList);
+
+            linearLayoutManager.onRestoreInstanceState(state.getParcelable(LIST_STATE_KEY));
+        }
     }
 
 }

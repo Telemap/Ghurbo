@@ -1,6 +1,9 @@
 package com.mcc.ghurbo.model;
 
-public class TourModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class TourModel implements Parcelable{
 
     private String tourId;
     private String tourTitle;
@@ -49,5 +52,43 @@ public class TourModel {
         return adultPrice;
     }
 
+
+    protected TourModel(Parcel in) {
+        tourId = in.readString();
+        tourTitle = in.readString();
+        tourStars = in.readFloat();
+        location = in.readString();
+        thumbnailImage = in.readString();
+        actualAdultPrice = in.readString();
+        adultPrice = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(tourId);
+        dest.writeString(tourTitle);
+        dest.writeFloat(tourStars);
+        dest.writeString(location);
+        dest.writeString(thumbnailImage);
+        dest.writeString(actualAdultPrice);
+        dest.writeString(adultPrice);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<TourModel> CREATOR = new Creator<TourModel>() {
+        @Override
+        public TourModel createFromParcel(Parcel in) {
+            return new TourModel(in);
+        }
+
+        @Override
+        public TourModel[] newArray(int size) {
+            return new TourModel[size];
+        }
+    };
 
 }

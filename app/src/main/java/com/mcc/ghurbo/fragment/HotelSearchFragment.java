@@ -2,7 +2,9 @@ package com.mcc.ghurbo.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.model.LocationModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
+import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.DatePickerUtils;
 import com.mcc.ghurbo.utility.Utils;
@@ -31,7 +34,6 @@ public class HotelSearchFragment extends Fragment {
 
     private AutoCompleteTextView actLocationHotel;
 
-    private ArrayAdapter<String> adapter;
     private ArrayList<String> queryList;
     private ArrayList<LocationModel> locationModels;
 
@@ -45,17 +47,29 @@ public class HotelSearchFragment extends Fragment {
 
     private String selectedLocationId;
 
+    private static final String
+            LOCATION_LIST_KEY = "location_list",
+            SEARCH_MODEL_KEY = "search_model"
+    ;
+
     public HotelSearchFragment() {
 
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(savedInstanceState == null) {
+            locationModels = new ArrayList<>();
+            loadData();
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_hotel_search, container, false);
-
-        queryList = new ArrayList<>();
-        locationModels = new ArrayList<>();
 
         actLocationHotel = (AutoCompleteTextView) rootView.findViewById(R.id.act_location_hotel);
         ibSelectLocation = (ImageButton) rootView.findViewById(R.id.ib_select_location);
@@ -76,15 +90,13 @@ public class HotelSearchFragment extends Fragment {
         plusRooms = (ImageButton) rootView.findViewById(R.id.plus_rooms);
         btnSearch = (Button) rootView.findViewById(R.id.btn_search);
 
-        loadData();
+
         initListener();
 
         return rootView;
     }
 
     private void loadData() {
-        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, queryList);
-        actLocationHotel.setAdapter(adapter);
 
         RequestHotelLocations requestHotelLocations = new RequestHotelLocations(getActivity().getApplication());
         requestHotelLocations.buildParams();
@@ -93,17 +105,7 @@ public class HotelSearchFragment extends Fragment {
             public void onResponse(Object data) {
                 if(data != null) {
                     locationModels.clear();
-                    queryList.clear();
-                    locationModels = (ArrayList<LocationModel>) data;
-
-                    for (LocationModel locationModel : locationModels) {
-                        queryList.add(locationModel.getLocation());
-                    }
-
-                    if (!queryList.isEmpty()) {
-                        pbLocation.setVisibility(View.GONE);
-                        ibSelectLocation.setVisibility(View.VISIBLE);
-                    }
+                    showView((ArrayList<LocationModel>) data, null);
                 }
             }
         });
@@ -225,30 +227,71 @@ public class HotelSearchFragment extends Fragment {
     }
 
     private void validateAndInvokeSearch() {
+
+        SearchHotelModel searchHotelModel = getInputs();
         String location = actLocationHotel.getText().toString();
+
+        if(location.isEmpty() || searchHotelModel.getCheckIn().isEmpty() || searchHotelModel.getCheckOut().isEmpty() || searchHotelModel.getAdult().isEmpty()) {
+            Utils.showToast(getActivity().getApplicationContext(), getString(R.string.input_validation));
+        } else {
+            ActivityUtils.getInstance().invokeHotelListActivity(getActivity(), searchHotelModel);
+        }
+    }
+
+    private void showView(ArrayList<LocationModel> locationModels, SearchHotelModel searchHotelModel) {
+
+        queryList = new ArrayList<>();
+        for (LocationModel locationModel : locationModels) {
+            queryList.add(locationModel.getLocation());
+        }
+        this.locationModels = locationModels;
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, queryList);
+        actLocationHotel.setAdapter(adapter);
+
+        if (!queryList.isEmpty()) {
+            pbLocation.setVisibility(View.GONE);
+            ibSelectLocation.setVisibility(View.VISIBLE);
+        }
+
+        if(searchHotelModel != null) {
+            selectedLocationId = searchHotelModel.getLocationId();
+            tvCheckIn.setText(searchHotelModel.getCheckIn());
+            tvCheckOut.setText(searchHotelModel.getCheckOut());
+            tvAdult.setText(searchHotelModel.getAdult());
+            tvChild.setText(searchHotelModel.getChild());
+            tvRooms.setText(searchHotelModel.getRooms());
+        }
+
+    }
+
+    private SearchHotelModel getInputs() {
+
         String checkIn = tvCheckIn.getText().toString();
         String checkOut = tvCheckOut.getText().toString();
         String adult = tvAdult.getText().toString();
         String child = tvChild.getText().toString();
         String rooms = tvRooms.getText().toString();
 
-        if(location.isEmpty() || checkIn.isEmpty() || checkOut.isEmpty() || adult.isEmpty()) {
-            Utils.showToast(getActivity().getApplicationContext(), getString(R.string.input_validation));
-        } else {
-
-            if(adult.isEmpty()) {
-                adult = "0";
-            }
-            if(child.isEmpty()) {
-                child = "0";
-            }
-            if(rooms.isEmpty()) {
-                rooms = "0";
-            }
-            ActivityUtils.getInstance().invokeHotelListActivity(getActivity(), new SearchHotelModel(selectedLocationId, checkIn, checkOut, adult, child, rooms));
-        }
+        return new SearchHotelModel(selectedLocationId, checkIn, checkOut, adult, child, rooms);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(LOCATION_LIST_KEY, locationModels);
+        outState.putParcelable(SEARCH_MODEL_KEY, getInputs());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if(savedInstanceState != null) {
+            ArrayList<LocationModel> restoredList = savedInstanceState.getParcelableArrayList(LOCATION_LIST_KEY);
+            SearchHotelModel searchHotelModel = savedInstanceState.getParcelable(SEARCH_MODEL_KEY);
+            showView(restoredList, searchHotelModel);
+        }
+    }
 
 
 }

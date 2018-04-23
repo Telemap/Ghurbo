@@ -1,7 +1,10 @@
 package com.mcc.ghurbo.model;
 
 
-public class FavoriteModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class FavoriteModel implements Parcelable{
 
     private String id;
     private String title;
@@ -87,4 +90,52 @@ public class FavoriteModel {
     public String getChild() {
         return child;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(title);
+        parcel.writeString(image);
+        parcel.writeString(price);
+        parcel.writeString(location);
+        parcel.writeString(type);
+        parcel.writeString(tourDate);
+        parcel.writeString(hotelCheckIn);
+        parcel.writeString(hotelCheckOut);
+        parcel.writeString(hotelRooms);
+        parcel.writeString(adult);
+        parcel.writeString(child);
+    }
+
+    protected FavoriteModel(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        image = in.readString();
+        price = in.readString();
+        location = in.readString();
+        type = in.readString();
+        tourDate = in.readString();
+        hotelCheckIn = in.readString();
+        hotelCheckOut = in.readString();
+        hotelRooms = in.readString();
+        adult = in.readString();
+        child = in.readString();
+    }
+
+    public static final Creator<FavoriteModel> CREATOR = new Creator<FavoriteModel>() {
+        @Override
+        public FavoriteModel createFromParcel(Parcel in) {
+            return new FavoriteModel(in);
+        }
+
+        @Override
+        public FavoriteModel[] newArray(int size) {
+            return new FavoriteModel[size];
+        }
+    };
 }

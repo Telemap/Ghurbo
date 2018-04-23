@@ -1,6 +1,9 @@
 package com.mcc.ghurbo.model;
 
-public class HotelModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class HotelModel implements Parcelable{
 
     private String hotelId;
     private String hotelTitle;
@@ -49,4 +52,41 @@ public class HotelModel {
         return basicPrice;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(hotelId);
+        parcel.writeString(hotelTitle);
+        parcel.writeFloat(hotelStars);
+        parcel.writeString(location);
+        parcel.writeString(hotelDescription);
+        parcel.writeString(thumbnailImage);
+        parcel.writeString(basicPrice);
+    }
+
+    protected HotelModel(Parcel in) {
+        hotelId = in.readString();
+        hotelTitle = in.readString();
+        hotelStars = in.readFloat();
+        location = in.readString();
+        hotelDescription = in.readString();
+        thumbnailImage = in.readString();
+        basicPrice = in.readString();
+    }
+
+    public static final Creator<HotelModel> CREATOR = new Creator<HotelModel>() {
+        @Override
+        public HotelModel createFromParcel(Parcel in) {
+            return new HotelModel(in);
+        }
+
+        @Override
+        public HotelModel[] newArray(int size) {
+            return new HotelModel[size];
+        }
+    };
 }

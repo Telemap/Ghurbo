@@ -3,6 +3,7 @@ package com.mcc.ghurbo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import com.mcc.ghurbo.api.helper.RequestTours;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.listener.ItemClickListener;
+import com.mcc.ghurbo.model.HotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
 import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
@@ -36,6 +38,9 @@ public class TourListActivity extends BaseActivity{
     private int page = 1;
     private boolean loading = true;
 
+    private final String LIST_STATE_KEY = "list_state";
+    private final String LIST_DATA_KEY = "list_data";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +48,7 @@ public class TourListActivity extends BaseActivity{
         initVariables();
         initView();
         initFunctionality();
-        loadData(page);
+        loadData(savedInstanceState, page);
         initListener();
 
     }
@@ -113,41 +118,47 @@ public class TourListActivity extends BaseActivity{
                 loading = false;
                 pbLoadMore.setVisibility(View.VISIBLE);
                 page = page + 1;
-                loadData(page);
+                loadData(null, page);
             }
         }
     }
 
-    private void loadData(int page) {
+    private void loadData(Bundle savedInstanceState, int page) {
 
-        if(page == 1) {
-            showLoader();
-        }
-        pbLoadMore.setVisibility(View.VISIBLE);
+        if(savedInstanceState == null) {
+            if (page == 1) {
+                showLoader();
+            }
+            pbLoadMore.setVisibility(View.VISIBLE);
 
-        RequestTours requestTours = new RequestTours(getApplicationContext());
-        requestTours.buildParams(searchTourModel.getLocationId(), searchTourModel.getType(), page);
-        requestTours.setResponseListener(new ResponseListener() {
-            @Override
-            public void onResponse(Object data) {
+            RequestTours requestTours = new RequestTours(getApplicationContext());
+            requestTours.buildParams(searchTourModel.getLocationId(), searchTourModel.getType(), page);
+            requestTours.setResponseListener(new ResponseListener() {
+                @Override
+                public void onResponse(Object data) {
 
-                if (data != null) {
-                    arrayList.addAll((ArrayList<TourModel>) data);
-                    if (!arrayList.isEmpty()) {
-                        hideLoader();
-                        adapter.notifyDataSetChanged();
+                    if (data != null) {
+                        loadListData((ArrayList<TourModel>) data);
                     } else {
                         showEmptyView();
                     }
-                } else {
-                    showEmptyView();
-                }
-                pbLoadMore.setVisibility(View.GONE);
-                loading = true;
+                    pbLoadMore.setVisibility(View.GONE);
+                    loading = true;
 
-            }
-        });
-        requestTours.execute();
+                }
+            });
+            requestTours.execute();
+        }
+    }
+
+    private void loadListData(ArrayList<TourModel> data) {
+        arrayList.addAll(data);
+        if (!arrayList.isEmpty()) {
+            hideLoader();
+            adapter.notifyDataSetChanged();
+        } else {
+            showEmptyView();
+        }
     }
 
     @Override
@@ -158,5 +169,23 @@ public class TourListActivity extends BaseActivity{
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putParcelable(LIST_STATE_KEY, mLayoutManager.onSaveInstanceState());
+        state.putParcelableArrayList(LIST_DATA_KEY, arrayList);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        if(state != null) {
+            ArrayList<TourModel> restoredList = state.getParcelableArrayList(LIST_DATA_KEY);
+            loadListData(restoredList);
+
+            mLayoutManager.onRestoreInstanceState(state.getParcelable(LIST_STATE_KEY));
+        }
     }
 }
