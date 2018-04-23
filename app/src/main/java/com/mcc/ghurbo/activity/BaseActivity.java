@@ -22,12 +22,8 @@ import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.data.sqlite.DbConstants;
-import com.mcc.ghurbo.model.FavoriteModel;
-import com.mcc.ghurbo.model.NotificationModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.Utils;
-
-import java.util.ArrayList;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

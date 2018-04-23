@@ -8,7 +8,6 @@ import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.api.params.AppSecret;
 import com.mcc.ghurbo.api.params.HttpParams;
 import com.mcc.ghurbo.api.parser.HotelDetailsParser;
-import com.mcc.ghurbo.api.parser.TourDetailsParser;
 
 import java.util.HashMap;
 

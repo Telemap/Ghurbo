@@ -3,7 +3,6 @@ package com.mcc.ghurbo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -15,13 +14,11 @@ import android.widget.TextView;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.HotelListAdapter;
 import com.mcc.ghurbo.api.helper.RequestHotels;
-import com.mcc.ghurbo.api.helper.RequestTours;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.HotelModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
-import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 
 import java.util.ArrayList;

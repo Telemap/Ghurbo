@@ -15,7 +15,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.listener.ItemClickListener;
-import com.mcc.ghurbo.model.LocationModel;
 import com.mcc.ghurbo.model.TourModel;
 
 import java.util.ArrayList;

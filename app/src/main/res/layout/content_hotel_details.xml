@@ -95,6 +95,7 @@
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="fitEnd"
+                    android:contentDescription="@string/map_button"
                     android:src="@drawable/ic_map" />
 
             </LinearLayout>

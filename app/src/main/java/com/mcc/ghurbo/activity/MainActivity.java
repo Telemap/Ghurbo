@@ -21,11 +21,8 @@ import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.fragment.HotelSearchFragment;
 import com.mcc.ghurbo.fragment.TourSearchFragment;
-import com.mcc.ghurbo.model.NotificationModel;
-import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
-
-import java.util.ArrayList;
+import com.mcc.ghurbo.utility.Utils;
 
 public class MainActivity extends BaseActivity {
 
@@ -234,6 +231,11 @@ public class MainActivity extends BaseActivity {
             currentSelected = state.getInt(SELECTION_KEY);
             showButtonSelection(currentSelected);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Utils.tapToExit(MainActivity.this);
     }
 
 

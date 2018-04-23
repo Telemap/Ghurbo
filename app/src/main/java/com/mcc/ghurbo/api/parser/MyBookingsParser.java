@@ -1,8 +1,6 @@
 package com.mcc.ghurbo.api.parser;
 
 
-import android.util.Log;
-
 import com.mcc.ghurbo.model.MyBookingModel;
 
 import org.json.JSONArray;

@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mcc.ghurbo.R;
-import com.mcc.ghurbo.api.helper.RequestTourType;
 import com.mcc.ghurbo.api.helper.RequestTourLocations;
+import com.mcc.ghurbo.api.helper.RequestTourType;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.model.LocationModel;
 import com.mcc.ghurbo.model.SearchTourModel;

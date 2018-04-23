@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.mcc.ghurbo.R;
 
 import java.io.File;
-import java.util.Locale;
 
 public class Utils {
 

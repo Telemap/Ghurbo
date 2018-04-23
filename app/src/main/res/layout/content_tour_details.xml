@@ -95,6 +95,7 @@
                     android:layout_weight="0.2"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/map_button"
                     android:scaleType="fitEnd"
                     android:src="@drawable/ic_map" />
 

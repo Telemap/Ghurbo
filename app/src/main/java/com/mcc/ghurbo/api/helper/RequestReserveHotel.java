@@ -2,7 +2,6 @@ package com.mcc.ghurbo.api.helper;
 
 
 import android.content.Context;
-import android.util.Log;
 
 import com.mcc.ghurbo.api.http.BaseHttp;
 import com.mcc.ghurbo.api.http.ResponseListener;

@@ -24,7 +24,6 @@ import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.FavoriteModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
-import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 
 import java.util.ArrayList;

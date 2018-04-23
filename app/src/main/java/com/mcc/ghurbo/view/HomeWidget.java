@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.mcc.ghurbo.R;
-import com.mcc.ghurbo.activity.LoginActivity;
 import com.mcc.ghurbo.activity.MainActivity;
 import com.mcc.ghurbo.data.constant.AppConstants;
 
