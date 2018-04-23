@@ -47,12 +47,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         /**
-         * Send push notification from here: https://mccltd.info/projects/ghurbo/push/index.php
          *
          * TODO 5: Send bas64 with profile data
-         * TODO 7: Server not returning user image path
-         *
-         *
          * TODO 13: Remove empty data from server
          *
          *
@@ -68,7 +64,39 @@ public class MainActivity extends BaseActivity {
          * DONE 9: Handle activity rotation
          * DONE 2: Registration page landscape view
          * DONE 3: Homepage landscape design
+         * DONE 7: Server not returning user image path
          *
+         * Note to reviewer:
+         *
+         *  I have developed a travel assistant app as my Capstone Project. This app allows to search
+         *  hotel and tour package in my local area. User will be able to search and book hotel or
+         *  tour package through the app.
+         *
+         *  Few important notes:
+         *  For optimum case, all location may not contain hotel or tour package
+         *
+         *  For best output follow the following path:
+         *
+         *  Search Hotel:
+         *  Location - Cox's Bazar, Chittagong Division, Bangladesh
+         *  Check In - Current Date
+         *  Check Out - One or two day ahead from current date
+         *  Adult - Bigger than zero
+         *  Child - Can be empty
+         *  Rooms - Bigger than zero
+         *
+         *  Search Tour:
+         *  Location - Sundarbans, Bangladesh
+         *  Type - Holidays
+         *  Date - Current Date (or any)
+         *  Adult - Bigger than zero
+         *  Child - Can be empty
+         *
+         *
+         *  I have implemented firebase cloud messaging to implement push notification feature. I
+         *  have written a php script to send push from server.
+         *
+         *  Here is push dashboard: https://mccltd.info/projects/ghurbo/push/index.php
          *
          */
 
