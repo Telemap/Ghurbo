@@ -1,9 +1,12 @@
 package com.mcc.ghurbo.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class HotelDetailsModel {
+public class HotelDetailsModel implements Parcelable{
 
     private String hotelId;
     private String hotelTitle;
@@ -119,4 +122,62 @@ public class HotelDetailsModel {
     public void setFavorite(boolean favorite) {
         isFavorite = favorite;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(hotelId);
+        dest.writeString(hotelTitle);
+        dest.writeString(hotelDesc);
+        dest.writeString(hotelStars);
+        dest.writeString(hotelRatings);
+        dest.writeString(location);
+        dest.writeString(latitude);
+        dest.writeString(longitude);
+        dest.writeString(checkInTime);
+        dest.writeString(checkOutTime);
+        dest.writeString(thumbnailImage);
+        dest.writeString(module);
+        dest.writeString(phoneNumber);
+        dest.writeByte((byte) (isFavorite ? 1 : 0));
+        dest.writeTypedList(roomDetails);
+        dest.writeStringList(hotelImages);
+        dest.writeTypedList(amenities);
+    }
+
+    protected HotelDetailsModel(Parcel in) {
+        hotelId = in.readString();
+        hotelTitle = in.readString();
+        hotelDesc = in.readString();
+        hotelStars = in.readString();
+        hotelRatings = in.readString();
+        location = in.readString();
+        latitude = in.readString();
+        longitude = in.readString();
+        checkInTime = in.readString();
+        checkOutTime = in.readString();
+        thumbnailImage = in.readString();
+        module = in.readString();
+        phoneNumber = in.readString();
+        isFavorite = in.readByte() != 0;
+        roomDetails = in.createTypedArrayList(RoomDetailsModel.CREATOR);
+        hotelImages = in.createStringArrayList();
+        amenities = in.createTypedArrayList(AmenityModel.CREATOR);
+    }
+
+    public static final Creator<HotelDetailsModel> CREATOR = new Creator<HotelDetailsModel>() {
+        @Override
+        public HotelDetailsModel createFromParcel(Parcel in) {
+            return new HotelDetailsModel(in);
+        }
+
+        @Override
+        public HotelDetailsModel[] newArray(int size) {
+            return new HotelDetailsModel[size];
+        }
+    };
 }

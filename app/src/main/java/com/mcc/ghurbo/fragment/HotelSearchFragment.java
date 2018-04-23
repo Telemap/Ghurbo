@@ -1,6 +1,7 @@
 package com.mcc.ghurbo.fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -246,8 +247,11 @@ public class HotelSearchFragment extends Fragment {
         }
         this.locationModels = locationModels;
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, queryList);
-        actLocationHotel.setAdapter(adapter);
+        Activity activity = getActivity();
+        if(activity != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter(activity, android.R.layout.simple_list_item_1, queryList);
+            actLocationHotel.setAdapter(adapter);
+        }
 
         if (!queryList.isEmpty()) {
             pbLocation.setVisibility(View.GONE);

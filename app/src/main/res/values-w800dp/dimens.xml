@@ -1,7 +1,7 @@
 <resources>
 
-    <dimen name="details_image_height">704dp</dimen>
-    <dimen name="booking_img_height">650dp</dimen>
-    <integer name="booking_column">1</integer>
+    <dimen name="details_image_height">504dp</dimen>
+    <dimen name="booking_img_height">500dp</dimen>
+    <integer name="booking_column">2</integer>
 
 </resources>

@@ -9,14 +9,14 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/brand_logo"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_splash" />
+        android:src="@drawable/ic_home_bg" />
 
     <ImageView
         android:id="@+id/ghurbo_logo"
         android:layout_width="@dimen/ghurbo_logo_size"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/login_icon_margin"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="100dp"
         android:contentDescription="@string/brand_logo"
         android:src="@drawable/ic_ghurbo" />
 
@@ -24,10 +24,10 @@
         android:id="@+id/login_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/ghurbo_logo"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="200dp"
         android:orientation="vertical">
 
         <LinearLayout

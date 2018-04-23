@@ -1,9 +1,12 @@
 package com.mcc.ghurbo.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class TourDetailsModel {
+public class TourDetailsModel implements Parcelable{
 
     private String tourId;
     private String tourTitle;
@@ -164,4 +167,74 @@ public class TourDetailsModel {
     public void setFavorite(boolean favorite) {
         isFavorite = favorite;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(tourId);
+        dest.writeString(tourTitle);
+        dest.writeString(tourDesc);
+        dest.writeString(tourStars);
+        dest.writeString(latitude);
+        dest.writeString(longitude);
+        dest.writeString(location);
+        dest.writeString(maxAdults);
+        dest.writeString(maxChild);
+        dest.writeString(maxInfant);
+        dest.writeString(adultPrice);
+        dest.writeString(childPrice);
+        dest.writeString(infantPrice);
+        dest.writeString(adultStatus);
+        dest.writeString(childStatus);
+        dest.writeString(infantStatus);
+        dest.writeString(tourDays);
+        dest.writeString(tourNights);
+        dest.writeString(thumbnailImage);
+        dest.writeString(phoneNumber);
+        dest.writeByte((byte) (isFavorite ? 1 : 0));
+        dest.writeStringList(allPhotos);
+        dest.writeTypedList(amenities);
+    }
+
+    protected TourDetailsModel(Parcel in) {
+        tourId = in.readString();
+        tourTitle = in.readString();
+        tourDesc = in.readString();
+        tourStars = in.readString();
+        latitude = in.readString();
+        longitude = in.readString();
+        location = in.readString();
+        maxAdults = in.readString();
+        maxChild = in.readString();
+        maxInfant = in.readString();
+        adultPrice = in.readString();
+        childPrice = in.readString();
+        infantPrice = in.readString();
+        adultStatus = in.readString();
+        childStatus = in.readString();
+        infantStatus = in.readString();
+        tourDays = in.readString();
+        tourNights = in.readString();
+        thumbnailImage = in.readString();
+        phoneNumber = in.readString();
+        isFavorite = in.readByte() != 0;
+        allPhotos = in.createStringArrayList();
+        amenities = in.createTypedArrayList(AmenityModel.CREATOR);
+    }
+
+    public static final Creator<TourDetailsModel> CREATOR = new Creator<TourDetailsModel>() {
+        @Override
+        public TourDetailsModel createFromParcel(Parcel in) {
+            return new TourDetailsModel(in);
+        }
+
+        @Override
+        public TourDetailsModel[] newArray(int size) {
+            return new TourDetailsModel[size];
+        }
+    };
 }

@@ -1,8 +1,9 @@
 <resources>
 
     <dimen name="details_image_height">304dp</dimen>
-
     <dimen name="booking_img_height">350dp</dimen>
     <integer name="booking_column">1</integer>
+
+    <dimen name="login_icon_margin">10dp</dimen>
 
 </resources>
