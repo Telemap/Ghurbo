@@ -52,12 +52,8 @@ public class MainActivity extends BaseActivity {
          * TODO 5: Send bas64 with profile data
          * TODO 7: Server not returning user image path
          *
-         * TODO 2: Registration page landscape view
-         * TODO 3: Homepage landscape design
          *
-         * TODO 9: Handle activity rotation
          * TODO 13: Remove empty data from server
-         * TODO 14: Push notification issue in Oreo
          *
          *
          * DONE 1: Implement profile image page after login
@@ -68,10 +64,12 @@ public class MainActivity extends BaseActivity {
          * DONE 12: Dynamic keystore management
          * DONE 11: Write initialRelease gradle task
          * DONE 10: RTL
+         * DONE 14: Push notification issue in Oreo
+         * DONE 9: Handle activity rotation
+         * DONE 2: Registration page landscape view
+         * DONE 3: Homepage landscape design
          *
          *
-         *
-
          */
 
         initVars();

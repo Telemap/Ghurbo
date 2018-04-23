@@ -47,25 +47,21 @@ public class MyFirebaseMessagingService  extends FirebaseMessagingService {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-
+            String CHANNEL_ID = "noti01";
             Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notification)
                     .setContentTitle(title)
                     .setContentText(messageBody)
                     .setAutoCancel(true)
                     .setVibrate(new long[]{1000, 1000})
                     .setSound(defaultSoundUri)
+                    .setChannelId(CHANNEL_ID)
                     .setContentIntent(pendingIntent);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel notificationChannel = notificationManager.getNotificationChannel("noti");
-                if (notificationChannel == null) {
-                    notificationChannel = new NotificationChannel("noti", "noti", NotificationManager.IMPORTANCE_HIGH);
-                    notificationChannel.setLightColor(Color.GREEN);
-                    notificationChannel.enableVibration(true);
-                    notificationManager.createNotificationChannel(notificationChannel);
-                }
+                NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, getString(R.string.app_name), NotificationManager.IMPORTANCE_HIGH);
+                notificationManager.createNotificationChannel(mChannel);
             }
 
             notificationManager.notify(774, notificationBuilder.build());

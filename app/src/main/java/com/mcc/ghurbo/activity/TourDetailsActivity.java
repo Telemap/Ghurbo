@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -40,6 +41,7 @@ public class TourDetailsActivity extends BaseActivity {
     private SearchTourModel searchTourModel;
     private TourDetailsModel tourDetailsModel;
 
+    private NestedScrollView scrollView;
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView title, adultPrice, adultMax, childPrice, childMax,
             tvDuration, location;
@@ -54,6 +56,8 @@ public class TourDetailsActivity extends BaseActivity {
     private ArrayList<AmenityModel> amenityModels;
     private TourAmenitiesAdapter adapter;
 
+    private static final String DATA_KEY = "data";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +65,7 @@ public class TourDetailsActivity extends BaseActivity {
         initVariables();
         initView();
         initFunctionality();
-        loadData();
+        loadData(savedInstanceState);
         initListener();
 
     }
@@ -99,6 +103,7 @@ public class TourDetailsActivity extends BaseActivity {
         btnBookNow = (Button) findViewById(R.id.btn_book_now);
         fabFav = (FloatingActionButton) findViewById(R.id.fab_fav);
         ivTransitionImg = (ImageView) findViewById(R.id.iv_transition);
+        scrollView = (NestedScrollView) findViewById(R.id.scroll_view);
 
     }
 
@@ -135,31 +140,34 @@ public class TourDetailsActivity extends BaseActivity {
         });
     }
 
-    private void loadData() {
+    private void loadData(Bundle savedInstanceState) {
 
-        String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
+        if(savedInstanceState == null) {
 
-        showLoader();
-        RequestTourDetails requestTourDetails = new RequestTourDetails(getApplicationContext());
-        requestTourDetails.buildParams(userId, searchTourModel.getTourPackageId());
-        requestTourDetails.setResponseListener(new ResponseListener() {
-            @Override
-            public void onResponse(Object data) {
+            String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
 
-                TourDetailsModel model = (TourDetailsModel) data;
-                if (model != null) {
-                    hideLoader();
-                    tourDetailsModel = model;
-                    setDataToUi();
-                } else {
-                    showEmptyView();
+            showLoader();
+            RequestTourDetails requestTourDetails = new RequestTourDetails(getApplicationContext());
+            requestTourDetails.buildParams(userId, searchTourModel.getTourPackageId());
+            requestTourDetails.setResponseListener(new ResponseListener() {
+                @Override
+                public void onResponse(Object data) {
+
+                    TourDetailsModel model = (TourDetailsModel) data;
+                    if (model != null) {
+                        tourDetailsModel = model;
+                        setDataToUi();
+                    } else {
+                        showEmptyView();
+                    }
                 }
-            }
-        });
-        requestTourDetails.execute();
+            });
+            requestTourDetails.execute();
+        }
     }
 
     private void setDataToUi() {
+        hideLoader();
 
         collapsingToolbar.setTitle(tourDetailsModel.getTourTitle());
         title.setText(tourDetailsModel.getTourTitle());
@@ -271,5 +279,20 @@ public class TourDetailsActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putParcelable(DATA_KEY, tourDetailsModel);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        if (state != null) {
+            tourDetailsModel = state.getParcelable(DATA_KEY);
+            setDataToUi();
+        }
     }
 }

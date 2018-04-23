@@ -17,4 +17,6 @@
     <integer name="booking_column">1</integer>
     <dimen name="home_button_height">120dp</dimen>
 
+    <dimen name="login_icon_margin">50dp</dimen>
+
 </resources>

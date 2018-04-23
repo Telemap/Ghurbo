@@ -32,6 +32,7 @@ import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.AmenityModel;
+import com.mcc.ghurbo.model.FavoriteModel;
 import com.mcc.ghurbo.model.HotelDetailsModel;
 import com.mcc.ghurbo.model.RoomDetailsModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
@@ -63,6 +64,8 @@ public class HotelDetailsActivity extends BaseActivity {
     private ArrayList<RoomDetailsModel> roomDetailsModels;
     private RoomListAdapter roomListAdapter;
 
+    private static final String DATA_KEY = "data";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +73,7 @@ public class HotelDetailsActivity extends BaseActivity {
         initVariables();
         initView();
         initFunctionality();
-        loadData();
+        loadData(savedInstanceState);
         initListener();
 
     }
@@ -143,31 +146,34 @@ public class HotelDetailsActivity extends BaseActivity {
 
     }
 
-    private void loadData() {
+    private void loadData(Bundle savedInstanceState) {
 
-        String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
+        if(savedInstanceState == null) {
+            String userId = AppPreference.getInstance(getApplicationContext()).getString(PrefKey.USER_ID);
 
-        showLoader();
-        RequestHotelDetails requestHotelDetails = new RequestHotelDetails(getApplicationContext());
-        requestHotelDetails.buildParams(userId, searchHotelModel.getHotelId(), searchHotelModel.getCheckIn(), searchHotelModel.getCheckOut());
-        requestHotelDetails.setResponseListener(new ResponseListener() {
-            @Override
-            public void onResponse(Object data) {
+            showLoader();
+            RequestHotelDetails requestHotelDetails = new RequestHotelDetails(getApplicationContext());
+            requestHotelDetails.buildParams(userId, searchHotelModel.getHotelId(), searchHotelModel.getCheckIn(), searchHotelModel.getCheckOut());
+            requestHotelDetails.setResponseListener(new ResponseListener() {
+                @Override
+                public void onResponse(Object data) {
 
-                HotelDetailsModel model = (HotelDetailsModel) data;
-                if (model != null) {
-                    hideLoader();
-                    hotelDetailsModel = model;
-                    setDataToUi();
-                } else {
-                    showEmptyView();
+                    HotelDetailsModel model = (HotelDetailsModel) data;
+                    if (model != null) {
+                        hotelDetailsModel = model;
+                        setDataToUi();
+                    } else {
+                        showEmptyView();
+                    }
                 }
-            }
-        });
-        requestHotelDetails.execute();
+            });
+            requestHotelDetails.execute();
+        }
     }
 
     private void setDataToUi() {
+
+        hideLoader();
 
         collapsingToolbar.setTitle(hotelDetailsModel.getHotelTitle());
         title.setText(hotelDetailsModel.getHotelTitle());
@@ -296,5 +302,21 @@ public class HotelDetailsActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putParcelable(DATA_KEY, hotelDetailsModel);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        if(state != null) {
+            hotelDetailsModel = state.getParcelable(DATA_KEY);
+            setDataToUi();
+
+        }
     }
 }
