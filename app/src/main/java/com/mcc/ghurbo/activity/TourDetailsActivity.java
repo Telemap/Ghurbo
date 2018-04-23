@@ -20,6 +20,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.TourAmenitiesAdapter;
 import com.mcc.ghurbo.api.helper.RequestAddToFav;
@@ -41,7 +43,6 @@ public class TourDetailsActivity extends BaseActivity {
     private SearchTourModel searchTourModel;
     private TourDetailsModel tourDetailsModel;
 
-    private NestedScrollView scrollView;
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView title, adultPrice, adultMax, childPrice, childMax,
             tvDuration, location;
@@ -103,8 +104,6 @@ public class TourDetailsActivity extends BaseActivity {
         btnBookNow = (Button) findViewById(R.id.btn_book_now);
         fabFav = (FloatingActionButton) findViewById(R.id.fab_fav);
         ivTransitionImg = (ImageView) findViewById(R.id.iv_transition);
-        scrollView = (NestedScrollView) findViewById(R.id.scroll_view);
-
     }
 
     private void initFunctionality() {
@@ -121,6 +120,9 @@ public class TourDetailsActivity extends BaseActivity {
                 .load(searchTourModel.getImageUrl())
                 .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
+                .priority(Priority.IMMEDIATE)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .dontAnimate()
                 .into(ivTransitionImg);
     }
 

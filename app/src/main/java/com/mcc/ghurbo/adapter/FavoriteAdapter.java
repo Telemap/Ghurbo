@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.listener.ItemClickListener;
@@ -76,6 +77,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                 .load(arrayList.get(position).getImage())
                 .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.icon);
 
         holder.title.setText(arrayList.get(position).getTitle());

@@ -19,6 +19,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.HotelAmenitiesAdapter;
 import com.mcc.ghurbo.adapter.RoomListAdapter;
@@ -132,6 +134,9 @@ public class HotelDetailsActivity extends BaseActivity {
                 .load(searchHotelModel.getImageUrl())
                 .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
+                .priority(Priority.IMMEDIATE)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .dontAnimate()
                 .into(ivTransitionImg);
     }
 

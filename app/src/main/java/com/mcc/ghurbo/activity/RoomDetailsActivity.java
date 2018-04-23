@@ -19,6 +19,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.TourAmenitiesAdapter;
 import com.mcc.ghurbo.api.helper.RequestTourDetails;
@@ -115,6 +117,9 @@ public class RoomDetailsActivity extends BaseActivity {
                 .load(roomDetailsModel.getThumbnailImage())
                 .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
+                .priority(Priority.IMMEDIATE)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .dontAnimate()
                 .into(ivTransitionImg);
     }
 

@@ -14,6 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.listener.ItemClickListener;
@@ -88,6 +89,7 @@ public class MyBookingAdapter extends RecyclerView.Adapter<MyBookingAdapter.View
                 .load(arrayList.get(position).getPhoto())
                 .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.icon);
 
         String type = arrayList.get(position).getType();
