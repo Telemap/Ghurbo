@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.TourListAdapter;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 
 public class TourListActivity extends BaseActivity{
 
+    private TextView infoText;
     private SearchTourModel searchTourModel;
     private RecyclerView recyclerView;
     private TourListAdapter adapter;
@@ -69,6 +71,7 @@ public class TourListActivity extends BaseActivity{
         enableBackButton();
         initLoader();
 
+        infoText = (TextView) findViewById(R.id.info_text);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         pbLoadMore = (ProgressBar) findViewById(R.id.pb_load_more);
     }
@@ -140,6 +143,7 @@ public class TourListActivity extends BaseActivity{
                     if (data != null) {
                         loadListData((ArrayList<TourModel>) data);
                     } else {
+                        infoText.setText(getString(R.string.no_tour));
                         showEmptyView();
                     }
                     pbLoadMore.setVisibility(View.GONE);
@@ -157,6 +161,7 @@ public class TourListActivity extends BaseActivity{
             hideLoader();
             adapter.notifyDataSetChanged();
         } else {
+            infoText.setText(getString(R.string.no_tour));
             showEmptyView();
         }
     }

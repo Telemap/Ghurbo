@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.HotelListAdapter;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 
 public class HotelListActivity extends BaseActivity{
 
+    private TextView infoText;
     private SearchHotelModel searchHotelModel;
     private RecyclerView recyclerView;
     private HotelListAdapter adapter;
@@ -69,6 +71,7 @@ public class HotelListActivity extends BaseActivity{
         enableBackButton();
         initLoader();
 
+        infoText = (TextView) findViewById(R.id.info_text);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         pbLoadMore = (ProgressBar) findViewById(R.id.pb_load_more);
     }
@@ -145,6 +148,7 @@ public class HotelListActivity extends BaseActivity{
                     if (data != null) {
                         loadListData((ArrayList<HotelModel>) data);
                     } else {
+                        infoText.setText(getString(R.string.no_hotel));
                         showEmptyView();
                     }
                     pbLoadMore.setVisibility(View.GONE);
@@ -162,6 +166,7 @@ public class HotelListActivity extends BaseActivity{
             hideLoader();
             adapter.notifyDataSetChanged();
         } else {
+            infoText.setText(getString(R.string.no_hotel));
             showEmptyView();
         }
     }

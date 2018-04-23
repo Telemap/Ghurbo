@@ -148,5 +148,7 @@
     <string name="notification_icon">رمز التنبيه</string>
 
     <string name="no_notification">لا يوجد إشعارات</string>
+    <string name="no_hotel">لم يتم العثور على فندق</string>
+    <string name="no_tour">لم يتم العثور على حزمة سياحية</string>
 
 </resources>

@@ -167,5 +167,7 @@
     <string name="notification_icon">Notification icon</string>
 
     <string name="no_notification">No notification</string>
+    <string name="no_hotel">No hotel found</string>
+    <string name="no_tour">No tour package found</string>
 
 </resources>
