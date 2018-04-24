@@ -8,12 +8,12 @@ public class PricingUtils {
 
     public static float getHotelPrice(String ratePrice, String totalRooms, int totalDays) {
         float rate = 1;
-        if (ratePrice != null) {
+        if (ratePrice != null && !ratePrice.isEmpty()) {
             rate = Float.parseFloat(ratePrice);
         }
 
         float roomCount = 1;
-        if (totalRooms != null) {
+        if (totalRooms != null && !totalRooms.isEmpty()) {
             roomCount = Float.parseFloat(totalRooms);
         }
 
@@ -23,22 +23,22 @@ public class PricingUtils {
     public static float getTourPrice(String adultPrice, String childPrice,
                                      String totalAdult, String totalChild) {
         float rateAdult = 0;
-        if (adultPrice != null) {
+        if (adultPrice != null && !adultPrice.isEmpty()) {
             rateAdult = Float.parseFloat(adultPrice);
         }
 
         float rateChild = 0;
-        if (adultPrice != null) {
+        if (adultPrice != null && !adultPrice.isEmpty()) {
             rateChild = Float.parseFloat(childPrice);
         }
 
         float adultCount = 0;
-        if (totalAdult != null) {
+        if (totalAdult != null && !totalAdult.isEmpty()) {
             adultCount = Float.parseFloat(totalAdult);
         }
 
         float childCount = 0;
-        if (totalChild != null) {
+        if (totalChild != null && !totalChild.isEmpty()) {
             childCount = Float.parseFloat(totalChild);
         }
 

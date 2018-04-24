@@ -168,4 +168,9 @@
 
     <string name="no_notification">No notification</string>
 
+    <string name="cancelled">Cancelled</string>
+    <string name="failed">Failed</string>
+    <string name="choose">Choose Option</string>
+    <string name="send_email">Send mail...</string>
+
 </resources>

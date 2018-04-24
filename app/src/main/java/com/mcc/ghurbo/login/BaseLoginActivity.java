@@ -71,7 +71,7 @@ public abstract class BaseLoginActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 initPhoneLogin();
             } else {
-                Toast.makeText(BaseLoginActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BaseLoginActivity.this, getString(R.string.permission_not_granted), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -147,12 +147,12 @@ public abstract class BaseLoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancel() {
-                    Toast.makeText(BaseLoginActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaseLoginActivity.this, getString(R.string.cancelled), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onError(FacebookException error) {
-                    Toast.makeText(BaseLoginActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaseLoginActivity.this, getString(R.string.cancelled), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -167,7 +167,7 @@ public abstract class BaseLoginActivity extends AppCompatActivity {
                     .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                         @Override
                         public void onConnectionFailed(ConnectionResult connectionResult) {
-                            Toast.makeText(BaseLoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BaseLoginActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -204,9 +204,9 @@ public abstract class BaseLoginActivity extends AppCompatActivity {
         if (requestCode == FB_REQUEST_CODE) { // confirm that this response matches your request
             AccountKitLoginResult loginResult = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
             if (loginResult.getError() != null) {
-                Toast.makeText(BaseLoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BaseLoginActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
             } else if (loginResult.wasCancelled()) {
-                Toast.makeText(BaseLoginActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BaseLoginActivity.this, getString(R.string.cancelled), Toast.LENGTH_SHORT).show();
             } else {
                 getUserInfo();
             }
@@ -215,7 +215,7 @@ public abstract class BaseLoginActivity extends AppCompatActivity {
             if (result.isSuccess()) {
                 getUserInfo(result);
             } else {
-                Toast.makeText(BaseLoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BaseLoginActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
             }
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -244,7 +244,6 @@ public abstract class BaseLoginActivity extends AppCompatActivity {
                 String phoneNumberString = null;
                 if (phoneNumber != null) {
                     phoneNumberString = phoneNumber.toString();
-                    Log.e("AccKit", "Phone: " + phoneNumberString);
                 }
 
                 // Get email
@@ -256,7 +255,7 @@ public abstract class BaseLoginActivity extends AppCompatActivity {
 
             @Override
             public void onError(final AccountKitError error) {
-                Log.e("AccKit", "Error: " + error.toString());
+
             }
         });
     }

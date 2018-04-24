@@ -149,4 +149,9 @@
 
     <string name="no_notification">لا يوجد إشعارات</string>
 
+    <string name="cancelled">ألغيت</string>
+    <string name="failed">فشل</string>
+    <string name="choose">إختر خيارا</string>
+    <string name="send_email">ارسل بريد...</string>
+
 </resources>

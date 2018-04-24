@@ -166,7 +166,7 @@ public class Utils {
             emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
 
             //emailIntent.putExtra(Intent.EXTRA_STREAM, image);
-            context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            context.startActivity(Intent.createChooser(emailIntent, context.getResources().getString(R.string.send_email)));
 
 
 

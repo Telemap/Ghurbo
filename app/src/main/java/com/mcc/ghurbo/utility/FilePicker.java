@@ -12,6 +12,8 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 
 
+import com.mcc.ghurbo.R;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -24,7 +26,6 @@ import java.util.Locale;
 public class FilePicker {
 
     private static String pictureTempPath = "";
-    private static final String CHOOSER_MSG = "Choose Option";
     private static final String IMAGE_PREFIX = "IMG_";
     private static final String IMAGE_EXTENSION = ".jpg";
 
@@ -46,7 +47,7 @@ public class FilePicker {
         //addIntentsToList(context, intentList, getFileIntent());
 
         if (intentList.size() > 0) {
-            chooserIntent = Intent.createChooser(intentList.remove(intentList.size() - 1), CHOOSER_MSG);
+            chooserIntent = Intent.createChooser(intentList.remove(intentList.size() - 1), context.getResources().getString(R.string.choose));
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toArray(new Parcelable[]{}));
         }
 
@@ -66,7 +67,7 @@ public class FilePicker {
         addIntentsToList(context, intentList, getCameraIntent(context));
 
         if (intentList.size() > 0) {
-            chooserIntent = Intent.createChooser(intentList.remove(intentList.size() - 1), CHOOSER_MSG);
+            chooserIntent = Intent.createChooser(intentList.remove(intentList.size() - 1), context.getResources().getString(R.string.choose));
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toArray(new Parcelable[]{}));
         }
 
@@ -86,7 +87,7 @@ public class FilePicker {
         addIntentsToList(context, intentList, getGalleryIntent());
 
         if (intentList.size() > 0) {
-            chooserIntent = Intent.createChooser(intentList.remove(intentList.size() - 1), CHOOSER_MSG);
+            chooserIntent = Intent.createChooser(intentList.remove(intentList.size() - 1), context.getResources().getString(R.string.choose));
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toArray(new Parcelable[]{}));
         }
 
