@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.support.v4.print.PrintHelper;
 import android.view.View;
 
 import com.mcc.ghurbo.R;

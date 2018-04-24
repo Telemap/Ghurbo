@@ -2,14 +2,12 @@ package com.mcc.ghurbo.api.helper;
 
 
 import android.content.Context;
-import android.util.Log;
 
 import com.mcc.ghurbo.api.http.BaseHttp;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.api.params.AppSecret;
 import com.mcc.ghurbo.api.params.HttpParams;
 import com.mcc.ghurbo.api.parser.TourDetailsParser;
-import com.mcc.ghurbo.api.parser.TourListParser;
 
 import java.util.HashMap;
 

@@ -3,30 +3,29 @@ package com.mcc.ghurbo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.HotelListAdapter;
 import com.mcc.ghurbo.api.helper.RequestHotels;
-import com.mcc.ghurbo.api.helper.RequestTours;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.HotelModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
-import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 
 import java.util.ArrayList;
 
 public class HotelListActivity extends BaseActivity{
 
+    private TextView infoText;
     private SearchHotelModel searchHotelModel;
     private RecyclerView recyclerView;
     private HotelListAdapter adapter;
@@ -69,6 +68,7 @@ public class HotelListActivity extends BaseActivity{
         enableBackButton();
         initLoader();
 
+        infoText = (TextView) findViewById(R.id.info_text);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         pbLoadMore = (ProgressBar) findViewById(R.id.pb_load_more);
     }
@@ -145,6 +145,7 @@ public class HotelListActivity extends BaseActivity{
                     if (data != null) {
                         loadListData((ArrayList<HotelModel>) data);
                     } else {
+                        infoText.setText(getString(R.string.no_hotel));
                         showEmptyView();
                     }
                     pbLoadMore.setVisibility(View.GONE);
@@ -162,6 +163,7 @@ public class HotelListActivity extends BaseActivity{
             hideLoader();
             adapter.notifyDataSetChanged();
         } else {
+            infoText.setText(getString(R.string.no_hotel));
             showEmptyView();
         }
     }

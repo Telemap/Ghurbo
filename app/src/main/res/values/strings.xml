@@ -167,6 +167,21 @@
     <string name="notification_icon">Notification icon</string>
 
     <string name="no_notification">No notification</string>
+    <string name="no_hotel">No hotel found</string>
+    <string name="no_tour">No tour package found</string>
+
+    <string name="tour_details_image">Tour details image</string>
+    <string name="hotel_location_selector">Hotel location selector</string>
+    <string name="tour_location_selector">Tour location selector</string>
+    <string name="minus_adult">Minus adult</string>
+    <string name="plus_adult">Plus adult</string>
+    <string name="minus_child">Minus child</string>
+    <string name="plus_child">Plus child</string>
+    <string name="plus_rooms">Plus rooms</string>
+    <string name="minus_rooms">Minus rooms</string>
+    <string name="noti_icon">Notification icon</string>
+    <string name="map_button">Map button</string>
+    <string name="tour_type_selector">Tour type selector</string>
 
     <string name="cancelled">Cancelled</string>
     <string name="failed">Failed</string>

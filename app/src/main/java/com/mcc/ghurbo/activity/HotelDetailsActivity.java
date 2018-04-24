@@ -12,32 +12,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.HotelAmenitiesAdapter;
 import com.mcc.ghurbo.adapter.RoomListAdapter;
-import com.mcc.ghurbo.adapter.TourAmenitiesAdapter;
 import com.mcc.ghurbo.api.helper.RequestAddToFav;
 import com.mcc.ghurbo.api.helper.RequestHotelDetails;
-import com.mcc.ghurbo.api.helper.RequestTourDetails;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.AmenityModel;
-import com.mcc.ghurbo.model.FavoriteModel;
 import com.mcc.ghurbo.model.HotelDetailsModel;
 import com.mcc.ghurbo.model.RoomDetailsModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
-import com.mcc.ghurbo.model.SearchTourModel;
-import com.mcc.ghurbo.model.TourDetailsModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.Utils;
 
@@ -132,6 +128,9 @@ public class HotelDetailsActivity extends BaseActivity {
                 .load(searchHotelModel.getImageUrl())
                 .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
+                .priority(Priority.IMMEDIATE)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .dontAnimate()
                 .into(ivTransitionImg);
     }
 

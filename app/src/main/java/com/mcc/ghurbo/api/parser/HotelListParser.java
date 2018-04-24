@@ -3,7 +3,6 @@ package com.mcc.ghurbo.api.parser;
 
 
 import com.mcc.ghurbo.model.HotelModel;
-import com.mcc.ghurbo.model.TourModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;

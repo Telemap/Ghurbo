@@ -43,6 +43,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:background="@android:color/transparent"
+                        android:contentDescription="@string/tour_location_selector"
                         android:padding="4dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_down_arrow"
@@ -92,6 +93,7 @@
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:background="@android:color/transparent"
+                        android:contentDescription="@string/tour_type_selector"
                         android:padding="4dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/ic_down_arrow"
@@ -166,6 +168,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
                         android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/minus_adult"
                         android:padding="4dp"
                         android:scaleType="fitStart"
                         android:src="@drawable/ic_minus" />
@@ -185,6 +188,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
                         android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/plus_adult"
                         android:padding="4dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/ic_plus" />
@@ -206,6 +210,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
                         android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/minus_child"
                         android:padding="4dp"
                         android:scaleType="fitStart"
                         android:src="@drawable/ic_minus" />
@@ -225,6 +230,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
                         android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/plus_child"
                         android:padding="4dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/ic_plus" />

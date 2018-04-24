@@ -13,15 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mcc.ghurbo.R;
-import com.mcc.ghurbo.api.helper.RequestReserveHotel;
-import com.mcc.ghurbo.api.helper.RequestReserveTour;
-import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
-import com.mcc.ghurbo.data.preference.AppPreference;
-import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.model.MyBookingModel;
-import com.mcc.ghurbo.model.SearchHotelModel;
-import com.mcc.ghurbo.model.SearchTourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.BitmapEmailUtils;
 import com.mcc.ghurbo.utility.PermissionUtils;

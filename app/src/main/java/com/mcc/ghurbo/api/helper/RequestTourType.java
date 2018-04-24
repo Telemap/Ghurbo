@@ -7,7 +7,6 @@ import com.mcc.ghurbo.api.http.BaseHttp;
 import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.api.params.AppSecret;
 import com.mcc.ghurbo.api.params.HttpParams;
-import com.mcc.ghurbo.api.parser.LocationParser;
 import com.mcc.ghurbo.api.parser.TourTypeParser;
 
 import java.util.HashMap;

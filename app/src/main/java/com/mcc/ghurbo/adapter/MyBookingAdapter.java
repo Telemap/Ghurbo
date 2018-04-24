@@ -4,23 +4,19 @@ package com.mcc.ghurbo.adapter;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.listener.ItemClickListener;
-import com.mcc.ghurbo.model.FavoriteModel;
 import com.mcc.ghurbo.model.MyBookingModel;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -88,6 +84,7 @@ public class MyBookingAdapter extends RecyclerView.Adapter<MyBookingAdapter.View
                 .load(arrayList.get(position).getPhoto())
                 .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.icon);
 
         String type = arrayList.get(position).getType();

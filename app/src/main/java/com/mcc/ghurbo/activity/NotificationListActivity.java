@@ -6,26 +6,17 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mcc.ghurbo.R;
-import com.mcc.ghurbo.adapter.FavoriteAdapter;
 import com.mcc.ghurbo.adapter.NotificationAdapter;
-import com.mcc.ghurbo.data.constant.AppConstants;
-import com.mcc.ghurbo.data.preference.AppPreference;
-import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.data.sqlite.DbConstants;
 import com.mcc.ghurbo.listener.ItemClickListener;
-import com.mcc.ghurbo.model.FavoriteModel;
 import com.mcc.ghurbo.model.NotificationModel;
-import com.mcc.ghurbo.model.SearchHotelModel;
-import com.mcc.ghurbo.model.SearchTourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 
 import java.util.ArrayList;

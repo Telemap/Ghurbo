@@ -21,11 +21,8 @@ import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.fragment.HotelSearchFragment;
 import com.mcc.ghurbo.fragment.TourSearchFragment;
-import com.mcc.ghurbo.model.NotificationModel;
-import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
-
-import java.util.ArrayList;
+import com.mcc.ghurbo.utility.Utils;
 
 public class MainActivity extends BaseActivity {
 
@@ -45,60 +42,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /**
-         *
-         * TODO 5: Send bas64 with profile data
-         * TODO 13: Remove empty data from server
-         *
-         *
-         * DONE 1: Implement profile image page after login
-         * DONE 4: Progress loader in login
-         * DONE 6: Tour and hotel favorite option
-         * DONE 8: Integrate push notification
-         * DONE 13: Implement loader to load data in a activity
-         * DONE 12: Dynamic keystore management
-         * DONE 11: Write initialRelease gradle task
-         * DONE 10: RTL
-         * DONE 14: Push notification issue in Oreo
-         * DONE 9: Handle activity rotation
-         * DONE 2: Registration page landscape view
-         * DONE 3: Homepage landscape design
-         * DONE 7: Server not returning user image path
-         *
-         * Note to reviewer:
-         *
-         *  I have developed a travel assistant app as my Capstone Project. This app allows to search
-         *  hotel and tour package in my local area. User will be able to search and book hotel or
-         *  tour package through the app.
-         *
-         *  Few important notes:
-         *  For optimum case, all location may not contain hotel or tour package
-         *
-         *  For best output follow the following path:
-         *
-         *  Search Hotel:
-         *  Location - Cox's Bazar, Chittagong Division, Bangladesh
-         *  Check In - Current Date
-         *  Check Out - One or two day ahead from current date
-         *  Adult - Bigger than zero
-         *  Child - Can be empty
-         *  Rooms - Bigger than zero
-         *
-         *  Search Tour:
-         *  Location - Sundarbans, Bangladesh
-         *  Type - Holidays
-         *  Date - Current Date (or any)
-         *  Adult - Bigger than zero
-         *  Child - Can be empty
-         *
-         *
-         *  I have implemented firebase cloud messaging to implement push notification feature. I
-         *  have written a php script to send push from server.
-         *
-         *  Here is push dashboard: https://mccltd.info/projects/ghurbo/push/index.php
-         *
-         */
 
         initVars();
         initView();
@@ -288,6 +231,11 @@ public class MainActivity extends BaseActivity {
             currentSelected = state.getInt(SELECTION_KEY);
             showButtonSelection(currentSelected);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Utils.tapToExit(MainActivity.this);
     }
 
 

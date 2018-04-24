@@ -24,7 +24,6 @@ import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.FavoriteModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
 import com.mcc.ghurbo.model.SearchTourModel;
-import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 
 import java.util.ArrayList;
@@ -37,6 +36,7 @@ public class FavoriteActivity extends BaseActivity implements LoaderManager.Load
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<FavoriteModel> arrayList;
 
+    private Bundle savedInstanceState;
     private final String LIST_STATE_KEY = "list_state";
     private final String LIST_DATA_KEY = "list_data";
 
@@ -76,9 +76,7 @@ public class FavoriteActivity extends BaseActivity implements LoaderManager.Load
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
-        if(savedInstanceState == null) {
-            getLoaderManager().initLoader(0, null, this);
-        }
+        this.savedInstanceState = savedInstanceState;
 
     }
 
@@ -143,6 +141,11 @@ public class FavoriteActivity extends BaseActivity implements LoaderManager.Load
                 }
             });
             snackbar.show();
+        }
+
+        if(savedInstanceState == null) {
+            getLoaderManager().destroyLoader(0);
+            getLoaderManager().initLoader(0, null, this);
         }
     }
 

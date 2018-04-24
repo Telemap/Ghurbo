@@ -5,32 +5,26 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.adapter.TourAmenitiesAdapter;
-import com.mcc.ghurbo.api.helper.RequestTourDetails;
-import com.mcc.ghurbo.api.http.ResponseListener;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.model.AmenityModel;
 import com.mcc.ghurbo.model.RoomDetailsModel;
 import com.mcc.ghurbo.model.SearchHotelModel;
-import com.mcc.ghurbo.model.SearchTourModel;
-import com.mcc.ghurbo.model.TourDetailsModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
-import com.mcc.ghurbo.utility.Utils;
 
 import java.util.ArrayList;
 
@@ -115,6 +109,9 @@ public class RoomDetailsActivity extends BaseActivity {
                 .load(roomDetailsModel.getThumbnailImage())
                 .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
+                .priority(Priority.IMMEDIATE)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .dontAnimate()
                 .into(ivTransitionImg);
     }
 

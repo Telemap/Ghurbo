@@ -7,17 +7,14 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mcc.ghurbo.R;
 import com.mcc.ghurbo.data.constant.AppConstants;
 import com.mcc.ghurbo.listener.ItemClickListener;
-import com.mcc.ghurbo.model.HotelDetailsModel;
-import com.mcc.ghurbo.model.HotelModel;
 import com.mcc.ghurbo.model.RoomDetailsModel;
 
 import java.util.ArrayList;
@@ -75,6 +72,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
                 .load(arrayList.get(position).getThumbnailImage())
                 .error(R.color.placeholder)
                 .placeholder(R.color.placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.icon);
 
         holder.title.setText(arrayList.get(position).getTitle());

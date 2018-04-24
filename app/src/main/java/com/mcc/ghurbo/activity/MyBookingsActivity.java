@@ -7,8 +7,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mcc.ghurbo.R;
@@ -20,7 +18,6 @@ import com.mcc.ghurbo.data.preference.AppPreference;
 import com.mcc.ghurbo.data.preference.PrefKey;
 import com.mcc.ghurbo.listener.ItemClickListener;
 import com.mcc.ghurbo.model.MyBookingModel;
-import com.mcc.ghurbo.model.TourModel;
 import com.mcc.ghurbo.utility.ActivityUtils;
 import com.mcc.ghurbo.utility.PricingUtils;
 
