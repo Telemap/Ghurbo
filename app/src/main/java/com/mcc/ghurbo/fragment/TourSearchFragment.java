@@ -90,6 +90,7 @@ public class TourSearchFragment extends Fragment {
 
         btnSearch = (Button) rootView.findViewById(R.id.btn_search);
 
+        setDefaults();
         initListener();
 
         return rootView;
@@ -290,6 +291,12 @@ public class TourSearchFragment extends Fragment {
         String adult = tvAdult.getText().toString();
         String child = tvChild.getText().toString();
         return new SearchTourModel(selectedTourId, type, date, adult, child);
+    }
+
+    private void setDefaults() {
+        tvDate.setText(Utils.getToday());
+        tvAdult.setText("2");
+        tvChild.setText("0");
     }
 
     @Override

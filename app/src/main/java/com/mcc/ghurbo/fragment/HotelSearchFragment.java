@@ -88,7 +88,7 @@ public class HotelSearchFragment extends Fragment {
         plusRooms = (ImageButton) rootView.findViewById(R.id.plus_rooms);
         btnSearch = (Button) rootView.findViewById(R.id.btn_search);
 
-
+        setDefaults();
         initListener();
 
         return rootView;
@@ -275,6 +275,14 @@ public class HotelSearchFragment extends Fragment {
         String rooms = tvRooms.getText().toString();
 
         return new SearchHotelModel(selectedLocationId, checkIn, checkOut, adult, child, rooms);
+    }
+
+    private void setDefaults() {
+        tvCheckIn.setText(Utils.getToday());
+        tvCheckOut.setText(Utils.getTomorrow());
+        tvAdult.setText("2");
+        tvChild.setText("0");
+        tvRooms.setText("2");
     }
 
     @Override
