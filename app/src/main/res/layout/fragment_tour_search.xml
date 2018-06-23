@@ -114,33 +114,47 @@
 
 
             <LinearLayout
-                android:id="@+id/ll_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/bg_input"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_date"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/date" />
+                    android:hint="@string/date"
+                    android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/date_icon"
-                    android:padding="2dp"
-                    android:scaleType="fitEnd"
-                    android:src="@drawable/check_in" />
+                <LinearLayout
+                    android:id="@+id/ll_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/bg_input"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/date" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/date_icon"
+                        android:padding="2dp"
+                        android:scaleType="fitEnd"
+                        android:src="@drawable/check_in" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -148,6 +162,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -155,43 +170,56 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_input"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:weightSum="1">
-
-                    <ImageButton
-                        android:id="@+id/minus_adult"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/minus_adult"
-                        android:padding="4dp"
-                        android:scaleType="fitStart"
-                        android:src="@drawable/ic_minus" />
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_adult"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:hint="@string/adult_hint" />
+                        android:hint="@string/adult_hint"
+                        android:textStyle="bold" />
 
-                    <ImageButton
-                        android:id="@+id/plus_adult"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/plus_adult"
-                        android:padding="4dp"
-                        android:scaleType="fitEnd"
-                        android:src="@drawable/ic_plus" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_input"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="1">
+
+                        <ImageButton
+                            android:id="@+id/minus_adult"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.2"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="@string/minus_adult"
+                            android:padding="4dp"
+                            android:scaleType="fitStart"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/tv_adult"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.6"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:hint="@string/adult_hint" />
+
+                        <ImageButton
+                            android:id="@+id/plus_adult"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.2"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="@string/plus_adult"
+                            android:padding="4dp"
+                            android:scaleType="fitEnd"
+                            android:src="@drawable/ic_plus" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -200,55 +228,75 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_input"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-
-                    <ImageButton
-                        android:id="@+id/minus_child"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/minus_child"
-                        android:padding="4dp"
-                        android:scaleType="fitStart"
-                        android:src="@drawable/ic_minus" />
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_child"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:hint="@string/child_hint" />
+                        android:hint="@string/child_hint"
+                        android:textStyle="bold" />
 
-                    <ImageButton
-                        android:id="@+id/plus_child"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/plus_child"
-                        android:padding="4dp"
-                        android:scaleType="fitEnd"
-                        android:src="@drawable/ic_plus" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_input"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <ImageButton
+                            android:id="@+id/minus_child"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.2"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="@string/minus_child"
+                            android:padding="4dp"
+                            android:scaleType="fitStart"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/tv_child"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.8"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:hint="@string/child_hint" />
+
+                        <ImageButton
+                            android:id="@+id/plus_child"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.2"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="@string/plus_child"
+                            android:padding="4dp"
+                            android:scaleType="fitEnd"
+                            android:src="@drawable/ic_plus" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_search"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/btn_yellow"
-                android:text="@string/search"
-                android:textColor="@color/white" />
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp">
+
+                <Button
+                    android:id="@+id/btn_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="2dp"
+                    android:background="@drawable/btn_yellow"
+                    android:text="@string/search"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

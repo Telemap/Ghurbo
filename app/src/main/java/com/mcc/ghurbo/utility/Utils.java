@@ -12,8 +12,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.mcc.ghurbo.R;
+import com.mcc.ghurbo.data.constant.AppConstants;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Utils {
 
@@ -172,6 +177,20 @@ public class Utils {
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getToday() {
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat(AppConstants.DATE_FORMAT, Locale.US);
+        return df.format(c);
+    }
+
+    public static String getTomorrow() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date c = calendar.getTime();
+        SimpleDateFormat df = new SimpleDateFormat(AppConstants.DATE_FORMAT, Locale.US);
+        return df.format(c);
     }
 
 

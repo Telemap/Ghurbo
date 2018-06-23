@@ -30,4 +30,6 @@ public class AppConstants {
 
     public static final String TYPE_TOURS = "tours";
     public static final String TYPE_HOTELS = "hotels";
+
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
 }
